@@ -1,0 +1,52 @@
+:root {
+	--sl-color-accent-low: #122c29;
+	--sl-color-accent: #36d399;
+	--sl-color-accent-high: #b9ffe6;
+	--sl-color-white: #f8fffc;
+	--sl-color-gray-1: #e4f3ed;
+	--sl-color-gray-2: #b7cec5;
+	--sl-color-gray-3: #7f9c91;
+	--sl-color-gray-4: #4d6960;
+	--sl-color-gray-5: #263e37;
+	--sl-color-gray-6: #152a24;
+	--sl-color-black: #091713;
+	--sl-font: 'Inter Variable', 'Segoe UI', system-ui, sans-serif;
+	--sl-font-mono: 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #d3f8e9;
+	--sl-color-accent: #087a58;
+	--sl-color-accent-high: #123f33;
+	--sl-color-white: #10251f;
+	--sl-color-gray-1: #1e3a31;
+	--sl-color-gray-2: #365b4e;
+	--sl-color-gray-3: #5d7d72;
+	--sl-color-gray-4: #8fa79f;
+	--sl-color-gray-5: #d4e2dd;
+	--sl-color-gray-6: #edf5f2;
+	--sl-color-gray-7: #f8fcfa;
+	--sl-color-black: #ffffff;
+}
+
+.hero {
+	padding-block: clamp(4rem, 12vw, 8rem);
+}
+
+.hero .tagline {
+	max-width: 46rem;
+	font-size: clamp(1.15rem, 2vw, 1.45rem);
+}
+
+.hero h1 {
+	letter-spacing: -0.06em;
+}
+
+.card {
+	border-color: color-mix(in srgb, var(--sl-color-accent) 22%, var(--sl-color-gray-5));
+	background: linear-gradient(
+		145deg,
+		color-mix(in srgb, var(--sl-color-accent-low) 34%, transparent),
+		transparent 62%
+	);
+}

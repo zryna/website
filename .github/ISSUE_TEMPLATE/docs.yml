@@ -1,0 +1,29 @@
+name: Documentation improvement
+description: Report unclear, missing, or incorrectly rendered public documentation.
+title: 'docs: '
+labels: [documentation]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page URL or proposed location
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What should improve?
+      description: Explain what is unclear, missing, or misleading.
+    validations:
+      required: true
+  - type: dropdown
+    id: authority
+    attributes:
+      label: Content owner
+      description: Normative language and compiler content belongs in zryna/zryna.
+      options:
+        - Website presentation or guide
+        - Language or compiler reference
+        - Unsure
+    validations:
+      required: true

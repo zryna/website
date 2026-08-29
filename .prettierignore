@@ -1,0 +1,5 @@
+.astro
+.zryna
+dist
+node_modules
+pnpm-lock.yaml

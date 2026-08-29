@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zryna.com/sitemap-index.xml

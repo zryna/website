@@ -1,0 +1,71 @@
+---
+title: Zryna
+description: One strict, JavaScript-friendly language for JavaScript and native targets.
+template: splash
+hero:
+  tagline: One source. Two targets. Explicit semantics all the way down.
+  actions:
+    - text: Explore the foundation
+      link: /guides/getting-started/
+      icon: right-arrow
+    - text: View the compiler
+      link: https://github.com/zryna/zryna
+      icon: external
+      variant: minimal
+---
+
+import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="Foundation stage">
+  Zryna is experimental. The repository independently tests a TypeScript 6 syntax reader, verified
+  `i32` IR, direct JavaScript emission, native MIR lowering, and textual LLVM IR emission. Those
+  pieces are not connected into a source-to-output CLI yet.
+</Aside>
+
+## Familiar at the surface, strict underneath
+
+<CardGrid stagger>
+  <Card title="JavaScript-friendly syntax" icon="seti:javascript">
+    The language is designed to feel natural to JavaScript and TypeScript developers.
+  </Card>
+  <Card title="Exact types" icon="approve-check">
+    Types such as `i32` carry defined width, signedness, and overflow behavior across targets.
+  </Card>
+  <Card title="One target architecture" icon="setting">
+    The design requires both backends to accept the same verified Universal IR instead of
+    translating through each other.
+  </Card>
+</CardGrid>
+
+```ts title="add.zry"
+export function add(left: i32, right: i32): i32 {
+  return left + right;
+}
+```
+
+<Tabs syncKey="target">
+  <TabItem label="JavaScript">
+    A library-level proof emits signed 32-bit JavaScript from an already constructed verified IR
+    program. The syntax reader is not connected to this backend yet.
+  </TabItem>
+  <TabItem label="Native">
+    A separate proof lowers constructed verified IR through native MIR to textual LLVM IR. Object
+    emission and executable linking are not implemented yet.
+  </TabItem>
+</Tabs>
+
+## The target boundary
+
+The intended source-to-artifact pipeline is:
+
+```text
+.zry source
+    ↓
+replaceable frontend provider
+    ↓
+strict Zryna semantics
+    ↓
+verified Universal IR
+    ├── JavaScript backend → .js
+    └── native MIR → codegen → executable
+```

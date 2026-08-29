@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zryna.com/schemas/zryna-website-v1.schema.json",
+  "title": "Zryna website workspace v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "profile", "root", "source", "limits"],
+  "properties": {
+    "$schema": { "type": "string", "const": "./schemas/zryna-website-v1.schema.json" },
+    "version": { "type": "integer", "const": 1 },
+    "profile": { "type": "string", "const": "zryna-website-v1" },
+    "root": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "allowed", "ignoredGenerated"],
+      "properties": {
+        "required": {
+          "const": [
+            ".dockerignore",
+            ".github",
+            ".gitignore",
+            "CODE_OF_CONDUCT.md",
+            "CONTRIBUTING.md",
+            "Dockerfile",
+            "LICENSE",
+            "NOTICE",
+            "README.md",
+            "SECURITY.md",
+            "architecture",
+            "astro.config.mjs",
+            "nginx.conf",
+            "package.json",
+            "pnpm-lock.yaml",
+            "pnpm-workspace.yaml",
+            "public",
+            "schemas",
+            "src",
+            "tests",
+            "tools",
+            "tsconfig.json",
+            "zryna.website.json"
+          ]
+        },
+        "allowed": {
+          "const": [
+            ".dockerignore",
+            ".github",
+            ".gitignore",
+            ".prettierignore",
+            ".prettierrc.json",
+            ".vscode",
+            "CODE_OF_CONDUCT.md",
+            "CONTRIBUTING.md",
+            "Dockerfile",
+            "LICENSE",
+            "NOTICE",
+            "README.md",
+            "SECURITY.md",
+            "architecture",
+            "astro.config.mjs",
+            "nginx.conf",
+            "package.json",
+            "pnpm-lock.yaml",
+            "pnpm-workspace.yaml",
+            "public",
+            "schemas",
+            "src",
+            "tests",
+            "tools",
+            "tsconfig.json",
+            "zryna.website.json"
+          ]
+        },
+        "ignoredGenerated": {
+          "const": [".astro", ".git", ".zryna", "dist", "node_modules"]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "allowedEntries"],
+      "properties": {
+        "root": { "type": "string", "const": "src" },
+        "allowedEntries": { "const": ["assets", "content", "content.config.ts", "styles"] }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxEntries", "maxDirectories", "maxDepth", "maxFileBytes", "maxTotalBytes"],
+      "properties": {
+        "maxEntries": { "const": 4096 },
+        "maxDirectories": { "const": 512 },
+        "maxDepth": { "const": 24 },
+        "maxFileBytes": { "const": 2097152 },
+        "maxTotalBytes": { "const": 16777216 }
+      }
+    }
+  }
+}

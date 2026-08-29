@@ -1,0 +1,72 @@
+{
+  "$schema": "./schemas/zryna-website-v1.schema.json",
+  "version": 1,
+  "profile": "zryna-website-v1",
+  "root": {
+    "required": [
+      ".dockerignore",
+      ".github",
+      ".gitignore",
+      "CODE_OF_CONDUCT.md",
+      "CONTRIBUTING.md",
+      "Dockerfile",
+      "LICENSE",
+      "NOTICE",
+      "README.md",
+      "SECURITY.md",
+      "architecture",
+      "astro.config.mjs",
+      "nginx.conf",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "public",
+      "schemas",
+      "src",
+      "tests",
+      "tools",
+      "tsconfig.json",
+      "zryna.website.json"
+    ],
+    "allowed": [
+      ".dockerignore",
+      ".github",
+      ".gitignore",
+      ".prettierignore",
+      ".prettierrc.json",
+      ".vscode",
+      "CODE_OF_CONDUCT.md",
+      "CONTRIBUTING.md",
+      "Dockerfile",
+      "LICENSE",
+      "NOTICE",
+      "README.md",
+      "SECURITY.md",
+      "architecture",
+      "astro.config.mjs",
+      "nginx.conf",
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "public",
+      "schemas",
+      "src",
+      "tests",
+      "tools",
+      "tsconfig.json",
+      "zryna.website.json"
+    ],
+    "ignoredGenerated": [".astro", ".git", ".zryna", "dist", "node_modules"]
+  },
+  "source": {
+    "root": "src",
+    "allowedEntries": ["assets", "content", "content.config.ts", "styles"]
+  },
+  "limits": {
+    "maxEntries": 4096,
+    "maxDirectories": 512,
+    "maxDepth": 24,
+    "maxFileBytes": 2097152,
+    "maxTotalBytes": 16777216
+  }
+}

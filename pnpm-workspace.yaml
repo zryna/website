@@ -1,0 +1,10 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+# Pagefind's platform binary is about 50 MiB. A clean Dokploy build must remain
+# reliable on links where the registry transfer legitimately takes over a minute.
+fetchTimeout: 300000
+fetchRetries: 5
+fetchRetryMintimeout: 10000
+fetchRetryMaxtimeout: 60000

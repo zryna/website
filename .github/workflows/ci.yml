@@ -1,0 +1,92 @@
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.20.0
+
+      - name: Set up pnpm
+        shell: pwsh
+        run: |
+          corepack enable
+          corepack install --global pnpm@11.24.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify portable source and architecture
+        run: pnpm verify
+
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.20.0
+
+      - name: Set up pnpm
+        run: |
+          corepack enable
+          corepack install --global pnpm@11.24.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify source
+        run: pnpm verify
+
+      - name: Build production image
+        run: docker build --tag zryna-website:ci .
+
+      - name: Smoke test production image
+        run: |
+          docker run --detach --name zryna-website-ci --publish 127.0.0.1:8080:80 zryna-website:ci
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if curl --fail --silent http://127.0.0.1:8080/healthz >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 10 ]; then
+              docker logs zryna-website-ci
+              exit 1
+            fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8080/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/guides/getting-started/ >/dev/null
+          test "$(curl --silent --output /tmp/zryna-404.html --write-out '%{http_code}' http://127.0.0.1:8080/definitely-missing)" = "404"
+          grep --fixed-strings --quiet '<title>404 | Zryna</title>' /tmp/zryna-404.html
+          docker exec zryna-website-ci test -f /usr/share/licenses/zryna-website/LICENSE
+          docker exec zryna-website-ci test -f /usr/share/licenses/zryna-website/NOTICE
+          docker exec zryna-website-ci sh -c '! command -v node && ! command -v pnpm'
+
+      - name: Stop production image
+        if: always()
+        run: docker rm --force zryna-website-ci 2>/dev/null || true

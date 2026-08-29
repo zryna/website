@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/zryna/website/security/advisories/new
+    about: Report an undisclosed vulnerability privately.
+  - name: Language and compiler issues
+    url: https://github.com/zryna/zryna/issues/new/choose
+    about: Report language semantics, compiler, runtime, or backend problems in the compiler repository.

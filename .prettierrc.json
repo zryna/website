@@ -1,0 +1,14 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": true,
+  "overrides": [
+    {
+      "files": ["*.json", "*.md", "*.mdx", "*.yml", "*.yaml"],
+      "options": {
+        "useTabs": false
+      }
+    }
+  ]
+}
