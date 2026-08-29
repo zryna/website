@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, rm, symlink, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, rm, symlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -209,6 +209,14 @@ test('canonical contract arrays cannot be reordered', async (context) => {
 	assert.ok(codes(await validateWebsite(root)).includes('ZWEB-A1001'));
 });
 
+test('case-colliding contract entries are rejected on every filesystem', async (context) => {
+	const root = await fixture(async (_candidate, value) => {
+		value.root.allowed.push('README.MD');
+	});
+	context.after(() => rm(root, { recursive: true, force: true }));
+	assert.ok(codes(await validateWebsite(root)).includes('ZWEB-A1003'));
+});
+
 test('canonical safety budgets cannot be changed in place', async (context) => {
 	const root = await fixture(async (_candidate, value) => {
 		value.limits.maxEntries += 1;
@@ -222,6 +230,11 @@ test('case-colliding root entries are rejected', async (context) => {
 		writeFile(path.join(candidate, 'readme.md'), 'x\n'),
 	);
 	context.after(() => rm(root, { recursive: true, force: true }));
+	const names = await readdir(root);
+	if (!names.includes('README.md') || !names.includes('readme.md')) {
+		context.skip('the host filesystem cannot represent case-colliding sibling entries');
+		return;
+	}
 	assert.ok(codes(await validateWebsite(root)).includes('ZWEB-A1003'));
 });
 
