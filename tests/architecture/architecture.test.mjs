@@ -9,6 +9,7 @@ import { validateWebsite } from '../../tools/architecture/check.mjs';
 const repositoryRoot = path.resolve(import.meta.dirname, '../..');
 const required = [
 	'.dockerignore',
+	'.gitattributes',
 	'.github',
 	'.gitignore',
 	'CODE_OF_CONDUCT.md',
@@ -34,6 +35,7 @@ const required = [
 ];
 const allowed = [
 	'.dockerignore',
+	'.gitattributes',
 	'.github',
 	'.gitignore',
 	'.prettierignore',

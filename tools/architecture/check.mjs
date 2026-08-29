@@ -16,6 +16,7 @@ const LIMIT_KEYS = ['maxEntries', 'maxDirectories', 'maxDepth', 'maxFileBytes', 
 const CONTRACT_SCHEMA = './schemas/zryna-website-v1.schema.json';
 const CANONICAL_REQUIRED = [
 	'.dockerignore',
+	'.gitattributes',
 	'.github',
 	'.gitignore',
 	'CODE_OF_CONDUCT.md',
@@ -41,6 +42,7 @@ const CANONICAL_REQUIRED = [
 ];
 const CANONICAL_ALLOWED = [
 	'.dockerignore',
+	'.gitattributes',
 	'.github',
 	'.gitignore',
 	'.prettierignore',

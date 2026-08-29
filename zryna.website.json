@@ -5,6 +5,7 @@
   "root": {
     "required": [
       ".dockerignore",
+      ".gitattributes",
       ".github",
       ".gitignore",
       "CODE_OF_CONDUCT.md",
@@ -30,6 +31,7 @@
     ],
     "allowed": [
       ".dockerignore",
+      ".gitattributes",
       ".github",
       ".gitignore",
       ".prettierignore",

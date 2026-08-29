@@ -17,6 +17,7 @@
         "required": {
           "const": [
             ".dockerignore",
+            ".gitattributes",
             ".github",
             ".gitignore",
             "CODE_OF_CONDUCT.md",
@@ -44,6 +45,7 @@
         "allowed": {
           "const": [
             ".dockerignore",
+            ".gitattributes",
             ".github",
             ".gitignore",
             ".prettierignore",
