@@ -1,6 +1,6 @@
 ---
 title: Architecture
-description: A non-normative summary of Zryna's current components and intended dual-target boundary.
+description: A non-normative summary of Zryna's current components and intended three-target boundary.
 ---
 
 This page is a non-normative public summary. The compiler repository's
@@ -9,9 +9,9 @@ specifications are authoritative.
 
 ## Intended pipeline
 
-Zryna is designed to use one semantic pipeline and two direct backends. JavaScript will not be an
-intermediate form for native compilation, and native IR will not be translated back into
-JavaScript.
+Zryna is designed to use one semantic pipeline and three direct backends. JavaScript is not an
+intermediate form for WebAssembly or native compilation, and no target output defines another
+target's semantics.
 
 ```text
 .zry source
@@ -22,6 +22,7 @@ Zryna syntax snapshot and strict semantics
     ↓
 verified Universal IR
     ├── direct JavaScript backend → .js
+    ├── direct WebAssembly backend → .wasm
     └── native lowering → native MIR → object/link → executable
 ```
 
@@ -29,11 +30,13 @@ This is the target boundary, not a description of an end-to-end compiler that al
 
 ## Current foundation
 
-- The TypeScript 6 adapter reads restricted function signatures into provider-neutral syntax
-  snapshots. It does not parse bodies into Zryna IR.
+- The TypeScript 6 adapter reads restricted exported function bodies into provider-neutral,
+  source-map-verified protocol-v2 syntax snapshots. It does not own semantic lowering to IR.
 - The current verified Universal IR covers a narrow scalar `i32` addition proof.
 - The JavaScript emitter is tested from already constructed verified IR.
-- The native proof lowers constructed verified IR to native MIR and textual LLVM IR.
+- The native proof lowers constructed verified IR through an independently verified native MIR
+  boundary to textual LLVM IR.
+- No WebAssembly backend exists yet; direct core WebAssembly is an M1 implementation gate.
 - The CLI currently provides architecture and diagnostic foundation commands, not `.zry`
   compilation.
 
@@ -46,3 +49,7 @@ ownership, exact numeric behavior, and diagnostics remain Zryna responsibilities
 The native lowering layer is planned to own layout, calling conventions, deterministic destruction,
 object generation, linking, and platform legality checks. These capabilities are not implemented in
 the present foundation slice.
+
+The WebAssembly backend will consume verified Universal IR directly, emit validated core modules,
+and begin with pure `i32` exports. Browser bindings, WASI, and Component Model profiles are later
+capability-bearing layers rather than hidden foundation behavior.
