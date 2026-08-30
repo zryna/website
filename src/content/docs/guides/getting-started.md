@@ -13,6 +13,8 @@ The repository has independent, tested foundation components:
 - a TypeScript 6 adapter that reads restricted exported function bodies into a provider-neutral,
   source-map-verified protocol-v2 syntax snapshot;
 - verified target-neutral IR for `i32` parameters, literals, and wrapping addition;
+- a verified scalar ABI v1 contract for strict `i32`/`bool` carriers, typed outcomes, and
+  deterministic exports on JavaScript, core WebAssembly, and Linux x86-64;
 - direct JavaScript emission from an already constructed verified IR program;
 - native MIR lowering and textual LLVM IR emission from constructed verified IR.
 
@@ -27,7 +29,7 @@ export function add(left: i32, right: i32): i32 {
 
 ## What comes next
 
-1. Freeze scalar ABI v1 and connect restricted syntax through Zryna semantics to verified IR.
+1. Use scalar ABI v1 to connect restricted syntax through Zryna semantics to verified IR.
 2. Execute the first direct JavaScript and core WebAssembly artifacts.
 3. Complete native object emission and executable linking.
 4. Compare the same source and `i32` edge cases across all three targets.

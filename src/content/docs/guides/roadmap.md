@@ -20,8 +20,8 @@ This page is a non-normative public planning summary. The compiler repository's
 
 ## 1. First three-target executable slice
 
-- Freeze scalar ABI v1, then connect restricted source, semantics, and verified IR for the first
-  end-to-end program.
+- Use the frozen scalar ABI v1 contract to connect restricted source, semantics, and verified IR
+  for the first end-to-end program.
 - Emit and execute independent ECMAScript and direct core WebAssembly modules.
 - Lower the native proof into an executable rather than stopping at textual LLVM IR.
 - Test the same source program against JavaScript, WebAssembly, and native outputs.
@@ -35,7 +35,8 @@ This page is a non-normative public planning summary. The compiler repository's
 
 ## 3. Ownership and runtime
 
-- Define owned values, borrowing rules, deterministic destruction, and the native ABI.
+- Define owned values, borrowing rules, deterministic destruction, and the versioned native
+  runtime and data-layout ABI beyond scalar ABI v1.
 - Keep garbage collection optional and explicit where a managed runtime profile is eventually
   useful; native code must not silently acquire a collector.
 - Specify foreign-function boundaries and platform behavior before broad library work.
