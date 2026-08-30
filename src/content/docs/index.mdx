@@ -1,9 +1,9 @@
 ---
 title: Zryna
-description: One strict, JavaScript-friendly language for JavaScript and native targets.
+description: One strict, JavaScript-friendly language for JavaScript, WebAssembly, and native targets.
 template: splash
 hero:
-  tagline: One source. Two targets. Explicit semantics all the way down.
+  tagline: One source. Three targets. Explicit semantics all the way down.
   actions:
     - text: Explore the foundation
       link: /guides/getting-started/
@@ -17,9 +17,10 @@ hero:
 import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Aside type="caution" title="Foundation stage">
-  Zryna is experimental. The repository independently tests a TypeScript 6 syntax reader, verified
-  `i32` IR, direct JavaScript emission, native MIR lowering, and textual LLVM IR emission. Those
-  pieces are not connected into a source-to-output CLI yet.
+  Zryna is experimental. The repository independently tests a TypeScript 6 executable-syntax reader,
+  verified `i32` IR, direct JavaScript emission, native MIR verification, and textual LLVM IR
+  emission. There is no WebAssembly backend yet, and these pieces are not connected into a
+  source-to-output CLI.
 </Aside>
 
 ## Familiar at the surface, strict underneath
@@ -31,9 +32,9 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
   <Card title="Exact types" icon="approve-check">
     Types such as `i32` carry defined width, signedness, and overflow behavior across targets.
   </Card>
-  <Card title="One target architecture" icon="setting">
-    The design requires both backends to accept the same verified Universal IR instead of
-    translating through each other.
+  <Card title="One verified IR, three targets" icon="setting">
+    The design requires every backend to consume the same verified Universal IR instead of
+    translating through another target.
   </Card>
 </CardGrid>
 
@@ -47,6 +48,10 @@ export function add(left: i32, right: i32): i32 {
   <TabItem label="JavaScript">
     A library-level proof emits signed 32-bit JavaScript from an already constructed verified IR
     program. The syntax reader is not connected to this backend yet.
+  </TabItem>
+  <TabItem label="WebAssembly">
+    Direct core WebAssembly emission is an M1 deliverable. No WebAssembly backend exists in the
+    current foundation, so the website does not present a generated `.wasm` artifact yet.
   </TabItem>
   <TabItem label="Native">
     A separate proof lowers constructed verified IR through native MIR to textual LLVM IR. Object
@@ -67,5 +72,6 @@ strict Zryna semantics
     ↓
 verified Universal IR
     ├── JavaScript backend → .js
+    ├── WebAssembly backend → .wasm
     └── native MIR → codegen → executable
 ```

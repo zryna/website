@@ -11,7 +11,7 @@ export default defineConfig({
 		starlight({
 			title: 'Zryna',
 			description:
-				'A strict, JavaScript-friendly language designed for JavaScript and native targets.',
+				'A strict, JavaScript-friendly language designed for JavaScript, WebAssembly, and native targets.',
 			favicon: '/favicon.svg',
 			customCss: ['./src/styles/custom.css'],
 			head: [
@@ -19,7 +19,7 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: {
 						property: 'og:image',
-						content: 'https://zryna.com/zryna-social-preview.png',
+						content: 'https://zryna.com/zryna-social-preview-v2.png',
 					},
 				},
 				{
@@ -32,7 +32,7 @@ export default defineConfig({
 				},
 				{
 					tag: 'meta',
-					attrs: { property: 'og:image:alt', content: 'Zryna — one source, two targets' },
+					attrs: { property: 'og:image:alt', content: 'Zryna — one source, three targets' },
 				},
 				{
 					tag: 'meta',
@@ -42,7 +42,7 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: {
 						name: 'twitter:image',
-						content: 'https://zryna.com/zryna-social-preview.png',
+						content: 'https://zryna.com/zryna-social-preview-v2.png',
 					},
 				},
 			],

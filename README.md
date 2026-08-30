@@ -2,7 +2,7 @@
 
 This repository contains the public website and documentation renderer for
 [Zryna](https://github.com/zryna/zryna), a strict, JavaScript-friendly language being designed
-for JavaScript and native targets.
+for direct JavaScript, WebAssembly, and native targets.
 
 The compiler repository owns language semantics, specifications, and generated reference data.
 This repository owns presentation, navigation, deployment, and the public documentation

@@ -239,10 +239,17 @@ test('case-colliding root entries are rejected', async (context) => {
 });
 
 test('symlinks inside controlled source are rejected', async (context) => {
-	const root = await fixture(async (candidate) => {
-		await symlink(path.join(candidate, 'src/content'), path.join(candidate, 'src/assets'));
-	});
+	const root = await fixture();
 	context.after(() => rm(root, { recursive: true, force: true }));
+	try {
+		await symlink(path.join(root, 'src/content'), path.join(root, 'src/assets'), 'dir');
+	} catch (error) {
+		if (error.code === 'EPERM' || error.code === 'EACCES') {
+			context.skip('this Windows host does not permit creating test symlinks');
+			return;
+		}
+		throw error;
+	}
 	assert.ok(codes(await validateWebsite(root)).includes('ZWEB-A1201'));
 });
 
