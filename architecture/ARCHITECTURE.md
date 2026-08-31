@@ -36,11 +36,11 @@ an acceptable gate.
 
 ## Documentation authority
 
-The compiler repository is the only source of truth for normative language material. Its future
-documentation exporter will produce a versioned, deterministic bundle with checksums. This site
-will validate that bundle and render it under versioned routes. Hand-authored website pages may
-explain how to navigate or use published material, but cannot silently replace normative compiler
-content.
+The compiler repository is the only source of truth for normative language material. Its
+documentation exporter produces a versioned, deterministic bundle with checksums. This site
+validates a separately locked bundle and renders it under versioned routes. Hand-authored website
+pages may explain how to navigate or use published material, but cannot silently replace normative
+compiler content.
 
 The consumer contract is
 [`schemas/zryna-docs-bundle-v1.schema.json`](../schemas/zryna-docs-bundle-v1.schema.json). A bundle
@@ -48,12 +48,15 @@ contains `manifest.json`, `manifest.sha256`, and only the Markdown documents exp
 the manifest. Canonical JSON, full source commits and refs, per-document sizes and SHA-256 digests,
 stable ASCII ordering, hard scan budgets, and the absence of timestamps make exports reproducible
 and auditable. `manifest.sha256` is not trusted by itself: ingestion also requires the expected
-manifest digest and channel from an authenticated compiler workflow or signed release. Validate an
-export with `pnpm docs:check -- <bundle-directory> --expected-manifest-sha256 <sha256>
---expected-channel <channel>`.
+manifest digest, channel, commit, and ref from an authenticated compiler workflow or signed release.
 
-Until the first compiler export command lands, the site labels compiler status as experimental and
-links directly to the compiler repository.
+Tracked raw bytes live in `src/content/compiler-data/next`, while
+`src/content/compiler-data/compiler-docs.lock.json` is the reviewed trust root and source/route map.
+The importer captures authenticated bytes, rejects active Markdown constructs and unsafe links,
+rewrites relative links to versioned site routes or immutable compiler permalinks, and owns
+`src/content/docs/reference/compiler/next`. `pnpm docs:sync` updates that generated subtree;
+`pnpm docs:check` rejects stale, missing, extra, or manually edited output. Production builds never
+fetch a moving branch or require cross-repository credentials.
 
 ## Request path
 

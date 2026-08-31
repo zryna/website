@@ -1,0 +1,69 @@
+{
+  "schema": "zryna.docs.bundle.v1",
+  "version": 1,
+  "channel": "next",
+  "source": {
+    "repository": "https://github.com/zryna/zryna",
+    "commit": "ecc6abbabe384558b55df1427267aada7d4a376e",
+    "ref": "refs/heads/main",
+    "version": "0.1.0"
+  },
+  "documents": [
+    {
+      "id": "reference/architecture",
+      "path": "documents/reference/architecture.md",
+      "title": "Compiler architecture",
+      "bytes": 19564,
+      "sha256": "711b1cfeb0fed506c0fc4e7176a2e8e6e7fb09b18bd261a1d3da81263e1a6ad5"
+    },
+    {
+      "id": "reference/cli",
+      "path": "documents/reference/cli.md",
+      "title": "CLI reference",
+      "bytes": 10664,
+      "sha256": "26273b8757a8ec6f8acaead507a1a8d94498fc69392c84368c3c7c47e780c5d7"
+    },
+    {
+      "id": "reference/documentation-bundles",
+      "path": "documents/reference/documentation-bundles.md",
+      "title": "Compiler documentation bundles",
+      "bytes": 2435,
+      "sha256": "e1f12beb265dbf3221fca3fc21b467366ac4cf502c4b8a24c68d757ae6239ac4"
+    },
+    {
+      "id": "reference/language-overview",
+      "path": "documents/reference/language-overview.md",
+      "title": "Language overview",
+      "bytes": 2356,
+      "sha256": "b07062a398c0db410913472a113c5ad73191affdb306cec863d05fbc8a255dfe"
+    },
+    {
+      "id": "reference/scalar-abi-v1",
+      "path": "documents/reference/scalar-abi-v1.md",
+      "title": "Scalar ABI v1",
+      "bytes": 6390,
+      "sha256": "e15db32684d8eecfc442086e4a66f9a41c3e660443c54aeda52a1c1b3c9b9521"
+    },
+    {
+      "id": "status/current",
+      "path": "documents/status/current.md",
+      "title": "Compiler status",
+      "bytes": 2630,
+      "sha256": "4d2346288f7f7ccffb4b3af0e2ed23dfb8b5f4e1625fb4ae11603b327269a9b9"
+    },
+    {
+      "id": "status/m1-conformance",
+      "path": "documents/status/m1-conformance.md",
+      "title": "M1 three-target conformance",
+      "bytes": 4440,
+      "sha256": "1d6c70902a0d11d26ead4f6545aec71243640a86c9f2168a99e1d0c507638d6a"
+    },
+    {
+      "id": "status/roadmap",
+      "path": "documents/status/roadmap.md",
+      "title": "Roadmap",
+      "bytes": 8284,
+      "sha256": "9c777ce8a25e8ae45c0a451d381a3a872abf2f8ed44d3239d79b6edcd932af5c"
+    }
+  ]
+}

@@ -3,3 +3,5 @@
 dist
 node_modules
 pnpm-lock.yaml
+src/content/compiler-data/next
+src/content/docs/reference/compiler/next

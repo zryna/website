@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 const SHA256 = /^[0-9a-f]{64}$/;
+const COMMIT = /^[0-9a-f]{40}$/;
 const SEMVER =
 	'(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-(?:(?:0|[1-9][0-9]*)|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:(?:0|[1-9][0-9]*)|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*))*)?';
 const CHANNEL = new RegExp(`^(?:next|${SEMVER})$`);
@@ -60,7 +61,7 @@ function canonicalManifest(manifest) {
 	return Buffer.from(`${JSON.stringify(canonical, null, 2)}\n`);
 }
 
-async function readBoundedRegular(filePath, maxBytes) {
+export async function readBoundedRegular(filePath, maxBytes) {
 	const metadata = await lstat(filePath);
 	if (metadata.isSymbolicLink() || !metadata.isFile())
 		throw new Error('not a regular non-symlink file');
@@ -174,13 +175,17 @@ export async function validateDocsBundle(bundleRoot, expectations = {}) {
 		typeof expectations.expectedManifestSha256 !== 'string' ||
 		!SHA256.test(expectations.expectedManifestSha256) ||
 		typeof expectations.expectedChannel !== 'string' ||
-		!CHANNEL.test(expectations.expectedChannel)
+		!CHANNEL.test(expectations.expectedChannel) ||
+		typeof expectations.expectedSourceCommit !== 'string' ||
+		!COMMIT.test(expectations.expectedSourceCommit) ||
+		typeof expectations.expectedSourceRef !== 'string' ||
+		expectations.expectedSourceRef.length === 0
 	) {
 		return [
 			diagnostic(
 				'ZWEB-D2000',
 				'.',
-				'an authenticated expected manifest SHA-256 and expected channel are required',
+				'an authenticated manifest SHA-256, channel, source commit, and source ref are required',
 			),
 		];
 	}
@@ -276,6 +281,18 @@ export async function validateDocsBundle(bundleRoot, expectations = {}) {
 				'ZWEB-D2009',
 				'channel',
 				'bundle channel does not match the authenticated expected channel',
+			),
+		);
+	}
+	if (
+		manifest.source.commit !== expectations.expectedSourceCommit ||
+		manifest.source.ref !== expectations.expectedSourceRef
+	) {
+		diagnostics.push(
+			diagnostic(
+				'ZWEB-D2009',
+				'source',
+				'bundle source commit or ref does not match the authenticated expectations',
 			),
 		);
 	}
@@ -382,14 +399,58 @@ export async function validateDocsBundle(bundleRoot, expectations = {}) {
 	return diagnostics;
 }
 
+export async function captureValidatedDocsBundle(bundleRoot, expectations = {}) {
+	const diagnostics = await validateDocsBundle(bundleRoot, expectations);
+	if (diagnostics.length > 0) return { diagnostics, manifest: null, documents: null };
+	const manifestBytes = await readBoundedRegular(
+		path.join(bundleRoot, 'manifest.json'),
+		MAX_MANIFEST_BYTES,
+	);
+	if (hash(manifestBytes) !== expectations.expectedManifestSha256) {
+		return {
+			diagnostics: [diagnostic('ZWEB-D2005', 'manifest.json', 'manifest changed before capture')],
+			manifest: null,
+			documents: null,
+		};
+	}
+	const manifest = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(manifestBytes));
+	const documents = new Map();
+	let totalBytes = 0;
+	for (const document of manifest.documents) {
+		const bytes = await readBoundedRegular(
+			path.join(bundleRoot, ...document.path.split('/')),
+			MAX_DOCUMENT_BYTES,
+		);
+		totalBytes += bytes.byteLength;
+		if (
+			totalBytes > MAX_TOTAL_DOCUMENT_BYTES ||
+			bytes.byteLength !== document.bytes ||
+			hash(bytes) !== document.sha256
+		) {
+			return {
+				diagnostics: [diagnostic('ZWEB-D2007', document.path, 'document changed before capture')],
+				manifest: null,
+				documents: null,
+			};
+		}
+		new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+		documents.set(document.path, bytes);
+	}
+	return { diagnostics: [], manifest, documents };
+}
+
 function parseCliArguments(arguments_) {
 	const bundleRoot = arguments_[0];
 	const digestIndex = arguments_.indexOf('--expected-manifest-sha256');
 	const channelIndex = arguments_.indexOf('--expected-channel');
+	const commitIndex = arguments_.indexOf('--expected-source-commit');
+	const refIndex = arguments_.indexOf('--expected-source-ref');
 	return {
 		bundleRoot,
 		expectedManifestSha256: digestIndex >= 0 ? arguments_[digestIndex + 1] : undefined,
 		expectedChannel: channelIndex >= 0 ? arguments_[channelIndex + 1] : undefined,
+		expectedSourceCommit: commitIndex >= 0 ? arguments_[commitIndex + 1] : undefined,
+		expectedSourceRef: refIndex >= 0 ? arguments_[refIndex + 1] : undefined,
 	};
 }
 
@@ -397,7 +458,7 @@ async function main() {
 	const arguments_ = parseCliArguments(process.argv.slice(2));
 	if (!arguments_.bundleRoot) {
 		console.error(
-			'Usage: pnpm docs:check -- <bundle-directory> --expected-manifest-sha256 <sha256> --expected-channel <channel>',
+			'Usage: node tools/docs/check-bundle.mjs <bundle-directory> --expected-manifest-sha256 <sha256> --expected-channel <channel> --expected-source-commit <commit> --expected-source-ref <ref>',
 		);
 		process.exitCode = 2;
 		return;

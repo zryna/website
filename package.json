@@ -10,13 +10,14 @@
   "scripts": {
     "dev": "astro dev",
     "architecture:check": "node tools/architecture/check.mjs",
-    "docs:check": "node tools/docs/check-bundle.mjs",
+    "docs:check": "node tools/docs/import-bundle.mjs --check",
+    "docs:sync": "node tools/docs/import-bundle.mjs --write",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "astro check",
     "test": "node --test tests/**/*.test.mjs",
     "build": "pnpm architecture:check && astro check && astro build",
-    "verify": "pnpm format:check && pnpm test && pnpm build",
+    "verify": "pnpm docs:check && pnpm format:check && pnpm test && pnpm build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -30,6 +31,11 @@
     "@astrojs/check": "0.9.10",
     "ajv": "8.20.0",
     "prettier": "3.9.6",
-    "typescript": "6.0.3"
+    "remark-gfm": "4.0.1",
+    "remark-parse": "11.0.0",
+    "remark-stringify": "11.0.0",
+    "typescript": "6.0.3",
+    "unified": "11.0.5",
+    "unist-util-visit": "5.1.0"
   }
 }

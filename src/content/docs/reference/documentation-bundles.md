@@ -4,20 +4,19 @@ description: How compiler-owned reference documentation reaches the Zryna websit
 ---
 
 The compiler repository owns normative language and compiler documentation. The website owns its
-presentation. An authenticated, deterministic, resource-bounded bundle is the planned contract
+presentation. An authenticated, deterministic, resource-bounded bundle is the active contract
 between them.
 
-## Planned producer flow
+## Producer flow
 
 The compiler will expose commands equivalent to:
 
 ```sh
-zryna docs check
-zryna docs export --channel next --output .zryna/out/docs/next
+pnpm docs:check
+pnpm docs:export -- --channel next --source-commit <commit> --source-ref refs/heads/main --output .zryna/out/docs/next
 ```
 
-These commands are part of the planned compiler documentation exporter and are not available in the
-current proof release.
+The compiler's successful `main` CI exports and uploads the exact commit-bound `next` artifact.
 
 ## Bundle contract
 
@@ -39,9 +38,11 @@ The website rejects unknown fields, unsorted or duplicate entries, symlinks, unl
 oversized documents, invalid UTF-8, and checksum mismatches. A local bundle can be checked with:
 
 ```sh
-pnpm docs:check -- /path/to/bundle \
+node tools/docs/check-bundle.mjs /path/to/bundle \
   --expected-manifest-sha256 <authenticated-sha256> \
-  --expected-channel next
+  --expected-channel next \
+  --expected-source-commit <authenticated-commit> \
+  --expected-source-ref refs/heads/main
 ```
 
 ## Publication channels
@@ -52,6 +53,7 @@ pnpm docs:check -- /path/to/bundle \
 - `stable` will be a website alias to one already verified semantic-version bundle; it is not a
   mutable bundle channel.
 
-The compiler currently has no release tags, so `next` is the only valid present-day channel. Until
-the exporter and authenticated delivery exist, the website links to reviewed compiler source
-material directly and does not ingest bundles.
+The compiler currently has no release tags, so `next` is the only valid present-day channel. This
+site vendors one reviewed artifact plus a separate trust lock; it never follows moving `main` or
+downloads compiler content during a production build. Generated reference pages are checked
+byte-for-byte on Linux and Windows.
