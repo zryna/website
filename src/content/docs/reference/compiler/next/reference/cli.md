@@ -1,9 +1,9 @@
 ---
 title: "CLI reference"
-description: "Compiler-owned next documentation imported from ecc6abbabe38."
+description: "Compiler-owned next documentation imported from 90615aecbbdc."
 ---
 
-> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/docs/CLI.md) at commit `ecc6abbabe384558b55df1427267aada7d4a376e`.
+> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/CLI.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
 
 # Zryna CLI reference
 
@@ -148,7 +148,7 @@ overflow, abnormal exit, or malformed result framing fails without a bundle; ina
 the documented cleanup steps uses exit status `6`.
 
 Native discovery, linking, and execution use the separate hard caps and controlled environment in
-the [native executable contract](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
+the [native executable contract](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
 not a security sandbox, and the dynamically linked native executable requires the validated host's
 CRT, libc, and loader.
 
@@ -176,4 +176,5 @@ M1 differential suite requires those observations and the manifest to agree. Pac
 multiple source files, watch mode, incremental or remote builds, Boolean execution, browser
 execution, WASI, Windows or macOS native execution, static native executables, overwrite behavior,
 and runtime-enforced cross-target comparison remain outside the current slice.
-Website publication of versioned status and reference data remains Issue #21.
+M1 closure evidence includes website publication of versioned status and reference data from the
+authenticated compiler documentation bundle tracked in Issue #21.

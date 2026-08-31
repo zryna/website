@@ -45,7 +45,10 @@
         "required": ["id", "sourcePath", "route"],
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9/-]*$" },
-          "sourcePath": { "type": "string", "pattern": "^[A-Za-z0-9._/-]+\\.md$" },
+          "sourcePath": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*\\.md$"
+          },
           "route": { "type": "string", "pattern": "^/reference/compiler/next/[a-z0-9/-]+/$" }
         }
       }

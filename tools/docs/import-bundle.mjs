@@ -21,13 +21,29 @@ function fail(message) {
 	throw new Error(`compiler documentation import failed: ${message}`);
 }
 
-async function loadJson(filePath, maxBytes = MAX_LOCK_BYTES) {
+export function parseCanonicalJson(bytes, filePath) {
+	let value;
+	let text;
+	try {
+		text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+		value = JSON.parse(text);
+	} catch (error) {
+		fail(`${filePath} is not strict UTF-8 JSON: ${error.message}`);
+	}
+	if (!Buffer.from(`${JSON.stringify(value, null, 2)}\n`).equals(bytes)) {
+		fail(`${filePath} is not canonical JSON or contains duplicate object keys`);
+	}
+	return value;
+}
+
+async function loadJson(filePath, maxBytes = MAX_LOCK_BYTES, canonical = false) {
 	let bytes;
 	try {
 		bytes = await readBoundedRegular(filePath, maxBytes);
 	} catch (error) {
 		fail(`${filePath} is not a stable bounded regular file: ${error.message}`);
 	}
+	if (canonical) return parseCanonicalJson(bytes, filePath);
 	try {
 		return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
 	} catch (error) {
@@ -41,6 +57,24 @@ function exactList(actual, expected, label) {
 		actual.some((value, index) => value !== expected[index])
 	) {
 		fail(`${label} does not match the reviewed lock`);
+	}
+}
+
+export function validateLockedSourcePaths(sourcePaths) {
+	const foldedSourcePaths = new Set();
+	for (const sourcePath of sourcePaths) {
+		if (
+			path.posix.isAbsolute(sourcePath) ||
+			sourcePath.includes('\\') ||
+			path.posix.normalize(sourcePath) !== sourcePath ||
+			sourcePath === '..' ||
+			sourcePath.startsWith('../')
+		) {
+			fail(`lock source path is not portable and repository-relative: ${sourcePath}`);
+		}
+		const folded = sourcePath.toLowerCase();
+		if (foldedSourcePaths.has(folded)) fail('lock source paths collide case-insensitively');
+		foldedSourcePaths.add(folded);
 	}
 }
 
@@ -69,11 +103,7 @@ function rewriteRelativeUrl(url, sourcePath, lock, sourceRoutes) {
 		parsed = null;
 	}
 	if (parsed) {
-		if (
-			parsed.protocol !== 'https:' &&
-			parsed.protocol !== 'http:' &&
-			parsed.protocol !== 'mailto:'
-		) {
+		if (parsed.protocol !== 'https:' && parsed.protocol !== 'mailto:') {
 			fail(`unsafe link protocol in ${sourcePath}`);
 		}
 		return url;
@@ -122,7 +152,7 @@ export function renderImportedDocument(markdown, document, sourcePath, lock, sou
 }
 
 export async function buildExpectedCompilerDocs() {
-	const lock = await loadJson(LOCK_PATH);
+	const lock = await loadJson(LOCK_PATH, MAX_LOCK_BYTES, true);
 	const schema = await loadJson(LOCK_SCHEMA_PATH);
 	const validate = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
 	if (!validate(lock))
@@ -152,6 +182,7 @@ export async function buildExpectedCompilerDocs() {
 	const lockedRoutes = new Map(lock.documents.map((document) => [document.id, document.route]));
 	if (new Set(sourcePaths.values()).size !== sourcePaths.size)
 		fail('lock source paths are not unique');
+	validateLockedSourcePaths(sourcePaths.values());
 	if (new Set(lockedRoutes.values()).size !== lockedRoutes.size) fail('lock routes are not unique');
 	for (const document of manifest.documents) {
 		if (lockedRoutes.get(document.id) !== routeFor(document.path)) {
@@ -252,6 +283,7 @@ async function writeGenerated(files) {
 }
 
 async function checkGenerated(files) {
+	await assertSafeGeneratedRoot();
 	const actual = await listFiles(GENERATED_ROOT);
 	exactList(
 		actual,

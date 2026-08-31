@@ -1,9 +1,9 @@
 ---
 title: "Compiler architecture"
-description: "Compiler-owned next documentation imported from ecc6abbabe38."
+description: "Compiler-owned next documentation imported from 90615aecbbdc."
 ---
 
-> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/docs/ARCHITECTURE.md) at commit `ecc6abbabe384558b55df1427267aada7d4a376e`.
+> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/ARCHITECTURE.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
 
 # Compiler architecture
 

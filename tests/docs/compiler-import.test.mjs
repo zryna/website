@@ -7,11 +7,13 @@ import test from 'node:test';
 import {
 	assertSafeGeneratedRoot,
 	buildExpectedCompilerDocs,
+	parseCanonicalJson,
 	renderImportedDocument,
+	validateLockedSourcePaths,
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 
-const COMMIT = 'ecc6abbabe384558b55df1427267aada7d4a376e';
+const COMMIT = '90615aecbbdc27836bbed3992d6736909f82ab58';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -66,6 +68,17 @@ test('rejects raw HTML and active URL protocols before generation', () => {
 			),
 		/unsafe link protocol/,
 	);
+	assert.throws(
+		() =>
+			renderImportedDocument(
+				'[insecure](http://example.com)\n',
+				DOCUMENT,
+				'docs/EXAMPLE.md',
+				LOCK,
+				new Map(),
+			),
+		/unsafe link protocol/,
+	);
 });
 
 test('rejects compiler frontmatter and repository traversal links', () => {
@@ -93,13 +106,21 @@ test('rejects compiler frontmatter and repository traversal links', () => {
 	);
 });
 
-test('reads reviewed trust files through a stable non-symlink handle', async () => {
+test('reads reviewed trust files through a stable non-symlink handle', async (context) => {
 	const root = await mkdtemp(path.join(os.tmpdir(), 'zryna-lock-read-'));
 	try {
 		const regular = path.join(root, 'lock.json');
 		const linked = path.join(root, 'linked-lock.json');
 		await writeFile(regular, '{}\n');
-		await symlink(regular, linked, 'file');
+		try {
+			await symlink(regular, linked, 'file');
+		} catch (error) {
+			if (error.code === 'EPERM' || error.code === 'EACCES') {
+				context.skip('host does not permit test symlinks');
+				return;
+			}
+			throw error;
+		}
 		assert.equal((await readBoundedRegular(regular, 64)).toString('utf8'), '{}\n');
 		await assert.rejects(readBoundedRegular(linked, 64), /regular non-symlink/);
 	} finally {
@@ -107,14 +128,22 @@ test('reads reviewed trust files through a stable non-symlink handle', async () 
 	}
 });
 
-test('rejects a symlinked generated-output ancestor', async () => {
+test('rejects a symlinked generated-output ancestor', async (context) => {
 	const root = await mkdtemp(path.join(os.tmpdir(), 'zryna-generated-root-'));
 	try {
 		const repo = path.join(root, 'repo');
 		const outside = path.join(root, 'outside');
 		await mkdir(path.join(repo, 'src', 'content', 'docs'), { recursive: true });
 		await mkdir(outside);
-		await symlink(outside, path.join(repo, 'src', 'content', 'docs', 'reference'), 'dir');
+		try {
+			await symlink(outside, path.join(repo, 'src', 'content', 'docs', 'reference'), 'dir');
+		} catch (error) {
+			if (error.code === 'EPERM' || error.code === 'EACCES') {
+				context.skip('host does not permit test symlinks');
+				return;
+			}
+			throw error;
+		}
 		await assert.rejects(
 			assertSafeGeneratedRoot(
 				repo,
@@ -125,4 +154,22 @@ test('rejects a symlinked generated-output ancestor', async () => {
 	} finally {
 		await rm(root, { recursive: true, force: true });
 	}
+});
+
+test('rejects non-canonical or duplicate-key trust locks', () => {
+	assert.throws(
+		() => parseCanonicalJson(Buffer.from('{"schema":1,"schema":2}\n'), 'lock.json'),
+		/not canonical JSON or contains duplicate object keys/,
+	);
+});
+
+test('rejects non-portable and case-colliding locked source paths', () => {
+	assert.throws(
+		() => validateLockedSourcePaths(['docs/../outside.md']),
+		/not portable and repository-relative/,
+	);
+	assert.throws(
+		() => validateLockedSourcePaths(['docs/STATUS.md', 'docs/status.md']),
+		/collide case-insensitively/,
+	);
 });

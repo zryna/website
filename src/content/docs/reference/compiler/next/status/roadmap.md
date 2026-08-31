@@ -1,9 +1,9 @@
 ---
 title: "Roadmap"
-description: "Compiler-owned next documentation imported from ecc6abbabe38."
+description: "Compiler-owned next documentation imported from 90615aecbbdc."
 ---
 
-> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/docs/ROADMAP.md) at commit `ecc6abbabe384558b55df1427267aada7d4a376e`.
+> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/ROADMAP.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
 
 # Delivery roadmap
 
@@ -33,7 +33,7 @@ Every issue defines its problem, architecture boundary, scope, exclusions, depen
 
 Status: complete. The provider-neutral executable syntax protocol, bounded bootstrap adapter,
 sealed Universal IR, and independently verified native MIR boundary are enforced by the canonical
-[M0 conformance gate](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/docs/M0_CONFORMANCE.md). The same fail-closed gate passed locally and in required
+[M0 conformance gate](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/M0_CONFORMANCE.md). The same fail-closed gate passed locally and in required
 Linux and Windows checks, independent closure review found no unresolved P0 or P1 issue, and the
 [public compiler status](https://zryna.com/reference/compiler-status/) matches the implemented
 surface. At M0 closure, Zryna-owned semantic lowering was the first compiler step scheduled for
@@ -61,7 +61,7 @@ Completion gates:
 - `main` requires pull requests and successful CI without force pushes.
 
 Closure evidence and the deliberately unsupported post-M0 surface are recorded in
-[M0 conformance](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/docs/M0_CONFORMANCE.md).
+[M0 conformance](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/M0_CONFORMANCE.md).
 
 ## M1 — First Three-Target Executable Slice
 
@@ -70,7 +70,8 @@ Goal: compile one `.zry` entrypoint to executable JavaScript, direct WebAssembly
 Current status: Issue #19 implements the explicit build/run CLI and atomic target bundles for the
 `I32V1` slice. Issue #20 implements the checked three-target differential corpus, portable
 JavaScript/WebAssembly matrix, invalid-source matrix, and scalar-ABI Boolean normalization proof.
-M1 remains open until Issue #21 publishes the versioned website-facing status and reference data.
+M1 closure evidence includes versioned website-facing status and reference data published from the
+authenticated compiler documentation bundle tracked in Issue #21.
 
 Dependency order:
 

@@ -1,9 +1,9 @@
 ---
 title: "Language overview"
-description: "Compiler-owned next documentation imported from ecc6abbabe38."
+description: "Compiler-owned next documentation imported from 90615aecbbdc."
 ---
 
-> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/ecc6abbabe384558b55df1427267aada7d4a376e/spec/language/OVERVIEW.md) at commit `ecc6abbabe384558b55df1427267aada7d4a376e`.
+> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/spec/language/OVERVIEW.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
 
 # Zryna language profile v1
 

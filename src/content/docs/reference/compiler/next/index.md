@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`ecc6abbabe384558b55df1427267aada7d4a376e`](https://github.com/zryna/zryna/commit/ecc6abbabe384558b55df1427267aada7d4a376e).
+This reference was imported from compiler commit [`90615aecbbdc27836bbed3992d6736909f82ab58`](https://github.com/zryna/zryna/commit/90615aecbbdc27836bbed3992d6736909f82ab58).
 
 - [Compiler architecture](/reference/compiler/next/reference/architecture/)
 - [CLI reference](/reference/compiler/next/reference/cli/)

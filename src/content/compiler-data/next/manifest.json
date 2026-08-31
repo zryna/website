@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "ecc6abbabe384558b55df1427267aada7d4a376e",
+    "commit": "90615aecbbdc27836bbed3992d6736909f82ab58",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -20,8 +20,8 @@
       "id": "reference/cli",
       "path": "documents/reference/cli.md",
       "title": "CLI reference",
-      "bytes": 10664,
-      "sha256": "26273b8757a8ec6f8acaead507a1a8d94498fc69392c84368c3c7c47e780c5d7"
+      "bytes": 10749,
+      "sha256": "c0ff07a31d4dfdca038ab5e310dcf6f83380d8565dc12bc0f38adff058a9ea08"
     },
     {
       "id": "reference/documentation-bundles",
@@ -62,8 +62,8 @@
       "id": "status/roadmap",
       "path": "documents/status/roadmap.md",
       "title": "Roadmap",
-      "bytes": 8284,
-      "sha256": "9c777ce8a25e8ae45c0a451d381a3a872abf2f8ed44d3239d79b6edcd932af5c"
+      "bytes": 8351,
+      "sha256": "581a8450aa39aaf88af316bbdc1525866507daa809615fd50a704ed3953f6e8a"
     }
   ]
 }
