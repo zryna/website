@@ -9,14 +9,18 @@ between them.
 
 ## Producer flow
 
-The compiler will expose commands equivalent to:
+The compiler exposes commands equivalent to:
 
 ```sh
 pnpm docs:check
 pnpm docs:export -- --channel next --source-commit <commit> --source-ref refs/heads/main --output .zryna/out/docs/next
 ```
 
-The compiler's successful `main` CI exports and uploads the exact commit-bound `next` artifact.
+The compiler's successful `main` CI exports and uploads the exact commit-and-digest-bound `next`
+artifact only after the complete aggregate M2 gate passes. This site pins the artifact from
+[run 33429935810](https://github.com/zryna/zryna/actions/runs/33429935810), commit
+`0b80816b7bca4d619c4716f1f15c993b30edb613`, and manifest SHA-256
+`ea927d2cfd88a63e309be0a4c716c1ea2f9a3b40f50e5547122300a212314bb4`.
 
 ## Bundle contract
 

@@ -58,6 +58,12 @@ rewrites relative links to versioned site routes or immutable compiler permalink
 `pnpm docs:check` rejects stale, missing, extra, or manually edited output. Production builds never
 fetch a moving branch or require cross-repository credentials.
 
+After Astro renders the site, `pnpm routes:check` scans the bounded `dist` tree without following
+links. It requires the exact authored and locked compiler HTML route inventory, rejects unexpected
+HTML pages, and resolves every local HTML `href` and `src` target plus fragment identifier without
+network access. This makes missing generated pages and broken local links build failures on every
+supported CI host.
+
 ## Request path
 
 ```text

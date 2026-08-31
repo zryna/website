@@ -1,9 +1,9 @@
 ---
 title: "Language overview"
-description: "Compiler-owned next documentation imported from 90615aecbbdc."
+description: "Compiler-owned next documentation imported from 0b80816b7bca."
 ---
 
-> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/spec/language/OVERVIEW.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
+> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/0b80816b7bca4d619c4716f1f15c993b30edb613/spec/language/OVERVIEW.md) at commit `0b80816b7bca4d619c4716f1f15c993b30edb613`.
 
 # Zryna language profile v1
 
@@ -21,6 +21,13 @@ The universal profile must compile to JavaScript, WebAssembly, and native output
 - unsupported syntax is rejected before IR construction.
 
 The first intrinsic types are `unit`, `bool`, and `i32`. Additional types enter only with complete source, IR, JavaScript, WebAssembly, native, conversion, boundary, and diagnostic specifications.
+
+The implemented explicit M2 [`ControlFlowV1`](/reference/compiler/next/reference/control-flow-modules-v1/) profile freezes exact wrapping scalar
+arithmetic without a language trap surface, Boolean comparisons, typed lexical locals and
+assignment, direct nonrecursive calls, `if`, `while`, compiler-owned relative modules, structured
+verified IR, and resource budgets. It is selected only by exact `--profile control-flow-v1` and is
+covered by the fixed-oracle three-target M2 gate. Omitting `--profile` continues to select the M1
+`I32V1` slice.
 
 ## WebAssembly profiles
 

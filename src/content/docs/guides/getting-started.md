@@ -8,7 +8,7 @@ JavaScript, WebAssembly, and native code. It is not ready for production use yet
 
 ## What works today
 
-The checked M1 `I32V1` profile provides one narrow end-to-end compiler slice:
+The default M1 `I32V1` profile provides one narrow end-to-end compiler slice:
 
 - a TypeScript 6 adapter that reads restricted exported function bodies into a provider-neutral,
   source-map-verified protocol-v2 syntax snapshot;
@@ -21,9 +21,15 @@ The checked M1 `I32V1` profile provides one narrow end-to-end compiler slice:
 - `zryna build` and `zryna run` with atomic create-only output bundles and deterministic manifests;
 - differential conformance over normal and wrapping-boundary cases across all three targets.
 
-The language remains experimental and not production-ready. M1 does not claim source-level Boolean
-execution, control flow, modules, heap values, browser execution, WASI, Windows/macOS native
-execution, packages, watch mode, incremental builds, or M2 features.
+Exact `--profile control-flow-v1` selects the implemented M2 scalar profile. It adds typed `bool`,
+bindings and assignment, direct nonrecursive calls, `if`, `while`, and compiler-owned explicit
+relative modules. One authenticated module graph and verified program drive JavaScript, core
+WebAssembly, and Linux x86-64 native output under the fixed-oracle Linux/Windows M2 gate.
+
+The language remains experimental and not production-ready. The current profiles do not claim heap
+values, an allocator or tracing-GC profile, browser execution, WASI, Windows/macOS native execution,
+packages, watch mode, or incremental builds. Their scalar-only design is not a general zero-runtime
+or GC-free guarantee for future data profiles.
 
 ```ts
 export function add(left: i32, right: i32): i32 {
@@ -33,9 +39,10 @@ export function add(left: i32, right: i32): i32 {
 
 ## What comes next
 
-1. Preserve M1 with the authenticated compiler documentation and three-target conformance gates.
-2. Add control flow and functions through the same verified semantic pipeline in M2.
-3. Add modules, owned data, tooling, and eventually Zryna's own frontend in their
+1. Preserve the default M1 path and explicit M2 profile with authenticated cross-target gates.
+2. Specify owned data, layout, allocation, and runtime profiles without silently broadening either
+   scalar profile.
+3. Add tooling, packages, broader platform profiles, and eventually Zryna's own frontend in their
    dependency-ordered milestones.
 
 Read the [authenticated current compiler status](/reference/compiler-status/) or follow the

@@ -1,9 +1,9 @@
 ---
 title: "Roadmap"
-description: "Compiler-owned next documentation imported from 90615aecbbdc."
+description: "Compiler-owned next documentation imported from 0b80816b7bca."
 ---
 
-> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/ROADMAP.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
+> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/0b80816b7bca4d619c4716f1f15c993b30edb613/docs/ROADMAP.md) at commit `0b80816b7bca4d619c4716f1f15c993b30edb613`.
 
 # Delivery roadmap
 
@@ -33,7 +33,7 @@ Every issue defines its problem, architecture boundary, scope, exclusions, depen
 
 Status: complete. The provider-neutral executable syntax protocol, bounded bootstrap adapter,
 sealed Universal IR, and independently verified native MIR boundary are enforced by the canonical
-[M0 conformance gate](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/M0_CONFORMANCE.md). The same fail-closed gate passed locally and in required
+[M0 conformance gate](/reference/compiler/next/status/m0-conformance/). The same fail-closed gate passed locally and in required
 Linux and Windows checks, independent closure review found no unresolved P0 or P1 issue, and the
 [public compiler status](https://zryna.com/reference/compiler-status/) matches the implemented
 surface. At M0 closure, Zryna-owned semantic lowering was the first compiler step scheduled for
@@ -61,7 +61,7 @@ Completion gates:
 - `main` requires pull requests and successful CI without force pushes.
 
 Closure evidence and the deliberately unsupported post-M0 surface are recorded in
-[M0 conformance](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/M0_CONFORMANCE.md).
+[M0 conformance](/reference/compiler/next/status/m0-conformance/).
 
 ## M1 — First Three-Target Executable Slice
 
@@ -108,13 +108,81 @@ Completion gates:
 
 ## M2 — Control Flow and Modules
 
-- exact arithmetic and comparisons with boundary tests;
-- local bindings and function calls;
-- `if` and `while`;
-- deterministic module resolution and multi-file builds;
-- JavaScript, WebAssembly, and native differential suites.
+Goal: add a separately verified `ControlFlowV1` profile with exact scalar arithmetic, Boolean
+comparisons, lexical locals, direct calls, structured branches and loops, deterministic modules,
+and one multi-file program whose behavior matches on JavaScript, direct core WebAssembly, and
+Linux x86-64 native output.
 
-Completion gate: the control-flow and module conformance corpus passes on every supported target.
+Current status: contract specified, exact syntax protocol v3 implemented, deterministic module
+closure implemented, modules/scopes/types/calls and canonical `if`/`while` control flow lower to
+verified M2 IR, the isolated IR verifier implemented, deterministic sealed M2 ECMAScript and direct
+core WebAssembly emission with typed Node execution implemented, independently verified M2 native
+MIR lowering implemented, and M2 native object and typed execution implemented. Issue #55 composes
+those authorities into the explicit public `control-flow-v1` path and deterministic atomic manifest
+v2 bundles. Issue #56 adds fixed-oracle aggregate three-target M2 conformance, exact invalid and
+resource-boundary evidence, and a stable Linux/Windows aggregate gate. The compiler capability and
+conformance surface is complete; Issue #57 records authenticated website import, deployment, and
+live commit/digest evidence as a separate external closure gate.
+Issue #45 freezes the normative
+[scalar control-flow and modules v1](/reference/compiler/next/reference/control-flow-modules-v1/) contract and a
+digest-pinned planning inventory. Issue #46 implements the separate exact protocol-v3 schema,
+pinned TypeScript 6 syntax-only worker, opaque source-map-bound syntax verifier, and typed worker
+transport without selecting it in the driver. Issue #48 implements the separate, source-map-bound
+`ControlFlowV1` raw-to-verified boundary. Issue #47 implements retained-capability fixed-point
+module discovery and final source-map authentication without selecting it in the public driver.
+Issue #49 implements the internal [straight-line M2 semantic boundary](/reference/compiler/next/reference/m2-straight-line-semantics/).
+Issue #50 extends it with [canonical control-flow semantics](/reference/compiler/next/reference/m2-control-flow-semantics/), definite
+state, reachability, and return analysis. Issue #51 implements the internal
+[deterministic JavaScript backend](/reference/compiler/next/reference/m2-javascript-backend/) over opaque verified views. Issue #52
+implements the internal [direct core WebAssembly backend](/reference/compiler/next/reference/m2-webassembly-backend/) over the same
+authority, including typed execution of the exact validated bytes. Those component gates did not
+independently enable a compiler profile or CLI command. Issue #53 implements the internal
+[verified native MIR profile](/reference/compiler/next/reference/m2-native-mir/), including deterministic lowering and an independent
+raw-to-verified CFG, call, symbol, Boolean, ABI, dominance, and resource boundary. Issue #54 adds
+the internal [M2 Linux x86-64 native backend](/reference/compiler/next/reference/m2-native-backend/): deterministic Cranelift object
+emission, exact call-graph-bound relocation and symbol audits, artifact-bound typed link/run, and
+retained staging identity. Issue #55 adds exact public profile selection, single-analysis module
+graph orchestration, typed multi-target dispatch, deterministic
+[`zryna-manifest-v2.json`](/reference/compiler/next/reference/m2-manifest-v2/), and one create-only atomic transaction. `I32V1`,
+protocol v2, manifest v1, and all M0/M1 executable evidence remain unchanged.
+
+Dependency ledger:
+
+| Issue | Gate                                                                                              | Depends on         | Ledger state     |
+| ----- | ------------------------------------------------------------------------------------------------- | ------------------ | ---------------- |
+| #45   | normative scalar, control-flow, module, IR, budget, and planned-conformance contract              | M1 closure         | complete         |
+| #46   | exact protocol v3 and pinned TypeScript 6 syntax adapter                                          | #45                | complete         |
+| #47   | compiler-owned bounded deterministic module closure                                               | #45, #46           | complete         |
+| #48   | independently verified `ControlFlowV1` Universal IR                                               | #45                | complete         |
+| #49   | Zryna-owned modules, scopes, types, arithmetic, comparisons, locals, assignment, and direct calls | #46, #47, #48      | complete         |
+| #50   | canonical `if`/`while`, definite state, reachability, and return lowering                         | #49                | complete         |
+| #51   | deterministic M2 ECMAScript emission and execution                                                | #50                | complete         |
+| #52   | direct capability-minimal M2 core WebAssembly emission and execution                              | #50                | complete         |
+| #53   | independently verified native MIR control flow and calls                                          | #50                | complete         |
+| #54   | audited Linux x86-64 native object, internal calls, link, and run                                 | #53                | complete         |
+| #55   | explicit-profile atomic multi-file CLI and manifest v2                                            | #47, #51, #52, #54 | complete         |
+| #56   | fixed-oracle three-target conformance and required aggregate gate                                 | #55                | complete         |
+| #57   | authenticated compiler documentation, website synchronization, deployment, and live closure       | #56                | external closure |
+
+The backend issues #51, #52, and #53 proceeded only after #50. The public CLI activated only after
+every backend and the native execution path were available to Issue #55. Aggregate M2 conformance
+is defined by the authenticated [M2 conformance gate](/reference/compiler/next/reference/m2-conformance/) and required `m2` CI
+context. Website synchronization and live provenance are external evidence tracked by #57; they do
+not add compiler capabilities or certify later milestones.
+
+Completion gates:
+
+- exact fixed-oracle arithmetic, comparison, Boolean, local, call, branch, loop, and module
+  cases pass on JavaScript, direct core WebAssembly, and Linux x86-64 native output;
+- invalid syntax, modules, names, types, CFG claims, paths, cycles, races, and `limit + 1` cases fail
+  before backend work and publish no bundle;
+- Windows runs the portable JavaScript/WebAssembly corpus and retains explicit native
+  unavailability;
+- one explicit `control-flow-v1` command analyzes one source graph once and atomically publishes a
+  deterministic manifest v2 plus selected artifacts;
+- required M0/M1 checks remain intact and a stable aggregate M2 check is protected;
+- compiler-owned authenticated documentation, website CI, deployment, and live inspection all
+  agree on the exact compiler commit and bundle digest.
 
 ## M3 — Data, Memory, and Ownership
 

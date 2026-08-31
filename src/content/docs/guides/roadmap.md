@@ -29,11 +29,18 @@ Completed for the deliberately narrow M1 `I32V1` profile:
 - target, ABI, toolchain, portability, and deliberately unsupported boundaries are recorded in the
   [authenticated M1 evidence](/reference/compiler/next/status/m1-conformance/).
 
-## 2. Language core
+## 2. Scalar control flow and modules
 
-- Add functions, modules, bindings, control flow, exact numeric types, and target-neutral errors.
-- Define the JavaScript-compatible subset and the strict universal subset explicitly.
-- Keep TypeScript integration behind a replaceable frontend-provider boundary.
+Completed as the explicit M2 `control-flow-v1` profile:
+
+- typed scalar bindings, assignment, direct nonrecursive calls, `if`, and `while` lower through one
+  verified semantic pipeline;
+- compiler-owned explicit relative modules form one authenticated graph and deterministic atomic
+  manifest-v2 bundle;
+- JavaScript, core WebAssembly, and Linux x86-64 native execution match one fixed oracle on the
+  required Linux/Windows M2 gate;
+- the TypeScript integration remains behind a replaceable frontend-provider boundary, and omitting
+  `--profile` preserves M1.
 
 ## 3. Ownership and runtime
 
