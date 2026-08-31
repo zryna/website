@@ -17,9 +17,10 @@ hero:
 import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Aside type="caution" title="Foundation stage">
-  Zryna is experimental and not production-ready. The implemented M1 profile connects a narrow,
-  explicit `i32` source slice to direct JavaScript, core WebAssembly, and Linux x86-64 native
-  artifacts. Control flow, modules, heap values, browser execution, WASI, and M2 features remain
+  Zryna is experimental and not production-ready. The explicit M2 `control-flow-v1` profile adds
+  typed scalar control flow, direct calls, and compiler-owned relative modules across JavaScript,
+  core WebAssembly, and Linux x86-64 native targets. Omitting `--profile` preserves the narrow M1
+  path. Heap values, browser execution, WASI, packages, and broader native platforms remain
   unsupported. [Read the authenticated compiler status](/reference/compiler-status/).
 </Aside>
 
@@ -51,7 +52,7 @@ export function add(left: i32, right: i32): i32 {
   </TabItem>
   <TabItem label="WebAssembly">
     The same verified IR emits an import-free core `.wasm` module directly. Browser bindings, WASI,
-    and Component Model profiles are not part of M1.
+    and Component Model profiles are not part of the current M1 or explicit M2 profiles.
   </TabItem>
   <TabItem label="Native">
     Linux x86-64 builds lower through verified native MIR to a relocatable ELF object; run mode

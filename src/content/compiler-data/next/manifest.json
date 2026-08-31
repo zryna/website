@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "90615aecbbdc27836bbed3992d6736909f82ab58",
+    "commit": "0b80816b7bca4d619c4716f1f15c993b30edb613",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -13,29 +13,106 @@
       "id": "reference/architecture",
       "path": "documents/reference/architecture.md",
       "title": "Compiler architecture",
-      "bytes": 19564,
-      "sha256": "711b1cfeb0fed506c0fc4e7176a2e8e6e7fb09b18bd261a1d3da81263e1a6ad5"
+      "bytes": 24090,
+      "sha256": "c60e53261a0e3fdc615e6b4dc20d4b9cfff2cf2ed192c73f1b9d4472db582c9f"
     },
     {
       "id": "reference/cli",
       "path": "documents/reference/cli.md",
       "title": "CLI reference",
-      "bytes": 10749,
-      "sha256": "c0ff07a31d4dfdca038ab5e310dcf6f83380d8565dc12bc0f38adff058a9ea08"
+      "bytes": 14898,
+      "sha256": "ed67a59851c3e9c94a72372c0d36974aa04f6fd9d7e1ff27e64ea09887e1cd2f"
+    },
+    {
+      "id": "reference/control-flow-modules-v1",
+      "path": "documents/reference/control-flow-modules-v1.md",
+      "title": "Scalar control flow and modules v1",
+      "bytes": 19661,
+      "sha256": "d4756db36365d95a9f34650cfa0f0ac1d7053ee2ce45e1926c4c80432b8ac905"
     },
     {
       "id": "reference/documentation-bundles",
       "path": "documents/reference/documentation-bundles.md",
       "title": "Compiler documentation bundles",
-      "bytes": 2435,
-      "sha256": "e1f12beb265dbf3221fca3fc21b467366ac4cf502c4b8a24c68d757ae6239ac4"
+      "bytes": 2809,
+      "sha256": "e8ddf626d87262601ac83387bd7e5676267ece813c236daf976387c15c6685be"
+    },
+    {
+      "id": "reference/frontends",
+      "path": "documents/reference/frontends.md",
+      "title": "Frontend providers",
+      "bytes": 9012,
+      "sha256": "85c8ed95b918d47aac57dcdcef4fdbe93f2be692cdaea37ca78e4a43e73ee128"
     },
     {
       "id": "reference/language-overview",
       "path": "documents/reference/language-overview.md",
       "title": "Language overview",
-      "bytes": 2356,
-      "sha256": "b07062a398c0db410913472a113c5ad73191affdb306cec863d05fbc8a255dfe"
+      "bytes": 2869,
+      "sha256": "5e7ef557e8d6511192262b637d70cb8019ff579e69d87467fb4419ab9101e715"
+    },
+    {
+      "id": "reference/m2-conformance",
+      "path": "documents/reference/m2-conformance.md",
+      "title": "M2 three-target conformance",
+      "bytes": 4017,
+      "sha256": "de589a04be499e4d09f0f17121c2f28922a451daaaeb4f67fcb035766015d8ad"
+    },
+    {
+      "id": "reference/m2-control-flow-semantics",
+      "path": "documents/reference/m2-control-flow-semantics.md",
+      "title": "M2 control-flow semantics",
+      "bytes": 5106,
+      "sha256": "6c5001985532190315b02c493286efe162064c45dc2e5b15e72836b4c9caa979"
+    },
+    {
+      "id": "reference/m2-javascript-backend",
+      "path": "documents/reference/m2-javascript-backend.md",
+      "title": "M2 deterministic JavaScript backend",
+      "bytes": 4964,
+      "sha256": "9e85c99b7ef6e8f5d93cb18afa91b4b93c450ad2f1e42edc8108e1c987697c8d"
+    },
+    {
+      "id": "reference/m2-manifest-v2",
+      "path": "documents/reference/m2-manifest-v2.md",
+      "title": "M2 manifest and atomic bundles",
+      "bytes": 6457,
+      "sha256": "3c3388830fbf37e21ef556497c7f3e65dcc300c4efa980e0f9cb2db3165a5069"
+    },
+    {
+      "id": "reference/m2-module-closure",
+      "path": "documents/reference/m2-module-closure.md",
+      "title": "M2 deterministic module closure",
+      "bytes": 8355,
+      "sha256": "a609be0aefc81a4153f14ce8dd3c36525d7d1cde04801018b449d3ec805de5f4"
+    },
+    {
+      "id": "reference/m2-native-backend",
+      "path": "documents/reference/m2-native-backend.md",
+      "title": "M2 Linux x86-64 native backend",
+      "bytes": 7557,
+      "sha256": "ff9c3179a954034d551f1cd4ea7fea597cc86706c51f5d782e1dd2f5db2354b8"
+    },
+    {
+      "id": "reference/m2-native-mir",
+      "path": "documents/reference/m2-native-mir.md",
+      "title": "M2 verified native MIR",
+      "bytes": 8917,
+      "sha256": "7586c239b03daed82782ad08d0f75a96e3b6083818f42eab0440bb9fcbd8e113"
+    },
+    {
+      "id": "reference/m2-straight-line-semantics",
+      "path": "documents/reference/m2-straight-line-semantics.md",
+      "title": "M2 straight-line semantics",
+      "bytes": 7484,
+      "sha256": "a93c323bcfaa8d54e791373ae864695289c8c45e6d6d9adc377b7910e1ab0125"
+    },
+    {
+      "id": "reference/m2-webassembly-backend",
+      "path": "documents/reference/m2-webassembly-backend.md",
+      "title": "M2 direct core WebAssembly backend",
+      "bytes": 5533,
+      "sha256": "5d817db88328db5ee6554460776343f4b2e2163f387e8bf86fba80e82fb21ac0"
     },
     {
       "id": "reference/scalar-abi-v1",
@@ -48,8 +125,15 @@
       "id": "status/current",
       "path": "documents/status/current.md",
       "title": "Compiler status",
-      "bytes": 2630,
-      "sha256": "4d2346288f7f7ccffb4b3af0e2ed23dfb8b5f4e1625fb4ae11603b327269a9b9"
+      "bytes": 8028,
+      "sha256": "5031f86305990a68e6204fbe536478f429edec1981e34917f927d06b88e9bcb0"
+    },
+    {
+      "id": "status/m0-conformance",
+      "path": "documents/status/m0-conformance.md",
+      "title": "M0 architecture conformance",
+      "bytes": 7263,
+      "sha256": "f214ff6c4273f492f21c16ef72dd552faee61a7081e3615d21e6ae54672b9a25"
     },
     {
       "id": "status/m1-conformance",
@@ -62,8 +146,8 @@
       "id": "status/roadmap",
       "path": "documents/status/roadmap.md",
       "title": "Roadmap",
-      "bytes": 8351,
-      "sha256": "581a8450aa39aaf88af316bbdc1525866507daa809615fd50a704ed3953f6e8a"
+      "bytes": 13937,
+      "sha256": "2927955e138de8c9d5467d98bf553008708894507b74c70d916737c9754802ed"
     }
   ]
 }
