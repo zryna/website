@@ -17,10 +17,10 @@ hero:
 import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Aside type="caution" title="Foundation stage">
-  Zryna is experimental. The repository independently tests a TypeScript 6 executable-syntax reader,
-  verified `i32` IR, direct JavaScript emission, native MIR verification, and textual LLVM IR
-  emission. There is no WebAssembly backend yet, and these pieces are not connected into a
-  source-to-output CLI.
+  Zryna is experimental and not production-ready. The implemented M1 profile connects a narrow,
+  explicit `i32` source slice to direct JavaScript, core WebAssembly, and Linux x86-64 native
+  artifacts. Control flow, modules, heap values, browser execution, WASI, and M2 features remain
+  unsupported. [Read the authenticated compiler status](/reference/compiler-status/).
 </Aside>
 
 ## Familiar at the surface, strict underneath
@@ -46,16 +46,16 @@ export function add(left: i32, right: i32): i32 {
 
 <Tabs syncKey="target">
   <TabItem label="JavaScript">
-    A library-level proof emits signed 32-bit JavaScript from an already constructed verified IR
-    program. The syntax reader is not connected to this backend yet.
+    `zryna build` emits a direct ECMAScript module and `zryna run` invokes its exported scalar
+    function through strict `i32` carriers.
   </TabItem>
   <TabItem label="WebAssembly">
-    Direct core WebAssembly emission is an M1 deliverable. No WebAssembly backend exists in the
-    current foundation, so the website does not present a generated `.wasm` artifact yet.
+    The same verified IR emits an import-free core `.wasm` module directly. Browser bindings, WASI,
+    and Component Model profiles are not part of M1.
   </TabItem>
   <TabItem label="Native">
-    A separate proof lowers constructed verified IR through native MIR to textual LLVM IR. Object
-    emission and executable linking are not implemented yet.
+    Linux x86-64 builds lower through verified native MIR to a relocatable ELF object; run mode
+    links and executes a dynamic ELF binary. Windows and macOS native execution are not claimed.
   </TabItem>
 </Tabs>
 

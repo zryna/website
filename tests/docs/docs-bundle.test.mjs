@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
-import { validateDocsBundle } from '../../tools/docs/check-bundle.mjs';
+import { captureValidatedDocsBundle, validateDocsBundle } from '../../tools/docs/check-bundle.mjs';
 
 const COMMIT = '0123456789abcdef0123456789abcdef01234567';
 
@@ -57,13 +57,30 @@ async function makeBundle() {
 }
 
 function expectations(digest, channel = 'next') {
-	return { expectedManifestSha256: digest, expectedChannel: channel };
+	return {
+		expectedManifestSha256: digest,
+		expectedChannel: channel,
+		expectedSourceCommit: COMMIT,
+		expectedSourceRef: 'refs/heads/main',
+	};
 }
 
 test('accepts an authenticated deterministic compiler documentation bundle', async (context) => {
 	const bundle = await makeBundle();
 	context.after(() => rm(bundle.root, { recursive: true, force: true }));
 	assert.deepEqual(await validateDocsBundle(bundle.root, expectations(bundle.digest)), []);
+});
+
+test('captures only bytes bound to the authenticated manifest', async (context) => {
+	const bundle = await makeBundle();
+	context.after(() => rm(bundle.root, { recursive: true, force: true }));
+	const captured = await captureValidatedDocsBundle(bundle.root, expectations(bundle.digest));
+	assert.deepEqual(captured.diagnostics, []);
+	assert.deepEqual(captured.manifest, bundle.manifest);
+	assert.deepEqual(
+		captured.documents.get(bundle.manifest.documents[0].path),
+		Buffer.from('# Language overview\n'),
+	);
 });
 
 test('identical compiler input produces identical canonical manifest bytes', async (context) => {
@@ -338,6 +355,21 @@ test('rejects bundles that do not match the authenticated channel', async (conte
 	context.after(() => rm(bundle.root, { recursive: true, force: true }));
 	const diagnostics = await validateDocsBundle(bundle.root, expectations(bundle.digest, '1.2.3'));
 	assert(diagnostics.some((item) => item.code === 'ZWEB-D2009'));
+});
+
+test('rejects bundles that do not match the authenticated commit or ref', async (context) => {
+	const bundle = await makeBundle();
+	context.after(() => rm(bundle.root, { recursive: true, force: true }));
+	const commitDiagnostics = await validateDocsBundle(bundle.root, {
+		...expectations(bundle.digest),
+		expectedSourceCommit: '1'.repeat(40),
+	});
+	assert(commitDiagnostics.some((item) => item.code === 'ZWEB-D2009'));
+	const refDiagnostics = await validateDocsBundle(bundle.root, {
+		...expectations(bundle.digest),
+		expectedSourceRef: 'refs/heads/replaced',
+	});
+	assert(refDiagnostics.some((item) => item.code === 'ZWEB-D2009'));
 });
 
 test('rejects next bundles exported from a non-main ref', async (context) => {

@@ -8,18 +8,22 @@ JavaScript, WebAssembly, and native code. It is not ready for production use yet
 
 ## What works today
 
-The repository has independent, tested foundation components:
+The checked M1 `I32V1` profile provides one narrow end-to-end compiler slice:
 
 - a TypeScript 6 adapter that reads restricted exported function bodies into a provider-neutral,
   source-map-verified protocol-v2 syntax snapshot;
-- verified target-neutral IR for `i32` parameters, literals, and wrapping addition;
+- Zryna-owned semantic lowering into verified target-neutral IR for explicit `i32` parameters,
+  results, literals, parameter references, and wrapping addition;
 - a verified scalar ABI v1 contract for strict `i32`/`bool` carriers, typed outcomes, and
   deterministic exports on JavaScript, core WebAssembly, and Linux x86-64;
-- direct JavaScript emission from an already constructed verified IR program;
-- native MIR lowering and textual LLVM IR emission from constructed verified IR.
+- direct ECMAScript and import-free core WebAssembly emission from the same verified IR;
+- Linux x86-64 native MIR, relocatable ELF object emission, linking, and execution;
+- `zryna build` and `zryna run` with atomic create-only output bundles and deterministic manifests;
+- differential conformance over normal and wrapping-boundary cases across all three targets.
 
-Zryna-owned semantic lowering does not yet turn that syntax into IR, no WebAssembly backend exists,
-the JavaScript/native proofs are not driven by source, and the CLI does not compile `.zry` programs.
+The language remains experimental and not production-ready. M1 does not claim source-level Boolean
+execution, control flow, modules, heap values, browser execution, WASI, Windows/macOS native
+execution, packages, watch mode, incremental builds, or M2 features.
 
 ```ts
 export function add(left: i32, right: i32): i32 {
@@ -29,11 +33,10 @@ export function add(left: i32, right: i32): i32 {
 
 ## What comes next
 
-1. Use scalar ABI v1 to connect restricted syntax through Zryna semantics to verified IR.
-2. Execute the first direct JavaScript and core WebAssembly artifacts.
-3. Complete native object emission and executable linking.
-4. Compare the same source and `i32` edge cases across all three targets.
-5. Add control flow, modules, owned data, tooling, and eventually Zryna's own frontend in their
+1. Preserve M1 with the authenticated compiler documentation and three-target conformance gates.
+2. Add control flow and functions through the same verified semantic pipeline in M2.
+3. Add modules, owned data, tooling, and eventually Zryna's own frontend in their
    dependency-ordered milestones.
 
-Follow the compiler work in the [Zryna repository](https://github.com/zryna/zryna).
+Read the [authenticated current compiler status](/reference/compiler-status/) or follow the
+[Zryna repository](https://github.com/zryna/zryna).

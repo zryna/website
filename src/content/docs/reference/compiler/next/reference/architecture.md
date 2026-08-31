@@ -1,0 +1,310 @@
+---
+title: "Compiler architecture"
+description: "Compiler-owned next documentation imported from 90615aecbbdc."
+---
+
+> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/90615aecbbdc27836bbed3992d6736909f82ab58/docs/ARCHITECTURE.md) at commit `90615aecbbdc27836bbed3992d6736909f82ab58`.
+
+# Compiler architecture
+
+## Permanent boundary
+
+Verified Universal IR is the permanent contract. Frontend providers and output backends are replaceable around it.
+
+```text
+source files
+    ↓
+FrontendProvider
+    ├── TypeScript 6 adapter (bootstrap)
+    ├── TypeScript 7 IPC adapter (planned after a stable upstream API)
+    └── native Zryna frontend (planned)
+    ↓
+RawProjectSyntaxSnapshot v1 (declarations) or v2 (executable syntax)
+    ↓ exact file-set, path, budget, graph, and span verification
+ProjectSyntaxSnapshot v1 or zryna_syntax::v2::ProjectSyntaxSnapshot
+    ↓
+Zryna name resolution and strict semantic checking
+    ↓
+unverified Universal IR
+    ↓
+mandatory IR verifier
+    ↓
+VerifiedProgram + sealed scalar ABI module
+    ├── JavaScript IR and printer
+    ├── WebAssembly lowering and binary emission
+    └── raw native MIR → mandatory MIR verifier → VerifiedMirModule
+                                         └── codegen, object emission, and linking
+```
+
+No provider-specific syntax-kind number, node identity, symbol identity, or type identity may cross
+`zryna-frontend`. Protocol-v2 syntax is owned by the lower `zryna-syntax` foundation crate so
+semantic lowering never depends on a replaceable provider.
+
+## Authority of each phase
+
+1. `zryna-architecture` proves that the repository can be inspected completely and matches its declared graph.
+2. A frontend provider reads compatible syntax and produces an untrusted, provider-neutral raw
+   snapshot.
+3. `zryna-syntax` verifies protocol-v2 file identity, budgets, source spans, lexical order, and the
+   canonical flat expression graph before constructing opaque executable syntax.
+4. Zryna semantics resolves parameter names, rejects unsupported or dynamic constructs, assigns
+   exact types, and lowers the accepted source subset to raw Universal IR.
+5. `zryna-abi` verifies scalar signatures, logical exports, target mappings, and typed host values.
+6. `zryna-ir` represents exact operations such as `I32Add`; generic target-dependent arithmetic is forbidden.
+7. The IR verifier is the only constructor of a backend-accepted verified program and embeds the
+   matching sealed scalar ABI module by declaration index.
+8. The JavaScript backend consumes sealed ABI export names and emits deterministic ESM with
+   explicit scalar-boundary checks. The driver publishes complete `.mjs` files create-only through
+   a validated capability for the workspace's declared `.zryna/out` directory.
+9. The WebAssembly backend maps exact Zryna operations directly to deterministic core
+   WebAssembly, validates and profile-audits complete bytes, and exposes only a sealed artifact.
+   The driver publishes `.wasm` create-only. Browser bindings and WASI capabilities remain
+   explicit host profiles.
+10. Native lowering creates explicit typed native claims; the native MIR verifier retains the
+    sealed scalar ABI module and is the only constructor of the codegen-accepted
+    `VerifiedMirModule`.
+11. The native backend consumes that authority, emits one fixed-target ELF relocatable object,
+    independently audits it, and exposes only sealed bytes.
+12. The driver may combine that sealed object with one generated, ABI-validated invocation using
+    a previously proved Linux toolchain capability; the backend never owns linking or execution.
+13. The CLI runs architecture validation first, then asks the driver to analyze one entrypoint
+    exactly once and dispatch the same verified authority to an explicit target selection. The
+    driver stages and commits one complete build or run bundle; the CLI only renders its report.
+14. The repository-owned documentation producer exports an explicit whitelist of reviewed
+    Markdown with exact compiler provenance. The website validates and presents that bundle but
+    never becomes a language, ABI, diagnostic, or support-status authority.
+
+## Dependency direction
+
+```text
+source ───────────────→ diagnostics
+  ├──────────────────────→ syntax
+  └──────────────────────→ frontend contracts ──→ syntax
+diagnostics ─────────────→ syntax
+  └──────────────────────────────────────────────┐
+source ──────────────────────────────────────────┤
+syntax ──────────────────────────────────────────┤
+scalar ABI ─────────────→ export-name preflight ─┤
+                                                  ↓
+                                            Zryna semantics
+                                                  ↓
+                                          unverified Zryna IR
+scalar ABI ──────────────────────────────────────┤
+                                                  ↓
+                                   verified IR + sealed ABI
+                  ┌────────────┼────────────┐
+                  ↓            ↓            ↓
+            JavaScript   WebAssembly    native MIR
+                              ↓              ↓
+                         validation       codegen
+                                             ↓
+                                      audited `.o`
+                                             ↓
+                          driver-owned sealed harness + GNU link
+                                             ↓
+                              audited/published `.elf` capability
+                                             ↓
+                              private sealed snapshot execution
+```
+
+`zryna-driver` is the only library allowed to orchestrate all phases. The CLI calls the driver and architecture engine; individual backends do not call one another.
+
+The permanent direction is `frontend -> syntax -> semantics -> IR`. `zryna-semantics` is a compiler
+component and cannot depend on `zryna-frontend`; backends cannot depend on either provider layer.
+The architecture engine has a negative graph fixture for both forbidden edges.
+
+## Source and diagnostic authority
+
+`zryna-source` is below diagnostics and every provider. One immutable bounded `SourceMap` owns
+the exact UTF-8 text and assigns dense snapshot-local `FileId` values after normalized path
+sorting. Source paths are portable workspace-relative ASCII with `/` separators and an
+ASCII-case-folded uniqueness identity. Host filesystem path behavior is never used to interpret
+provider paths.
+
+All internal spans are zero-based half-open UTF-8 byte ranges. Opaque `FileId` and `Span` values
+retain the issuing source-map identity. A span is authoritative only when constructed or resolved
+through that exact `SourceMap`, which proves the file exists and both endpoints are ordered, in
+bounds, and UTF-8 character boundaries. Source content is never normalized.
+
+Diagnostics use one primary-location variant: source span, workspace path, or global. Source
+diagnostics are resolved and sorted through the source map before stable text or versioned JSON
+is emitted; a forged or mismatched span fails rendering rather than producing a misleading path.
+IR verification also resolves every expression span with the compilation source map before it can
+construct `VerifiedProgram`.
+
+Verified protocol-v2 snapshots also retain the opaque identity of the issuing `SourceMap`, even
+when the map contains no files. The semantic boundary requires that exact identity and rejects a
+snapshot verified against any independently constructed map.
+
+## Current strict semantic subset
+
+The first source-to-IR gate accepts exactly one designated source file, conventionally ending in
+`.zry`, with at least one exported function. Parameters and results require explicit `i32` or
+`bool` annotations. Parameter names are
+function-local and unique; bodies contain exactly one value return; expressions are parameter
+references, in-range decimal `i32` literals, Boolean literals, and `i32 + i32`. Export names are
+preflighted by the scalar ABI authority before IR verification.
+
+The semantic phase owns rejection of missing annotations, `any`, unknown types, duplicate or
+unresolved names, invalid export identities, out-of-range integers, invalid addition, mismatched
+returns, and unsupported entrypoint shape. Diagnostics are source-located where a source token
+exists, deterministic, and capped at 256 entries. Protocol-v2 resource limits are compile-time
+constrained to the corresponding IR limits.
+
+Semantic validity is not backend availability. Raw IR can represent `BoolLiteral`, but the current
+`I32V1` verifier rejects every `bool` signature or expression before constructing
+`VerifiedProgram`. A future universal Boolean profile must be implemented by every active backend
+before that gate can be enabled.
+
+## Verified Universal IR trust contract
+
+`Program`, `Function`, and `Expr` are untrusted compiler claims. `zryna_ir::verify` is the only
+constructor of `VerifiedProgram`; backends iterate opaque `VerifiedFunction` views and cannot
+recover the raw program. The verifier delegates logical-name, collision, scalar-signature, and
+target-mapping authority to `zryna-abi`, then embeds the sealed module beside the private program.
+The current `I32V1` profile admits only `i32` parameters, results, literals, and signed wrapping
+addition. Scalar ABI v1 specifies `bool`, but `bool` and `unit` remain profile-gated until every
+active universal backend implements their specified representation and behavior.
+
+A verified function proves all of the following:
+
+- its scalar ABI export has a bounded logical name matching `[A-Za-z_][A-Za-z0-9_]*`, is unique
+  exactly and under ASCII case folding, and carries deterministic JavaScript, WebAssembly, and
+  Linux x86-64 target names;
+- its body is in the same arena and has the declared result type;
+- every operand is a distinct earlier entry, every entry has exactly one owner, and the complete
+  tree is stored in exact left-to-right postorder without shared or orphan entries;
+- its maximum expression depth is 128 and every expression span resolves in the exact compilation
+  `SourceMap`; and
+- program, parameter, expression, export-byte, and diagnostic budgets remain within the public
+  constants in `zryna-ir`.
+
+Verification and current JavaScript and WebAssembly emission are iterative and bounded. The normative
+[scalar ABI v1](/reference/compiler/next/reference/scalar-abi-v1/) defines target names, carriers, invocation, and typed
+observation. Both emitters implement the sealed export mapping for the executable `I32V1` profile.
+The JavaScript emitter also implements its strict public carrier checks. JavaScript and core
+WebAssembly carrier tests consume the shared ABI fixture, but do not admit Boolean source or
+Boolean IR. A strict WebAssembly host wrapper and native public wrapper remain later gates.
+
+## Current JavaScript artifact path
+
+`zryna-driver::compile_javascript` is the source-connected JavaScript build boundary. It compiles
+an authenticated source map through semantics and verified IR, emits one deterministic ECMAScript
+module, and publishes `<stem>.mjs` only when the destination does not already exist. The caller
+must first derive an `ArtifactOutputRoot` capability (also exposed by its JavaScript compatibility
+name) from an absolute workspace path. That
+capability resolves only the declared `.zryna/out` location and rejects any persistent path
+component that is missing, non-directory, a symbolic link, or a Windows reparse point. The full
+chain is revalidated immediately before publication. The artifact stem is one portable ASCII
+filename component.
+
+Publication writes, flushes, and synchronizes a create-new sibling temporary file before using a
+create-only hard link for the final name. It never replaces an existing file, directory, or link.
+A failed source, backend, or publication phase does not report a new artifact; an existing
+destination is preserved byte-for-byte. Concurrent hostile replacement of filesystem ancestors
+after validation is outside this process-local publication proof, and directory-entry crash
+durability is not claimed. Temporary-name cleanup failure after successful publication is returned
+as a warning without hiding the successfully published artifact.
+
+The public run command imports and executes generated modules with an explicitly validated, exact
+Node.js 22.22.1 runtime. The same engine remains the pinned integration-test harness. Generated
+modules are self-contained; the Node process is a host, not a bundled Zryna runtime.
+
+## Current WebAssembly artifact path
+
+`zryna-driver::compile_webassembly` independently connects authenticated source to verified IR,
+the direct WebAssembly backend, and `<stem>.wasm` publication. It does not call the JavaScript or
+native backends. The backend emits deterministic core modules in type, function, export, and code
+section order, using only `local.get`, `i32.const`, `i32.add`, and `end`; empty programs are the
+eight-byte core-module header. Exports use only the sealed WebAssembly ABI name.
+
+Completed bytes must pass `wasmparser` with explicit `WasmFeatures::WASM1` and then a fail-closed
+profile audit. The audit permits no imports, tables, memory, globals, start function, elements,
+data, tags, custom sections, non-function exports, locals, or instructions outside `I32V1`.
+Only after both checks does the backend construct `ValidatedWebAssemblyArtifact`; the public
+publisher accepts that sealed type rather than arbitrary bytes. Publication reuses the same
+validated `.zryna/out` capability and create-only atomic writer as JavaScript, so same-stem `.mjs`
+and `.wasm` artifacts can coexist and existing destinations remain untouched.
+
+Node.js 22.22.1 validates, instantiates, inspects, and executes the real artifact through the
+standard WebAssembly API in conformance tests and the public run command. That API is browser-
+compatible, but this is not a browser or DOM execution claim. Raw JavaScript calls to WebAssembly
+perform host coercion; the CLI validates the typed `I32V1` invocation before execution, while a
+general strict public host wrapper remains outside this slice.
+
+Native MIR has its own consumed raw-to-verified boundary. Raw functions claim logical names, a
+convention, typed signatures, dense typed values, operations, and results. The iterative bounded
+verifier proves the MIR invariants and independently seals scalar ABI v1 before constructing
+`VerifiedMirModule`. Each function view therefore carries the authoritative
+`zryna_v1_e_<logical>` symbol and Linux x86-64 System V convention; codegen does not invent names.
+
+`compile_native_object` selects exactly `x86_64-unknown-linux-gnu`, lowers verified source through
+native MIR, emits with pinned pure-Rust Cranelift, parses and fail-closed audits the ELF64
+little-endian relocatable object, then publishes `<stem>.o` through the shared create-only output
+capability. The audit requires the exact sealed global text symbols, no undefined symbols, and no
+relocations for the current leaf-function profile. It exposes bytes only as
+`ValidatedNativeObjectArtifact`.
+
+The driver owns the distinct native executable path. It discovers and pins canonical
+`/usr/bin/gcc`, its exact GNU x86-64 target, supported version, and canonical GNU linker into an
+opaque capability. A typed invocation must first pass Universal IR's embedded scalar ABI authority.
+The driver then writes the sealed object and one generated C11 harness into a private staging
+directory, launches the compiler driver directly with a cleared environment and fixed hardening
+arguments, and audits the resulting ELF executable before create-only `.elf` publication.
+Execution accepts only that published capability, uses a bounded process group, and returns a
+typed outcome from an exact four-byte channel. The capability retains the audited bytes and runs a
+fresh private staged copy, so replacing the public distribution path cannot change executed code.
+The CLI composes this boundary only for a previously verified, invocation-specific `I32V1`
+request. It is not arbitrary startup or a general native runner. Control flow, calls, Windows
+native output, FFI, and Boolean source/IR remain later gates.
+
+## Public CLI orchestration and transaction
+
+`zryna build` and `zryna run` accept one validated workspace-relative `.zry` entrypoint and one
+explicit `javascript`, `webassembly`, `native`, or `all` target. Architecture validation is always
+first. The driver authenticates the frontend once, lowers and verifies once, and dispatches the
+same `VerifiedProgram` in fixed JavaScript, WebAssembly, native order. Run requests also validate
+one exact export and typed `i32` argument vector once before any target executes.
+
+Individual library publishers retain their create-only artifact contracts. The public CLI adds a
+coarser transaction boundary: selected target artifacts and `zryna-manifest-v1.json` are written
+and synchronized in one directory adjacent to the final bundle. Unix sets transaction directories
+to mode `0700`; Windows inherits ACLs from the validated compiler-owned output root and therefore
+requires that root to be private to the invoking principal. After containment is revalidated, one
+create-only same-filesystem directory rename commits either
+`.zryna/out/<stem>.build` or `.zryna/out/<stem>.run`. Only selected target subdirectories exist.
+Any preparation, execution, audit, publication, or cleanup failure before commit leaves no final
+bundle, and an existing bundle is never replaced.
+
+Build bundles contain `.mjs`, `.wasm`, and/or the native `.o`. Run bundles contain `.mjs`, `.wasm`,
+and/or the invocation-specific native `.elf`, plus stable ordered typed observations in the
+manifest. The [M1 conformance suite](/reference/compiler/next/status/m1-conformance/) compares the public `all` observations with
+fixed expected values and the committed manifest; the runtime command does not define a second
+comparison semantics. See the [CLI reference](/reference/compiler/next/reference/cli/) for the exact command, layout, manifest,
+exit-status, runtime, and platform contracts.
+
+## Initial numeric contract
+
+The first vertical slice defines signed 32-bit wrapping addition:
+
+```text
+Zryna IR:      I32Add(a, b)
+JavaScript:  (a + b) | 0
+WebAssembly:   i32.add
+LLVM IR:     add i32 %a, %b
+```
+
+Future integer operations must specify width, signedness, overflow, conversion, comparison, and JavaScript representation before implementation.
+
+## WebAssembly profiles
+
+The current WebAssembly backend emits a core module directly from `VerifiedProgram`; it does not
+translate JavaScript or native output. The implemented slice consumes `I32V1`, exports pure
+functions over `i32`, validates and profile-audits every complete binary, and executes conformance
+fixtures in a pinned runtime. `bool` will be enabled only by a later universal profile implemented
+by every active backend.
+
+A later browser integration will add a generated JavaScript loader without giving the loader
+authority over language semantics. WASI and the Component Model are a later capability-bearing
+profile with separately pinned interface and ABI versions. Filesystem, network, clock, randomness,
+and environment access are unavailable unless a declared host profile imports them.

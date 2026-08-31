@@ -81,6 +81,12 @@ jobs:
           done
           curl --fail --silent http://127.0.0.1:8080/ >/dev/null
           curl --fail --silent http://127.0.0.1:8080/guides/getting-started/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/reference/compiler-status/ >/tmp/zryna-status.html
+          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/cli/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/m1-conformance/ >/dev/null
+          grep --fixed-strings --quiet '90615aecbbdc27836bbed3992d6736909f82ab58' /tmp/zryna-status.html
+          grep --fixed-strings --quiet '65369cea3a5a8e602a352d79a3263cb4585d4e2e8f79f6dfad6310a4228117e2' /tmp/zryna-status.html
+          grep --fixed-strings --quiet 'not production-ready' /tmp/zryna-status.html
           test "$(curl --silent --output /tmp/zryna-404.html --write-out '%{http_code}' http://127.0.0.1:8080/definitely-missing)" = "404"
           grep --fixed-strings --quiet '<title>404 | Zryna</title>' /tmp/zryna-404.html
           docker exec zryna-website-ci test -f /usr/share/licenses/zryna-website/LICENSE

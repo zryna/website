@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zryna.com/schemas/compiler-docs-lock-v1.schema.json",
+  "title": "Zryna website compiler documentation lock v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema",
+    "version",
+    "channel",
+    "bundlePath",
+    "manifestSha256",
+    "source",
+    "documents"
+  ],
+  "properties": {
+    "$schema": { "const": "../../../schemas/compiler-docs-lock-v1.schema.json" },
+    "schema": { "const": "zryna.website.compiler-docs-lock.v1" },
+    "version": { "const": 1 },
+    "channel": { "const": "next" },
+    "bundlePath": { "const": "src/content/compiler-data/next" },
+    "manifestSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "ref", "version"],
+      "properties": {
+        "repository": { "const": "https://github.com/zryna/zryna" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "ref": { "const": "refs/heads/main" },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?$"
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 512,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "sourcePath", "route"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9/-]*$" },
+          "sourcePath": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*\\.md$"
+          },
+          "route": { "type": "string", "pattern": "^/reference/compiler/next/[a-z0-9/-]+/$" }
+        }
+      }
+    }
+  }
+}

@@ -26,25 +26,24 @@ verified Universal IR
     └── native lowering → native MIR → object/link → executable
 ```
 
-This is the target boundary, not a description of an end-to-end compiler that already runs.
+This is now implemented for the narrow M1 `I32V1` profile. It is not a claim that later language
+features or runtime profiles already exist.
 
 ## Current foundation
 
 - The TypeScript 6 adapter reads restricted exported function bodies into provider-neutral,
   source-map-verified protocol-v2 syntax snapshots. It does not own semantic lowering to IR.
-- The current verified Universal IR covers a narrow scalar `i32` addition proof.
+- The current verified Universal IR covers the narrow scalar M1 `i32` executable profile.
 - The verified scalar ABI v1 authority seals scalar signatures, strict target carriers, typed
   observations, and deterministic names for JavaScript, core WebAssembly, and Linux x86-64.
-- The JavaScript emitter is tested from already constructed verified IR.
-- The native proof lowers constructed verified IR through an independently verified native MIR
-  boundary to textual LLVM IR.
-- No WebAssembly backend exists yet; direct core WebAssembly is an M1 implementation gate.
-- The CLI currently provides architecture and diagnostic foundation commands, not `.zry`
-  compilation.
+- The source-driven JavaScript and core WebAssembly backends emit direct runnable artifacts from
+  the same verified IR.
+- Linux x86-64 native lowering emits a relocatable ELF object and links a dynamic executable through
+  the verified native MIR boundary.
+- The CLI provides atomic `build` and `run` commands for the checked profile.
 
 The [normative scalar ABI v1 specification](https://github.com/zryna/zryna/blob/main/spec/abi/SCALAR_V1.md)
-is complete, but the current emitters do not yet implement its public wrappers and `bool` remains
-disabled in Universal IR.
+is implemented for the checked M1 `i32` wrappers; source-level `bool` remains deliberately disabled.
 
 ## Planned responsibilities
 
@@ -52,10 +51,10 @@ The frontend-provider boundary is intended to let TypeScript 6, a future TypeScr
 an eventual Zryna-owned frontend produce the same versioned syntax contract. Semantic analysis,
 ownership, exact numeric behavior, and diagnostics remain Zryna responsibilities.
 
-The native lowering layer is planned to own layout, calling conventions, deterministic destruction,
-object generation, linking, and platform legality checks. These capabilities are not implemented in
-the present foundation slice.
+The native lowering layer owns the checked M1 Linux x86-64 object/link boundary. Broader layouts,
+calling conventions, deterministic destruction, and additional platform legality rules remain
+future capability-bearing work.
 
-The WebAssembly backend will consume verified Universal IR directly, emit validated core modules,
-and begin with pure `i32` exports. Browser bindings, WASI, and Component Model profiles are later
+The WebAssembly backend consumes verified Universal IR directly and emits validated import-free core
+modules for the M1 `i32` profile. Browser bindings, WASI, and Component Model profiles remain later
 capability-bearing layers rather than hidden foundation behavior.

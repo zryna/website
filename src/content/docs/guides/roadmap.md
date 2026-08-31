@@ -20,12 +20,14 @@ This page is a non-normative public planning summary. The compiler repository's
 
 ## 1. First three-target executable slice
 
-- Use the frozen scalar ABI v1 contract to connect restricted source, semantics, and verified IR
-  for the first end-to-end program.
-- Emit and execute independent ECMAScript and direct core WebAssembly modules.
-- Lower the native proof into an executable rather than stopping at textual LLVM IR.
-- Test the same source program against JavaScript, WebAssembly, and native outputs.
-- Record target triples, toolchain requirements, and deterministic diagnostics.
+Completed for the deliberately narrow M1 `I32V1` profile:
+
+- restricted source now crosses Zryna semantics and verified IR into direct ECMAScript, core
+  WebAssembly, and Linux x86-64 native outputs;
+- build/run bundles are atomic and deterministic, and the same normal and overflow cases are
+  compared across all three targets;
+- target, ABI, toolchain, portability, and deliberately unsupported boundaries are recorded in the
+  [authenticated M1 evidence](/reference/compiler/next/status/m1-conformance/).
 
 ## 2. Language core
 
