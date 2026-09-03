@@ -1,9 +1,9 @@
 ---
 title: "Roadmap"
-description: "Compiler-owned next documentation imported from 0b80816b7bca."
+description: "Compiler-owned next documentation imported from 97eb9c8b64f9."
 ---
 
-> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/0b80816b7bca4d619c4716f1f15c993b30edb613/docs/ROADMAP.md) at commit `0b80816b7bca4d619c4716f1f15c993b30edb613`.
+> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/97eb9c8b64f9e534ad76de996c2eece85a25f729/docs/ROADMAP.md) at commit `97eb9c8b64f9e534ad76de996c2eece85a25f729`.
 
 # Delivery roadmap
 
@@ -186,12 +186,155 @@ Completion gates:
 
 ## M3 — Data, Memory, and Ownership
 
-- structs, enums, fixed arrays, and verified layouts;
-- owned strings and vectors;
-- move checking and deterministic drop insertion;
-- borrowing;
-- explicit shared and weak references;
-- versioned native and WebAssembly runtime ABIs.
+Goal: add a separate explicit `DataOwnershipV1` profile without reinterpreting default M1 or
+explicit M2. Issue #75 freezes the specification, exact non-goals, real issue graph, first internal
+Pair slice, checked layout rules, ownership transitions, and non-Rust runtime ABI before any M3
+implementation is activated. The canonical planning inventory is digest-pinned in
+`tests/m3-contract-v1.json`.
+
+Current status: the contract, internal verified aggregate-layout authority, separately versioned
+protocol-v4 syntax boundary, isolated `DataOwnershipV1` raw-to-verified IR boundary, and internal
+Copy-only struct/enum/fixed-array semantic lowerer, and sealed ownership-runtime ABI v1 declaration
+authority are implemented. The semantic boundary resolves
+nominal types and constant fixed-array projections, verifies both target layouts, and returns only
+sealed IR. The ABI authority verifies exact declarations, authenticated layout-derived records,
+checked header evidence, and pure transitions; it implements no allocator or helper. M3 is not
+selected by the public driver and exposes no runtime, backend, CLI, public aggregate ABI, target
+artifact, or host capability.
+
+Issue #81 is complete at a bounded internal compiler checkpoint. Private functions cover String
+literals, explicit clone, checked concatenation, moves, return cleanup, and root-local replacement,
+plus Vec construction, explicit clone for exact `Vec<bool>`, `Vec<i32>`, and `Vec<String>`, moves,
+return, push, checked Copy-element indexing, and supported exact
+root-local replacement. Zero-argument producers and one-argument owned identity calls transfer
+owners through independently verified direct-call boundaries. One canonical top-level no-phi
+String/Vec branch restores its incoming owner state after reverse-dropping branch locals, and one
+bounded terminal branch transfers either owned arm result through a canonical block-parameter
+join. One bounded top-level no-carried-owner loop reevaluates its condition in a canonical header,
+reverse-drops iteration locals before the backedge, and restores its exact incoming state on both
+the backedge and false exit. Its stable-place subset replaces one mutable outer String after full
+RHS preparation or pushes a Copy element into one mutable outer exact Vec without an owned header
+phi; Vec replacement and owned-element Vec push remain unavailable future extensions. The same gate proves use-after-move diagnostics, one-plan/one-site cleanup roles, and the
+cumulative 8 MiB String-literal limit while retaining verified IR and the exact runtime ABI
+authority. Its internal fault/drop-trace oracle consumes authenticated runtime status dispositions
+and exact trap identities for all admitted implemented String/Vec/aggregate-clone failures, keeps Vec bounds as a
+separate verified trap, and proves pre-commit retention, result exclusion, reverse cleanup,
+determinism, and bounded trace accounting without runtime execution. A bounded parameter-free
+private straight-line route also constructs, moves, explicitly clones, returns, and drops owned
+Struct, FixedArray, and root Enum graphs with Copy/String leaves. Structural clone retains its
+source, derives its fallible String-leaf count and root-enum active variant from sealed authorities,
+and uses prefix-safe failure cleanup. Mutable whole-root assignment for those graphs prepares a
+distinct replacement before `ReplacePlace` commits the sealed recursive old-value drop. The private String and
+aggregate/enum routes retain their distinct M3011 and M3014 moved-owner diagnostics, and unresolved
+bindings use M3002. General structural Vec clone beyond String elements, nested aggregate clone
+graphs containing Enum, Vec, Shared, or Weak values are future extensions. The verified IR prerequisite for
+projected replacement now seals the exact old-subobject traversal and preserves replacement
+subtree masks, enum refinement, and siblings. The semantic producer now resolves canonical static
+StructField and FixedArrayConstant projections, retains Copy leaves, moves exact String leaves, and
+moves one supported Struct/FixedArray subobject into an exact directly initialized same-type local.
+The subobject path materializes all source descendants, masks that whole subtree in the enclosing
+cleanup obligation, and preserves disjoint siblings. It also prepares and commits
+replacement of mutable available String leaves without disturbing sibling masks, and explicitly
+clones initialized available String leaves into distinct temporary owners while retaining the
+source root and its partial-state masks. One initialized available non-Copy Struct or FixedArray
+projection may now likewise be cloned into the immediately following exact same-type local, with
+one source-retaining private straight-line site and layout-derived aggregate-prefix failure cleanup.
+An exact-type direct local declaration can now transfer a
+partially moved supported Struct or FixedArray root through its move-result temporary into one new
+local; the producer materializes the complete static topology and migrates the exact root-relative
+mask at both owner renames. One final exact-reference return also transfers that complete partial
+state into an exact-topology temporary before survivor cleanup, with independent IR rejection of
+forged or unsupported topology. One distinct mutable initialized same-type whole-root assignment
+destination now accepts that partial Struct or FixedArray after complete source, temporary, and
+destination topology plus resource preflight; replacement drops the old destination once and
+installs the exact mask. One exact private single-variant enum `match` now moves its complete
+supported Struct/FixedArray payload into a direct local, drops the emptied enum root, and reaches a
+final local return through a zero-argument continuation with exact `D + 5` place amplification.
+The combined projected-assignment checkpoint now additionally admits one complete static
+Struct/FixedArray subobject move or explicit clone between distinct local roots. It requires an
+immediate source operation -> sole-use typed temporary -> `ReplacePlace`. Move materializes and
+masks the complete selected source subtree; clone retains its available source without descendant
+places and seals layout-derived prepare/prefix failure cleanup. Both drop only the old target
+subtree and preserve roots, sibling masks, and pending order. Move amplification is one value,
+`S + D + T + 1` places, and two transitions. Clone amplification is one value, `S + T + 1` places,
+two transitions, two cleanup plans, and `2P + 1` actions for pending-root count `P`.
+One separate parameter-free private final-return checkpoint moves one complete available static
+Struct/FixedArray subobject from a local root. It materializes and masks the exact source subtree,
+returns the sole-use exact-type temporary, excludes that owner from survivor cleanup, and
+preflights one value, `D + 1` places, one transition, one cleanup plan, and all pending cleanup
+actions before mutation; a missing canonical source path adds its exact `M` places, for
+`M + D + 1` total.
+Enum partial-root transfer, aggregate-subobject moves outside that at-most-one direct-local or
+parameter-free final-return form or
+that one match-local payload extraction, and broader enum-payload moves,
+transfer in call/CFG contexts, projected assignment outside the narrow site below, or
+non-final/non-reference returns, dynamic projections,
+direct projected-clone returns, public contexts, projected aggregate clone outside the exact
+direct-local or distinct-root static-replacement forms, and projected aggregate assignment outside
+one private straight-line complete static subobject move/clone between distinct local roots or
+move/explicit clone from a distinct fully
+initialized exact same-type whole Struct/FixedArray root into a mutable available static
+`StructField`/`FixedArrayConstant` projection remain open, alongside
+general owned joins, owned loop-carried joins, repeated or nested control flow, and general scope
+exits are future child-issue work. Issue #82 is active through the checked dependency graph in
+[`M3_BORROWING_SEMANTICS.md`](/reference/compiler/next/reference/m3-borrowing-semantics/). Issue #113 freezes the contract and
+existing verified-IR prerequisite. Issues #114 and #115 implement the internal private straight-line
+`bool`/`i32` root shapes: shared and exclusive Copy access, const-alias write-through, the complete
+root conflict matrix, one shared-from-shared reborrow, deterministic reverse lexical end, and
+post-scope owner reuse. Issue #117 adds one private bool-root conditional with canonical
+entry/then/else/join blocks, complete reverse arm discharge before each jump, dense source-ordered
+borrow identities, exact summed arm costs, maximum-per-arm active capacity, and no borrow phi or
+edge authority. Issue #120 adds canonical recursively Copy Struct-field and constant fixed-array
+borrowing: static siblings are disjoint, same/ancestor/descendant paths overlap, projected
+resources are preflighted exactly, and dynamic/Vec/enum/non-Copy projections fail closed. Issue
+\#121 adds one fixed preheader/header/body/exit bool-root loop whose body
+reuses one static dense authority plan, reverse-ends it before every backedge, restores exact root
+owner/initialization state, and carries no borrow authority, value block parameter, or edge
+argument. The completed Issue #116 implementation adds one private parameter-free whole
+owned root with one const shared alias in one lexical block. It admits only String clone/checked
+concat, exact `Vec<bool>`/`Vec<i32>` Copy indexing, and supported whole
+Struct/root-Enum/fixed-array clone; it retains the source, gives owned read results distinct owners,
+reuses existing cleanup/fault authority, and leaves `BorrowRead` Copy-only. Projection, mutation,
+move, runtime, backend, and public activation are excluded. Issue #116 passed independent
+verification and required merge gates. Issue #119 completes the bounded private straight-line
+whole-root call-only nonescape slice: exact recursively Copy signatures carry shared or exclusive
+authority in source order, evaluate arguments left to right, permit same-authority forwarding, and
+leave lexical `EndBorrow` with the caller. The mandatory verifier retains acyclic-call and exact
+static-depth authority, while the authenticated registry freezes 36 source/snapshot files, 5
+accepted cases, and 13 exclusions at merged-main provenance
+`32e3f0607389dd1274c21770088456c765ee4fb7`. Protocol v4 and every runtime, backend, driver, CLI,
+artifact, and public-profile boundary remain unchanged. The remaining dependency-ordered slices
+retain nested/repeated control flow, runtime, backend, and public-profile work.
+
+| Issue | Gate                                                                   | Depends on              | State       |
+| ----: | ---------------------------------------------------------------------- | ----------------------- | ----------- |
+|   #75 | normative profile, layout, ownership, and runtime ABI contract         | M2 closure              | complete    |
+|   #76 | syntax protocol v4 and TypeScript 6 syntax-only adapter                | #75                     | complete    |
+|   #77 | verified aggregate layout authority                                    | #75                     | complete    |
+|   #78 | separately verified DataOwnershipV1 Universal IR                       | #75, #77                | complete    |
+|   #79 | struct, enum, and fixed-array semantic lowering                        | #76, #77, #78           | complete    |
+|   #80 | versioned ownership runtime ABI authority                              | #75, #77                | complete    |
+|   #81 | owned String/Vec, move checking, and deterministic drop                | #78, #79, #80           | complete    |
+|   #82 | bounded nonescaping lexical borrowing                                  | #81                     | in progress |
+|   #83 | explicit shared and weak reference semantics                           | #80, #81, #82           | planned     |
+|   #84 | deterministic JavaScript and sealed helpers                            | #79, #80, #81, #82, #83 | planned     |
+|   #85 | audited memory-bearing core WebAssembly                                | #79, #80, #81, #82, #83 | planned     |
+|   #86 | independently verified native MIR                                      | #78, #80, #81, #82, #83 | planned     |
+|   #87 | audited Linux x86-64 object, runtime, link, and execution              | #77, #80, #86           | planned     |
+|   #88 | candidate driver integration and atomic manifest v3 bundles            | #76, #84, #85, #87      | planned     |
+|   #89 | fixed-oracle three-target conformance and resource gates               | #88                     | planned     |
+|   #90 | public profile activation, authenticated docs, website, and provenance | #89                     | planned     |
+
+`Pair` is the smallest mandatory fixed-oracle case, remains internal, and preserves scalar ABI v1
+exports. Issue #79 proves nominal identity, construction, source field order and access, sealed
+logical layout, verified IR, and the fixed scalar results through a test-only evaluator over opaque
+verified views, without heap allocation or a production execution path. Pair becomes executable
+across targets only inside the complete dependency-ordered backend, integration, and conformance
+work in #84 through #89; it is not an earlier partial-profile checkpoint.
+
+\#88 produces an internally testable candidate route and manifest, not a supported public selector.
+Exact `--profile data-ownership-v1` activation and support claims wait for #89 conformance and the
+\#90 authenticated publication gate.
 
 Completion gate: ownership and layout behavior is specified before implementation and remains equivalent across target-specific representations.
 

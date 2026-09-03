@@ -13,7 +13,8 @@ import {
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 
-const COMMIT = '0b80816b7bca4d619c4716f1f15c993b30edb613';
+const COMMIT = '97eb9c8b64f9e534ad76de996c2eece85a25f729';
+const MANIFEST_DIGEST = '665498348a30b6fd62cfe17bdd270eadab22b8f982dae302d748d7886dfa19bf';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -22,13 +23,15 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 21);
+	assert.equal(files.size, 31);
 	assert.deepEqual(
 		[...files.keys()],
 		[
+			'reference/aggregate-layout-v1.md',
 			'reference/architecture.md',
 			'reference/cli.md',
 			'reference/control-flow-modules-v1.md',
+			'reference/data-ownership-v1.md',
 			'reference/documentation-bundles.md',
 			'reference/frontends.md',
 			'reference/language-overview.md',
@@ -41,7 +44,15 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m2-native-mir.md',
 			'reference/m2-straight-line-semantics.md',
 			'reference/m2-webassembly-backend.md',
+			'reference/m3-borrowing-semantics.md',
+			'reference/m3-copy-aggregate-semantics.md',
+			'reference/m3-data-ownership-ir.md',
+			'reference/m3-owned-data-semantics.md',
+			'reference/m3-ownership-runtime-abi.md',
+			'reference/memory-model.md',
+			'reference/ownership-runtime-v1.md',
 			'reference/scalar-abi-v1.md',
+			'reference/syntax-protocol-v4.md',
 			'status/current.md',
 			'status/m0-conformance.md',
 			'status/m1-conformance.md',
@@ -58,9 +69,17 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 	const m2Conformance = files.get('reference/m2-conformance.md').toString('utf8');
 	assert.match(m2Conformance, new RegExp(`blob/${COMMIT}/docs/M2_CONFORMANCE\\.md`));
 	assert.match(m2Conformance, /`tests\/m2-conformance-v1\.json`/);
+	const borrowing = files.get('reference/m3-borrowing-semantics.md').toString('utf8');
+	assert.match(borrowing, new RegExp(`blob/${COMMIT}/docs/M3_BORROWING_SEMANTICS\\.md`));
+	assert.match(
+		borrowing,
+		/exactly 36 source and\s+protocol-v4 snapshot files, 5 accepted cases, and 13 excluded cases/,
+	);
+	const index = files.get('index.md').toString('utf8');
+	assert.match(index, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
 });
 
-test('authored status presents implemented M2 without broad runtime claims', async () => {
+test('authored status presents bounded internal borrowing evidence without broad runtime claims', async () => {
 	const root = new URL('../../src/content/docs/', import.meta.url);
 	const status = await readFile(new URL('reference/compiler-status.md', root), 'utf8');
 	const home = await readFile(new URL('index.mdx', root), 'utf8');
@@ -73,7 +92,30 @@ test('authored status presents implemented M2 without broad runtime claims', asy
 		);
 	}
 	assert.match(status, new RegExp(COMMIT));
-	assert.match(status, /ea927d2cfd88a63e309be0a4c716c1ea2f9a3b40f50e5547122300a212314bb4/);
+	assert.match(status, new RegExp(MANIFEST_DIGEST));
+	assert.match(status, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
+	assert.match(
+		status,
+		/bounded private straight-line, exact-signature, whole-root direct-call boundary/,
+	);
+	assert.match(status, /M1 default and explicit M2 remain the only public profiles/);
+	assert.match(
+		status,
+		/does\s+not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or\s+CLI route, or a target artifact/,
+	);
+	assert.doesNotMatch(status, /M3 (?:is )?(?:implemented|supported|publicly available)/i);
+	assert.doesNotMatch(
+		status,
+		/M3 (?:is )?(?:enabled|active|activated|production-ready|a public profile)/i,
+	);
+	assert.doesNotMatch(
+		status,
+		/(?:general|public) borrowing (?:is )?(?:supported|enabled|active|available)/i,
+	);
+	assert.doesNotMatch(
+		status,
+		/(?:runtime|backend|ABI|driver|CLI|target) (?:is )?(?:enabled|active|activated|supported|available)/i,
+	);
 	assert.match(home, /explicit M2 `control-flow-v1` profile/);
 	assert.match(gettingStarted, /not a general zero-runtime\s+or GC-free guarantee/);
 	assert.match(roadmap, /Completed as the explicit M2 `control-flow-v1` profile/);

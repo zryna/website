@@ -4,14 +4,19 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "ea927d2cfd88a63e309be0a4c716c1ea2f9a3b40f50e5547122300a212314bb4",
+  "manifestSha256": "665498348a30b6fd62cfe17bdd270eadab22b8f982dae302d748d7886dfa19bf",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "0b80816b7bca4d619c4716f1f15c993b30edb613",
+    "commit": "97eb9c8b64f9e534ad76de996c2eece85a25f729",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
   "documents": [
+    {
+      "id": "reference/aggregate-layout-v1",
+      "sourcePath": "spec/memory-model/AGGREGATE_LAYOUT_V1.md",
+      "route": "/reference/compiler/next/reference/aggregate-layout-v1/"
+    },
     {
       "id": "reference/architecture",
       "sourcePath": "docs/ARCHITECTURE.md",
@@ -26,6 +31,11 @@
       "id": "reference/control-flow-modules-v1",
       "sourcePath": "spec/language/CONTROL_FLOW_MODULES_V1.md",
       "route": "/reference/compiler/next/reference/control-flow-modules-v1/"
+    },
+    {
+      "id": "reference/data-ownership-v1",
+      "sourcePath": "spec/language/DATA_OWNERSHIP_V1.md",
+      "route": "/reference/compiler/next/reference/data-ownership-v1/"
     },
     {
       "id": "reference/documentation-bundles",
@@ -88,9 +98,49 @@
       "route": "/reference/compiler/next/reference/m2-webassembly-backend/"
     },
     {
+      "id": "reference/m3-borrowing-semantics",
+      "sourcePath": "docs/M3_BORROWING_SEMANTICS.md",
+      "route": "/reference/compiler/next/reference/m3-borrowing-semantics/"
+    },
+    {
+      "id": "reference/m3-copy-aggregate-semantics",
+      "sourcePath": "docs/M3_COPY_AGGREGATE_SEMANTICS.md",
+      "route": "/reference/compiler/next/reference/m3-copy-aggregate-semantics/"
+    },
+    {
+      "id": "reference/m3-data-ownership-ir",
+      "sourcePath": "docs/M3_DATA_OWNERSHIP_IR.md",
+      "route": "/reference/compiler/next/reference/m3-data-ownership-ir/"
+    },
+    {
+      "id": "reference/m3-owned-data-semantics",
+      "sourcePath": "docs/M3_OWNED_DATA_SEMANTICS.md",
+      "route": "/reference/compiler/next/reference/m3-owned-data-semantics/"
+    },
+    {
+      "id": "reference/m3-ownership-runtime-abi",
+      "sourcePath": "docs/M3_OWNERSHIP_RUNTIME_ABI.md",
+      "route": "/reference/compiler/next/reference/m3-ownership-runtime-abi/"
+    },
+    {
+      "id": "reference/memory-model",
+      "sourcePath": "spec/memory-model/OVERVIEW.md",
+      "route": "/reference/compiler/next/reference/memory-model/"
+    },
+    {
+      "id": "reference/ownership-runtime-v1",
+      "sourcePath": "spec/abi/OWNERSHIP_RUNTIME_V1.md",
+      "route": "/reference/compiler/next/reference/ownership-runtime-v1/"
+    },
+    {
       "id": "reference/scalar-abi-v1",
       "sourcePath": "spec/abi/SCALAR_V1.md",
       "route": "/reference/compiler/next/reference/scalar-abi-v1/"
+    },
+    {
+      "id": "reference/syntax-protocol-v4",
+      "sourcePath": "docs/SYNTAX_PROTOCOL_V4.md",
+      "route": "/reference/compiler/next/reference/syntax-protocol-v4/"
     },
     {
       "id": "status/current",

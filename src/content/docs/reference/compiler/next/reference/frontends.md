@@ -1,9 +1,9 @@
 ---
 title: "Frontend providers"
-description: "Compiler-owned next documentation imported from 0b80816b7bca."
+description: "Compiler-owned next documentation imported from 97eb9c8b64f9."
 ---
 
-> Verified compiler source: [docs/FRONTENDS.md](https://github.com/zryna/zryna/blob/0b80816b7bca4d619c4716f1f15c993b30edb613/docs/FRONTENDS.md) at commit `0b80816b7bca4d619c4716f1f15c993b30edb613`.
+> Verified compiler source: [docs/FRONTENDS.md](https://github.com/zryna/zryna/blob/97eb9c8b64f9e534ad76de996c2eece85a25f729/docs/FRONTENDS.md) at commit `97eb9c8b64f9e534ad76de996c2eece85a25f729`.
 
 # Replaceable frontend providers
 
@@ -51,7 +51,7 @@ UTF-8 ranges before constructing `ProjectSyntaxSnapshot`. Provider transport byt
 before JSON decoding. Protocol v2 extends the original declaration boundary with executable
 syntax without changing the meaning of `start` and `end`. Its raw DTOs and verified types
 live in `zryna-syntax`, below all provider implementations. See
-[Syntax protocol v2](https://github.com/zryna/zryna/blob/0b80816b7bca4d619c4716f1f15c993b30edb613/docs/SYNTAX_PROTOCOL_V2.md).
+[Syntax protocol v2](https://github.com/zryna/zryna/blob/97eb9c8b64f9e534ad76de996c2eece85a25f729/docs/SYNTAX_PROTOCOL_V2.md).
 
 ## Protocol migration state
 
@@ -148,3 +148,21 @@ protocol-v2 M1 path. The final authenticated closure can enter the
 [M2 native MIR profile](/reference/compiler/next/reference/m2-native-mir/) and its audited internal
 [Linux x86-64 native backend](/reference/compiler/next/reference/m2-native-backend/). Those sealed boundaries are surfaced only
 through the explicit profile and its manifest-v2 atomic transaction.
+
+## Protocol v4 data and ownership syntax
+
+Protocol v4 is a separate internal M3 contract. It adds a module-flat, canonical type-syntax
+arena; nominal struct and enum declaration syntax; fixed arrays and compiler-known owned,
+borrowed, shared, and weak container spellings; and source-faithful construction, projection,
+match, and weak-upgrade forms. The pinned TypeScript 6 worker uses parser AST shape and exact UTF-8
+byte spans only. It does not create a TypeScript `Program`, resolve a symbol or module, infer a
+type, classify a move, compute layout, apply ownership rules, or construct IR.
+
+The matching Rust transport requires exact protocol version `4` and the capability tuple
+`module_resolution: false`, `semantic_diagnostics: false`, `control_flow_v1: true`, and
+`data_ownership_syntax_v1: true`. Its bounded decoder and source-map verifier reject the complete
+response on unknown fields, malformed or non-source-faithful spans, noncanonical arenas,
+prototype-sensitive names, or the first item beyond a frozen limit. Protocols v2 and v3 remain
+independent and unchanged. Protocol v4 is not selected by the public driver or CLI; later M3
+semantics may consume only its opaque verified snapshot. See
+[syntax protocol v4](/reference/compiler/next/reference/syntax-protocol-v4/).
