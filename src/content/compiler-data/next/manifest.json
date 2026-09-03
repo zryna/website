@@ -4,17 +4,24 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "0b80816b7bca4d619c4716f1f15c993b30edb613",
+    "commit": "97eb9c8b64f9e534ad76de996c2eece85a25f729",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
   "documents": [
     {
+      "id": "reference/aggregate-layout-v1",
+      "path": "documents/reference/aggregate-layout-v1.md",
+      "title": "Aggregate layout v1",
+      "bytes": 21037,
+      "sha256": "024326a3c7d52596134e0de7d0fa375603ef932971bf65919e8393a74059459d"
+    },
+    {
       "id": "reference/architecture",
       "path": "documents/reference/architecture.md",
       "title": "Compiler architecture",
-      "bytes": 24090,
-      "sha256": "c60e53261a0e3fdc615e6b4dc20d4b9cfff2cf2ed192c73f1b9d4472db582c9f"
+      "bytes": 42777,
+      "sha256": "8ad63df4e7af186a6470f1a9a14b583c644cf4fd82050005b0cd05be789fd554"
     },
     {
       "id": "reference/cli",
@@ -31,6 +38,13 @@
       "sha256": "d4756db36365d95a9f34650cfa0f0ac1d7053ee2ce45e1926c4c80432b8ac905"
     },
     {
+      "id": "reference/data-ownership-v1",
+      "path": "documents/reference/data-ownership-v1.md",
+      "title": "Data and ownership v1",
+      "bytes": 24524,
+      "sha256": "eb12609efc958f93fcaa4154c329cc0bd1ac117af4d2524ea83c850a43fa3a03"
+    },
+    {
       "id": "reference/documentation-bundles",
       "path": "documents/reference/documentation-bundles.md",
       "title": "Compiler documentation bundles",
@@ -41,8 +55,8 @@
       "id": "reference/frontends",
       "path": "documents/reference/frontends.md",
       "title": "Frontend providers",
-      "bytes": 9012,
-      "sha256": "85c8ed95b918d47aac57dcdcef4fdbe93f2be692cdaea37ca78e4a43e73ee128"
+      "bytes": 10266,
+      "sha256": "fa14c68978a23b5bd18720fc8ce51dd08d7bb296ba20ac89943c3d17d1abca64"
     },
     {
       "id": "reference/language-overview",
@@ -115,6 +129,55 @@
       "sha256": "5d817db88328db5ee6554460776343f4b2e2163f387e8bf86fba80e82fb21ac0"
     },
     {
+      "id": "reference/m3-borrowing-semantics",
+      "path": "documents/reference/m3-borrowing-semantics.md",
+      "title": "M3 bounded borrowing semantics",
+      "bytes": 28185,
+      "sha256": "c9815ce12b3d5e20d4e61952030a6c3bc1dae7f7724cab3f504a82c920b1ca40"
+    },
+    {
+      "id": "reference/m3-copy-aggregate-semantics",
+      "path": "documents/reference/m3-copy-aggregate-semantics.md",
+      "title": "M3 Copy aggregate semantics",
+      "bytes": 16264,
+      "sha256": "3803fd9e7b33c4c3979d2247ea3f3216ab1c49c184d0e1fd430e8476c65cc479"
+    },
+    {
+      "id": "reference/m3-data-ownership-ir",
+      "path": "documents/reference/m3-data-ownership-ir.md",
+      "title": "M3 verified data and ownership IR",
+      "bytes": 25376,
+      "sha256": "39ee211ef1e375be10c232e9ad067c07682d6dfcf4876330e157330b9ca1b8db"
+    },
+    {
+      "id": "reference/m3-owned-data-semantics",
+      "path": "documents/reference/m3-owned-data-semantics.md",
+      "title": "M3 owned data semantics",
+      "bytes": 56017,
+      "sha256": "45cb89c4c261888b267722818a4d7c3cc889f410f44a64594c92a5acc905209e"
+    },
+    {
+      "id": "reference/m3-ownership-runtime-abi",
+      "path": "documents/reference/m3-ownership-runtime-abi.md",
+      "title": "M3 ownership runtime ABI authority",
+      "bytes": 6755,
+      "sha256": "89a2ad7acb9fa175bfb648b80cc0fe6a92465ee99c5df7447e8d54e9c80dc96f"
+    },
+    {
+      "id": "reference/memory-model",
+      "path": "documents/reference/memory-model.md",
+      "title": "Memory model direction",
+      "bytes": 1369,
+      "sha256": "a511d751927a43d55414c9d023446d5879123f55323d5efcbfca6a761dd72e6e"
+    },
+    {
+      "id": "reference/ownership-runtime-v1",
+      "path": "documents/reference/ownership-runtime-v1.md",
+      "title": "Ownership runtime ABI v1",
+      "bytes": 28394,
+      "sha256": "3329dca6ee8548623f9041fcf2cd97b36da7f5a94a263954f83210f0885accc6"
+    },
+    {
       "id": "reference/scalar-abi-v1",
       "path": "documents/reference/scalar-abi-v1.md",
       "title": "Scalar ABI v1",
@@ -122,11 +185,18 @@
       "sha256": "e15db32684d8eecfc442086e4a66f9a41c3e660443c54aeda52a1c1b3c9b9521"
     },
     {
+      "id": "reference/syntax-protocol-v4",
+      "path": "documents/reference/syntax-protocol-v4.md",
+      "title": "Syntax protocol v4",
+      "bytes": 12438,
+      "sha256": "660aac6a0f738fa4e09693d118d9efcfc98b16a7d38afe70518b9e7bb530ffe9"
+    },
+    {
       "id": "status/current",
       "path": "documents/status/current.md",
       "title": "Compiler status",
-      "bytes": 8028,
-      "sha256": "5031f86305990a68e6204fbe536478f429edec1981e34917f927d06b88e9bcb0"
+      "bytes": 25301,
+      "sha256": "4a8b488df068acdb0310742cc32d39dfb7e160599c09f6e576a1d21454df95d7"
     },
     {
       "id": "status/m0-conformance",
@@ -146,8 +216,8 @@
       "id": "status/roadmap",
       "path": "documents/status/roadmap.md",
       "title": "Roadmap",
-      "bytes": 13937,
-      "sha256": "2927955e138de8c9d5467d98bf553008708894507b74c70d916737c9754802ed"
+      "bytes": 27384,
+      "sha256": "0ee02529610b6dfea2f47ea5971ea300eb5f153c3768bb66403c633383d6bfd3"
     }
   ]
 }

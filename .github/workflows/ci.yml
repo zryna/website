@@ -85,9 +85,15 @@ jobs:
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/cli/ >/dev/null
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/control-flow-modules-v1/ >/dev/null
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/m2-conformance/ >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/m3-borrowing-semantics/ >/tmp/zryna-m3-borrowing.html
+          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/current/ >/tmp/zryna-current.html
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/m1-conformance/ >/dev/null
-          grep --fixed-strings --quiet '0b80816b7bca4d619c4716f1f15c993b30edb613' /tmp/zryna-status.html
-          grep --fixed-strings --quiet 'ea927d2cfd88a63e309be0a4c716c1ea2f9a3b40f50e5547122300a212314bb4' /tmp/zryna-status.html
+          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/roadmap/ >/tmp/zryna-roadmap.html
+          grep --fixed-strings --quiet '97eb9c8b64f9e534ad76de996c2eece85a25f729' /tmp/zryna-status.html
+          grep --fixed-strings --quiet '97eb9c8b64f9e534ad76de996c2eece85a25f729' /tmp/zryna-m3-borrowing.html
+          grep --fixed-strings --quiet '97eb9c8b64f9e534ad76de996c2eece85a25f729' /tmp/zryna-current.html
+          grep --fixed-strings --quiet '97eb9c8b64f9e534ad76de996c2eece85a25f729' /tmp/zryna-roadmap.html
+          grep --fixed-strings --quiet '665498348a30b6fd62cfe17bdd270eadab22b8f982dae302d748d7886dfa19bf' /tmp/zryna-status.html
           grep --fixed-strings --quiet 'implemented M2 explicit profile' /tmp/zryna-status.html
           grep --fixed-strings --quiet 'not production-ready' /tmp/zryna-status.html
           test "$(curl --silent --output /tmp/zryna-404.html --write-out '%{http_code}' http://127.0.0.1:8080/definitely-missing)" = "404"
