@@ -4,10 +4,10 @@ description: The authenticated current compiler status imported from the compile
 ---
 
 The website pins and validates the compiler-owned `next` bundle from commit
-[`b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`](https://github.com/zryna/zryna/commit/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510).
+[`8461e2677b397a4cda4431197b4b2ff17237cdf4`](https://github.com/zryna/zryna/commit/8461e2677b397a4cda4431197b4b2ff17237cdf4).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
-`baf8774c392089039ec06fa53064aabdba712070b07fa656f1289f1dfadb2979`.
+`78c2bdc64f184e65deb7dde815b0dc847b34b99f36a0e4206b56fe24b21900e7`.
 
 [Read the imported current status](/reference/compiler/next/status/current/), including the default
 M1 boundary, implemented M2 explicit profile, toolchain evidence, and deliberately unsupported
@@ -26,6 +26,11 @@ The [first-program walkthrough](/reference/compiler/next/reference/getting-start
 public M1/M2 workflow. The [Shared/Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/)
 and [evidence matrix](/reference/compiler/next/reference/m3-shared-weak-evidence/) distinguish
 verified contracts from remaining implementation and runtime evidence.
+
+The [ownership composition contract](/reference/compiler/next/reference/m3-ownership-composition/)
+and [composition evidence matrix](/reference/compiler/next/reference/m3-ownership-composition-evidence/)
+describe the planned integration of ownership features and the evidence still required. These
+documents are implementation contracts, not runnable public M3 examples or completed runtime support.
 
 M1 default and explicit M2 remain the only public profiles. The imported borrowing evidence does
 not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or

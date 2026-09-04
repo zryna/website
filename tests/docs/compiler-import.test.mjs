@@ -13,8 +13,8 @@ import {
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 
-const COMMIT = 'b5be0a8e14cd45f40597f3028e9a38bd4c0bc510';
-const MANIFEST_DIGEST = 'baf8774c392089039ec06fa53064aabdba712070b07fa656f1289f1dfadb2979';
+const COMMIT = '8461e2677b397a4cda4431197b4b2ff17237cdf4';
+const MANIFEST_DIGEST = '78c2bdc64f184e65deb7dde815b0dc847b34b99f36a0e4206b56fe24b21900e7';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -23,7 +23,7 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 34);
+	assert.equal(files.size, 36);
 	assert.deepEqual(
 		[...files.keys()],
 		[
@@ -49,6 +49,8 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m3-copy-aggregate-semantics.md',
 			'reference/m3-data-ownership-ir.md',
 			'reference/m3-owned-data-semantics.md',
+			'reference/m3-ownership-composition-evidence.md',
+			'reference/m3-ownership-composition.md',
 			'reference/m3-ownership-runtime-abi.md',
 			'reference/m3-shared-weak-authority.md',
 			'reference/m3-shared-weak-evidence.md',
@@ -93,6 +95,25 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 	const index = files.get('index.md').toString('utf8');
 	assert.match(index, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
 	assert.match(index, /\/reference\/compiler\/next\/reference\/getting-started\//);
+	for (const id of ['m3-ownership-composition', 'm3-ownership-composition-evidence']) {
+		assert(index.includes(`/reference/compiler/next/reference/${id}/`));
+	}
+	const composition = files.get('reference/m3-ownership-composition.md').toString('utf8');
+	const evidence = files.get('reference/m3-ownership-composition-evidence.md').toString('utf8');
+	assert(composition.includes(`blob/${COMMIT}/docs/M3_OWNERSHIP_COMPOSITION.md`));
+	assert(evidence.includes(`blob/${COMMIT}/docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md`));
+	assert(
+		composition.includes('/reference/compiler/next/reference/m3-ownership-composition-evidence/'),
+	);
+	assert(evidence.includes('/reference/compiler/next/reference/m3-ownership-composition/'));
+	assert.match(
+		composition,
+		/planned implementation contract, not implemented generic source semantics/,
+	);
+	assert.match(
+		evidence,
+		/planned evidence and integration matrix, not execution or implemented generic/,
+	);
 });
 
 test('authored status presents bounded internal borrowing evidence without broad runtime claims', async () => {
@@ -112,6 +133,9 @@ test('authored status presents bounded internal borrowing evidence without broad
 	assert.match(status, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
 	assert.match(status, /completed bounded internal Issue #82 boundary/);
 	assert.match(status, /M1 default and explicit M2 remain the only public profiles/);
+	assert(status.includes('/reference/compiler/next/reference/m3-ownership-composition/'));
+	assert(status.includes('/reference/compiler/next/reference/m3-ownership-composition-evidence/'));
+	assert.match(status, /not runnable public M3 examples or completed runtime support/);
 	assert.match(
 		status,
 		/does\s+not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or\s+CLI route, or a target artifact/,
@@ -147,15 +171,15 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	);
 	assert.equal(lock.source.commit, COMMIT);
 	assert.equal(lock.manifestSha256, MANIFEST_DIGEST);
-	assert.equal(lock.documents.length, 33);
+	assert.equal(lock.documents.length, 35);
 	assert(config.includes("slug: 'reference/compiler/next/reference/getting-started'"));
 	assert(guide.includes('/reference/compiler/next/reference/getting-started/'));
 	for (const marker of [
 		COMMIT,
 		MANIFEST_DIGEST,
-		'33827670130',
-		'9920932164',
-		'36db724475c0efaba81725136ef4e12d70531961b544fc11b1aa355c6b5d1a9c',
+		'33836974838',
+		'9923908348',
+		'ba54432cd80869746dcbee67e4646a39edd19f8c01d35df7fce16c9b687c006f',
 	]) {
 		assert(provenance.includes(marker), marker);
 	}

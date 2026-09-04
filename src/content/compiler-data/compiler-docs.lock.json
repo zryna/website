@@ -4,10 +4,10 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "baf8774c392089039ec06fa53064aabdba712070b07fa656f1289f1dfadb2979",
+  "manifestSha256": "78c2bdc64f184e65deb7dde815b0dc847b34b99f36a0e4206b56fe24b21900e7",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "b5be0a8e14cd45f40597f3028e9a38bd4c0bc510",
+    "commit": "8461e2677b397a4cda4431197b4b2ff17237cdf4",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -121,6 +121,16 @@
       "id": "reference/m3-owned-data-semantics",
       "sourcePath": "docs/M3_OWNED_DATA_SEMANTICS.md",
       "route": "/reference/compiler/next/reference/m3-owned-data-semantics/"
+    },
+    {
+      "id": "reference/m3-ownership-composition-evidence",
+      "sourcePath": "docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md",
+      "route": "/reference/compiler/next/reference/m3-ownership-composition-evidence/"
+    },
+    {
+      "id": "reference/m3-ownership-composition",
+      "sourcePath": "docs/M3_OWNERSHIP_COMPOSITION.md",
+      "route": "/reference/compiler/next/reference/m3-ownership-composition/"
     },
     {
       "id": "reference/m3-ownership-runtime-abi",
