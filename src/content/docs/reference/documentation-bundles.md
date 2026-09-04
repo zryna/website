@@ -18,9 +18,13 @@ pnpm docs:export -- --channel next --source-commit <commit> --source-ref refs/he
 
 The compiler's successful `main` CI exports and uploads the exact commit-and-digest-bound `next`
 artifact only after the complete aggregate M2 gate passes. This site pins the artifact from
-[run 33429935810](https://github.com/zryna/zryna/actions/runs/33429935810), commit
-`0b80816b7bca4d619c4716f1f15c993b30edb613`, and manifest SHA-256
-`ea927d2cfd88a63e309be0a4c716c1ea2f9a3b40f50e5547122300a212314bb4`.
+[run 33827670130](https://github.com/zryna/zryna/actions/runs/33827670130), commit
+`b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`, and manifest SHA-256
+`baf8774c392089039ec06fa53064aabdba712070b07fa656f1289f1dfadb2979`.
+Artifact `9920932164` contains 33 compiler-owned documents. Its downloaded archive SHA-256 is
+`36db724475c0efaba81725136ef4e12d70531961b544fc11b1aa355c6b5d1a9c`;
+this archive digest is distinct from the manifest digest above. The imported bytes were checked
+against both the manifest and the compiler's exact source commit before updating the trust lock.
 
 ## Bundle contract
 

@@ -1,9 +1,9 @@
 ---
 title: "Compiler architecture"
-description: "Compiler-owned next documentation imported from 97eb9c8b64f9."
+description: "Compiler-owned next documentation imported from b5be0a8e14cd."
 ---
 
-> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/97eb9c8b64f9e534ad76de996c2eece85a25f729/docs/ARCHITECTURE.md) at commit `97eb9c8b64f9e534ad76de996c2eece85a25f729`.
+> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510/docs/ARCHITECTURE.md) at commit `b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`.
 
 # Compiler architecture
 
@@ -557,7 +557,9 @@ Struct/root-Enum/fixed-array clone. It brackets the existing owned operations wi
 authority, retains the source, gives each owned result a distinct owner, and reuses existing
 cleanup/fault plans; `BorrowRead` remains Copy-only. It adds no projection, mutation, move,
 runtime, backend, or public capability. Issue #116 passed independent verification and required
-merge gates; aggregate closure remains #122.
+merge gates. Issue #122 consolidates the complete bounded internal borrowing boundary, its named
+resource/negative evidence and integrated regressions. Shared/Weak production and the normative
+\#254–#256 indexed-borrowing chain remain separate work; this enables no public profile or runtime.
 
 `zryna-syntax::v4` is the provider-neutral M3 syntax boundary. Its closed JSON schema, bounded raw
 DTOs, pinned TypeScript 6 syntax-only worker, strict process handshake, and Rust verifier preserve

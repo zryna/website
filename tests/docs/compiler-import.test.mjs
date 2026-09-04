@@ -13,8 +13,8 @@ import {
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 
-const COMMIT = '97eb9c8b64f9e534ad76de996c2eece85a25f729';
-const MANIFEST_DIGEST = '665498348a30b6fd62cfe17bdd270eadab22b8f982dae302d748d7886dfa19bf';
+const COMMIT = 'b5be0a8e14cd45f40597f3028e9a38bd4c0bc510';
+const MANIFEST_DIGEST = 'baf8774c392089039ec06fa53064aabdba712070b07fa656f1289f1dfadb2979';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -23,7 +23,7 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 31);
+	assert.equal(files.size, 34);
 	assert.deepEqual(
 		[...files.keys()],
 		[
@@ -34,6 +34,7 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/data-ownership-v1.md',
 			'reference/documentation-bundles.md',
 			'reference/frontends.md',
+			'reference/getting-started.md',
 			'reference/language-overview.md',
 			'reference/m2-conformance.md',
 			'reference/m2-control-flow-semantics.md',
@@ -49,6 +50,8 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m3-data-ownership-ir.md',
 			'reference/m3-owned-data-semantics.md',
 			'reference/m3-ownership-runtime-abi.md',
+			'reference/m3-shared-weak-authority.md',
+			'reference/m3-shared-weak-evidence.md',
 			'reference/memory-model.md',
 			'reference/ownership-runtime-v1.md',
 			'reference/scalar-abi-v1.md',
@@ -73,10 +76,23 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 	assert.match(borrowing, new RegExp(`blob/${COMMIT}/docs/M3_BORROWING_SEMANTICS\\.md`));
 	assert.match(
 		borrowing,
-		/exactly 36 source and\s+protocol-v4 snapshot files, 5 accepted cases, and 13 excluded cases/,
+		/Status: bounded compiler-boundary implementation complete for Issue #82/,
 	);
+	assert.match(
+		borrowing,
+		/Nested\/repeated control-flow borrowing remains a dependency-ordered later/,
+	);
+	const guide = files.get('reference/getting-started.md').toString('utf8');
+	assert.match(guide, new RegExp(`blob/${COMMIT}/docs/GETTING_STARTED\\.md`));
+	assert.match(
+		guide,
+		/\/reference\/compiler\/next\/reference\/m2-control-flow-semantics\/#accepted-control-flow/,
+	);
+	assert.match(guide, /ZRYNA-B2102/);
+	assert.match(guide, /ZRYNA-C1009/);
 	const index = files.get('index.md').toString('utf8');
 	assert.match(index, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
+	assert.match(index, /\/reference\/compiler\/next\/reference\/getting-started\//);
 });
 
 test('authored status presents bounded internal borrowing evidence without broad runtime claims', async () => {
@@ -94,10 +110,7 @@ test('authored status presents bounded internal borrowing evidence without broad
 	assert.match(status, new RegExp(COMMIT));
 	assert.match(status, new RegExp(MANIFEST_DIGEST));
 	assert.match(status, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
-	assert.match(
-		status,
-		/bounded private straight-line, exact-signature, whole-root direct-call boundary/,
-	);
+	assert.match(status, /completed bounded internal Issue #82 boundary/);
 	assert.match(status, /M1 default and explicit M2 remain the only public profiles/);
 	assert.match(
 		status,
@@ -119,6 +132,33 @@ test('authored status presents bounded internal borrowing evidence without broad
 	assert.match(home, /explicit M2 `control-flow-v1` profile/);
 	assert.match(gettingStarted, /not a general zero-runtime\s+or GC-free guarantee/);
 	assert.match(roadmap, /Completed as the explicit M2 `control-flow-v1` profile/);
+});
+
+test('walkthrough navigation and authored provenance agree with the reviewed import', async () => {
+	const root = new URL('../../', import.meta.url);
+	const config = await readFile(new URL('astro.config.mjs', root), 'utf8');
+	const guide = await readFile(new URL('src/content/docs/guides/getting-started.md', root), 'utf8');
+	const provenance = await readFile(
+		new URL('src/content/docs/reference/documentation-bundles.md', root),
+		'utf8',
+	);
+	const lock = JSON.parse(
+		await readFile(new URL('src/content/compiler-data/compiler-docs.lock.json', root), 'utf8'),
+	);
+	assert.equal(lock.source.commit, COMMIT);
+	assert.equal(lock.manifestSha256, MANIFEST_DIGEST);
+	assert.equal(lock.documents.length, 33);
+	assert(config.includes("slug: 'reference/compiler/next/reference/getting-started'"));
+	assert(guide.includes('/reference/compiler/next/reference/getting-started/'));
+	for (const marker of [
+		COMMIT,
+		MANIFEST_DIGEST,
+		'33827670130',
+		'9920932164',
+		'36db724475c0efaba81725136ef4e12d70531961b544fc11b1aa355c6b5d1a9c',
+	]) {
+		assert(provenance.includes(marker), marker);
+	}
 });
 
 test('rejects raw HTML and active URL protocols before generation', () => {
