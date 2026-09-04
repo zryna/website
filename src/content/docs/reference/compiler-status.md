@@ -4,10 +4,10 @@ description: The authenticated current compiler status imported from the compile
 ---
 
 The website pins and validates the compiler-owned `next` bundle from commit
-[`8461e2677b397a4cda4431197b4b2ff17237cdf4`](https://github.com/zryna/zryna/commit/8461e2677b397a4cda4431197b4b2ff17237cdf4).
+[`c3f828cafc762fcc9de123226d3f7f9403ad239f`](https://github.com/zryna/zryna/commit/c3f828cafc762fcc9de123226d3f7f9403ad239f).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
-`78c2bdc64f184e65deb7dde815b0dc847b34b99f36a0e4206b56fe24b21900e7`.
+`c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc`.
 
 [Read the imported current status](/reference/compiler/next/status/current/), including the default
 M1 boundary, implemented M2 explicit profile, toolchain evidence, and deliberately unsupported
@@ -29,8 +29,15 @@ verified contracts from remaining implementation and runtime evidence.
 
 The [ownership composition contract](/reference/compiler/next/reference/m3-ownership-composition/)
 and [composition evidence matrix](/reference/compiler/next/reference/m3-ownership-composition-evidence/)
-describe the planned integration of ownership features and the evidence still required. These
-documents are implementation contracts, not runnable public M3 examples or completed runtime support.
+describe the planned integration of ownership features and the internal constructor-preparation
+candidate. The admitted aggregate child trees are prepared before real compiler state changes;
+rejected trees preserve prior statements, and single-use consumption checks bind operands,
+ownership effects, cleanup roles, and resource accounting. Independent IR verification remains
+mandatory.
+
+This is not complete mixed aggregate/Vec construction, generic ownership composition, runtime
+failure testing, or public M3 support. The documents distinguish the current internal implementation
+from remaining work; they are not runnable public M3 examples or completed runtime support.
 
 M1 default and explicit M2 remain the only public profiles. The imported borrowing evidence does
 not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or

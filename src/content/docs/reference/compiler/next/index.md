@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`8461e2677b397a4cda4431197b4b2ff17237cdf4`](https://github.com/zryna/zryna/commit/8461e2677b397a4cda4431197b4b2ff17237cdf4).
+This reference was imported from compiler commit [`c3f828cafc762fcc9de123226d3f7f9403ad239f`](https://github.com/zryna/zryna/commit/c3f828cafc762fcc9de123226d3f7f9403ad239f).
 
 - [Aggregate layout v1](/reference/compiler/next/reference/aggregate-layout-v1/)
 - [Compiler architecture](/reference/compiler/next/reference/architecture/)

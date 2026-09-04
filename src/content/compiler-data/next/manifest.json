@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "8461e2677b397a4cda4431197b4b2ff17237cdf4",
+    "commit": "c3f828cafc762fcc9de123226d3f7f9403ad239f",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -160,22 +160,22 @@
       "id": "reference/m3-owned-data-semantics",
       "path": "documents/reference/m3-owned-data-semantics.md",
       "title": "M3 owned data semantics",
-      "bytes": 56291,
-      "sha256": "edc89277950b2e36cabdd7bd3a2f77ced618638473fada768c5d946ca1605576"
+      "bytes": 56842,
+      "sha256": "147c13aec8f6dc4bcb9d76ee3153bd337769ac58b723b14548ffd278106c7020"
     },
     {
       "id": "reference/m3-ownership-composition-evidence",
       "path": "documents/reference/m3-ownership-composition-evidence.md",
       "title": "M3 ownership composition evidence",
-      "bytes": 8732,
-      "sha256": "c5e1afef74ac9778f6547aa617a2c1bb1ce0ccb359bf20c884bc7b877a7573ce"
+      "bytes": 17651,
+      "sha256": "65be03badf43d5d85dfff454afdc76f4752b9cb0ab1cfe5000155020a4929350"
     },
     {
       "id": "reference/m3-ownership-composition",
       "path": "documents/reference/m3-ownership-composition.md",
       "title": "M3 ownership composition interfaces",
-      "bytes": 11433,
-      "sha256": "eee153deb797f1851fafe4d76089b252da705e3fcdaa326159b068b2f823d929"
+      "bytes": 12001,
+      "sha256": "ebbc496429e99712aaab8b5d3514d13f68ae47a2b5b4e4a7cddfc4427e5ac5f3"
     },
     {
       "id": "reference/m3-ownership-runtime-abi",

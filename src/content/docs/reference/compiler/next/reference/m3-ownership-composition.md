@@ -1,9 +1,9 @@
 ---
 title: "M3 ownership composition interfaces"
-description: "Compiler-owned next documentation imported from 8461e2677b39."
+description: "Compiler-owned next documentation imported from c3f828cafc76."
 ---
 
-> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
+> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
 
 # M3 ownership composition interfaces
 
@@ -46,6 +46,13 @@ publishes no result, retains the operation's uncommitted inputs and reverse-clea
 temporaries according to the original trap. This is not rollback of earlier successful expression
 evaluation. A trap prevents later evaluation. Preserve diagnostic precedence, authenticated spans
 and reservation-release order; a terminal resource diagnostic prevents later dependent planning.
+
+Compile-time rejection and runtime failure are separate observations. The internal aggregate
+child-preparation candidate leaves real compiler arenas, ownership state and type cache unchanged
+when a child tree is rejected, while retaining earlier successful statements. Its runtime cleanup
+instructions still follow the failure/commit contract above; planning is not target execution.
+See the [candidate evidence and remaining scope](/reference/compiler/next/reference/m3-ownership-composition-evidence/) rather than
+interpreting this internal checkpoint as completed generic C2 or public M3 support.
 
 ## C3: Place replacement and initialized shape
 
