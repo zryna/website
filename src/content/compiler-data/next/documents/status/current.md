@@ -211,7 +211,7 @@ transfer or partial-root transfer in call/CFG contexts, direct projected-clone r
 contexts, or non-final/non-reference returns, general owned phi joins,
 owned loop-carried phi joins, repeated or nested branches or loops, and general scope exits remain
 deliberately unavailable future extensions; `break`, `continue`, loop-body return, and post-loop
-effects remain excluded. Issue #82 is now active through its checked child-issue dependency graph.
+effects remain excluded. Issue #82 is complete at its bounded internal lexical-borrowing boundary.
 Issues #113 through #117, #119, #120, and #121 freeze the bounded borrowing contract, retain the independent verified-IR
 authority, and implement one internal private parameter-free literal-initialized `bool`/`i32` root
 with shared or exclusive aliases. Straight-line aliases use one nested lexical block, conditional
@@ -251,6 +251,17 @@ acyclic calls, and the 128-accepts/129-rejects static-depth boundary. The
 cases, and 13 exclusions. Its merged registry SHA-256 is
 `d61d1ec50005bbed7d86f029fa6ece5efa7517d495b6aed6e9b0f1c15f69e20f`; its canonical borrow-call
 section SHA-256 is `ca7ca013771f8ebb0ddc3f7791bc46db6378892e89f3e8e570a44e42e687fc20`.
+The current registry additionally tracks normative indexed-borrow prerequisites #254–#256 and
+source-completion #269 before complete target support; its SHA-256 is
+`4840114001e53f510a285114a33fb15e3a9599067473e8707d2607333c339d18`.
+This updates planned dependencies, not implemented capability. The #119 commit and digest above
+remain immutable historical provenance; the borrow-call section and fixture bytes are unchanged.
+The planned #277 integration contract, #278 non-handle owned core and #279 ownership CFG core
+are separately closeable prerequisites for the full Shared/Weak producers, not dependents of
+#83 or #269 closure. #259–#264 retain full payload and control-flow obligations. Later #270–#275
+complete generic ownership, CFG, calls, enums, ordinary dynamic-array access and non-indexed
+owned borrowing; #270 also owns ordinary generic Vec reads and replacement. These source/IR
+requirements remain mandatory and block complete #84/#85/#86 support alongside existing gates.
 Protocol v4 is unchanged; projected forwarding, repeated calls, CFG
 crossing, recursion, owned aggregate call shapes, public borrow signatures, retained authority,
 and nested/repeated control flow remain later or unavailable child work. This adds no runtime,
@@ -263,8 +274,8 @@ explicit `control-flow-v1` M2 remain the only public profiles.
 
 The first planned executable slice remains an internal scalarizable `Pair` struct observed through
 a scalar ABI v1 result. Its semantic oracle is implemented, but target execution is not. The
-completed bounded owned String/Vec compiler boundary and implemented bounded lexical-borrow child
-slices remain internal; #122 owns aggregate borrowing closure. Later dependency-ready issues add
+completed bounded owned String/Vec and lexical-borrow compiler boundaries remain internal;
+#122 consolidates borrowing closure evidence. Issue #83 is the next dependency-ready work. Later issues add
 explicit shared/weak references, three target implementations, an atomic manifest v3 CLI,
 fixed-oracle conformance, and authenticated website publication. Tracing GC,
 public aggregate ABI,

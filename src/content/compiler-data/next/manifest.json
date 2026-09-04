@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "97eb9c8b64f9e534ad76de996c2eece85a25f729",
+    "commit": "b5be0a8e14cd45f40597f3028e9a38bd4c0bc510",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -20,8 +20,8 @@
       "id": "reference/architecture",
       "path": "documents/reference/architecture.md",
       "title": "Compiler architecture",
-      "bytes": 42777,
-      "sha256": "8ad63df4e7af186a6470f1a9a14b583c644cf4fd82050005b0cd05be789fd554"
+      "bytes": 43026,
+      "sha256": "9da1a60d784d66a7485c1b20290410b63635d2d75071d138d4ed05600e8f3e5c"
     },
     {
       "id": "reference/cli",
@@ -57,6 +57,13 @@
       "title": "Frontend providers",
       "bytes": 10266,
       "sha256": "fa14c68978a23b5bd18720fc8ce51dd08d7bb296ba20ac89943c3d17d1abca64"
+    },
+    {
+      "id": "reference/getting-started",
+      "path": "documents/reference/getting-started.md",
+      "title": "Run your first Zryna programs",
+      "bytes": 9860,
+      "sha256": "38f567641d212f9d806fa585d2bf6c3ad8f8c152512ca86ef86d8b257f2a29fe"
     },
     {
       "id": "reference/language-overview",
@@ -132,8 +139,8 @@
       "id": "reference/m3-borrowing-semantics",
       "path": "documents/reference/m3-borrowing-semantics.md",
       "title": "M3 bounded borrowing semantics",
-      "bytes": 28185,
-      "sha256": "c9815ce12b3d5e20d4e61952030a6c3bc1dae7f7724cab3f504a82c920b1ca40"
+      "bytes": 40110,
+      "sha256": "302cf37df26da994272f601a687e3df63480b6e8d9b0fab914996bd3a04e0cf9"
     },
     {
       "id": "reference/m3-copy-aggregate-semantics",
@@ -153,8 +160,8 @@
       "id": "reference/m3-owned-data-semantics",
       "path": "documents/reference/m3-owned-data-semantics.md",
       "title": "M3 owned data semantics",
-      "bytes": 56017,
-      "sha256": "45cb89c4c261888b267722818a4d7c3cc889f410f44a64594c92a5acc905209e"
+      "bytes": 56291,
+      "sha256": "edc89277950b2e36cabdd7bd3a2f77ced618638473fada768c5d946ca1605576"
     },
     {
       "id": "reference/m3-ownership-runtime-abi",
@@ -162,6 +169,20 @@
       "title": "M3 ownership runtime ABI authority",
       "bytes": 6755,
       "sha256": "89a2ad7acb9fa175bfb648b80cc0fe6a92465ee99c5df7447e8d54e9c80dc96f"
+    },
+    {
+      "id": "reference/m3-shared-weak-authority",
+      "path": "documents/reference/m3-shared-weak-authority.md",
+      "title": "M3 Shared and Weak authority contract",
+      "bytes": 18506,
+      "sha256": "5f8faeb15322a03397ef0f9d208a93ecec707278d9c980641d6d610620cbcd3c"
+    },
+    {
+      "id": "reference/m3-shared-weak-evidence",
+      "path": "documents/reference/m3-shared-weak-evidence.md",
+      "title": "M3 Shared and Weak evidence matrix",
+      "bytes": 12163,
+      "sha256": "91249aac7a68e47c68cb828c7146c444429a0bb737d0e74fdcf9cb66556b5363"
     },
     {
       "id": "reference/memory-model",
@@ -195,8 +216,8 @@
       "id": "status/current",
       "path": "documents/status/current.md",
       "title": "Compiler status",
-      "bytes": 25301,
-      "sha256": "4a8b488df068acdb0310742cc32d39dfb7e160599c09f6e576a1d21454df95d7"
+      "bytes": 26300,
+      "sha256": "ef6e4243ad6cfc7cf7453d33d7a0dbdd21ea617e10e45d708cbbac4b30fbb020"
     },
     {
       "id": "status/m0-conformance",
@@ -216,8 +237,8 @@
       "id": "status/roadmap",
       "path": "documents/status/roadmap.md",
       "title": "Roadmap",
-      "bytes": 27384,
-      "sha256": "0ee02529610b6dfea2f47ea5971ea300eb5f153c3768bb66403c633383d6bfd3"
+      "bytes": 32263,
+      "sha256": "ac0902019dc34cbf810438a63e70f873549e6974bf139be91bd7164f0973531f"
     }
   ]
 }

@@ -52,6 +52,10 @@ export default defineConfig({
 					label: 'Learn',
 					items: [
 						{ label: 'Getting started', slug: 'guides/getting-started' },
+						{
+							label: 'Run your first programs',
+							slug: 'reference/compiler/next/reference/getting-started',
+						},
 						{ label: 'Roadmap', slug: 'guides/roadmap' },
 					],
 				},

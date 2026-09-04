@@ -6,6 +6,11 @@ description: Understand what the current Zryna foundation can do and where the p
 Zryna is being built as a strict, JavaScript-friendly language with three direct output paths:
 JavaScript, WebAssembly, and native code. It is not ready for production use yet.
 
+For installation, runnable examples, expected results, and common errors, follow
+[Run your first Zryna programs](/reference/compiler/next/reference/getting-started/).
+That compiler-owned walkthrough explains the exact toolchain, M1/M2 profile selection,
+fresh output names, and supported target/platform combinations.
+
 ## What works today
 
 The default M1 `I32V1` profile provides one narrow end-to-end compiler slice:
@@ -40,8 +45,8 @@ export function add(left: i32, right: i32): i32 {
 ## What comes next
 
 1. Preserve the default M1 path and explicit M2 profile with authenticated cross-target gates.
-2. Specify owned data, layout, allocation, and runtime profiles without silently broadening either
-   scalar profile.
+2. Complete implementation and verification of the specified owned-data, layout, allocation, and
+   runtime capabilities without silently broadening either scalar profile.
 3. Add tooling, packages, broader platform profiles, and eventually Zryna's own frontend in their
    dependency-ordered milestones.
 

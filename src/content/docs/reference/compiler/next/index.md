@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`97eb9c8b64f9e534ad76de996c2eece85a25f729`](https://github.com/zryna/zryna/commit/97eb9c8b64f9e534ad76de996c2eece85a25f729).
+This reference was imported from compiler commit [`b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`](https://github.com/zryna/zryna/commit/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510).
 
 - [Aggregate layout v1](/reference/compiler/next/reference/aggregate-layout-v1/)
 - [Compiler architecture](/reference/compiler/next/reference/architecture/)
@@ -12,6 +12,7 @@ This reference was imported from compiler commit [`97eb9c8b64f9e534ad76de996c2ee
 - [Data and ownership v1](/reference/compiler/next/reference/data-ownership-v1/)
 - [Compiler documentation bundles](/reference/compiler/next/reference/documentation-bundles/)
 - [Frontend providers](/reference/compiler/next/reference/frontends/)
+- [Run your first Zryna programs](/reference/compiler/next/reference/getting-started/)
 - [Language overview](/reference/compiler/next/reference/language-overview/)
 - [M2 three-target conformance](/reference/compiler/next/reference/m2-conformance/)
 - [M2 control-flow semantics](/reference/compiler/next/reference/m2-control-flow-semantics/)
@@ -27,6 +28,8 @@ This reference was imported from compiler commit [`97eb9c8b64f9e534ad76de996c2ee
 - [M3 verified data and ownership IR](/reference/compiler/next/reference/m3-data-ownership-ir/)
 - [M3 owned data semantics](/reference/compiler/next/reference/m3-owned-data-semantics/)
 - [M3 ownership runtime ABI authority](/reference/compiler/next/reference/m3-ownership-runtime-abi/)
+- [M3 Shared and Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/)
+- [M3 Shared and Weak evidence matrix](/reference/compiler/next/reference/m3-shared-weak-evidence/)
 - [Memory model direction](/reference/compiler/next/reference/memory-model/)
 - [Ownership runtime ABI v1](/reference/compiler/next/reference/ownership-runtime-v1/)
 - [Scalar ABI v1](/reference/compiler/next/reference/scalar-abi-v1/)

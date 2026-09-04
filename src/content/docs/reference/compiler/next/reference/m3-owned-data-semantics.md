@@ -1,9 +1,9 @@
 ---
 title: "M3 owned data semantics"
-description: "Compiler-owned next documentation imported from 97eb9c8b64f9."
+description: "Compiler-owned next documentation imported from b5be0a8e14cd."
 ---
 
-> Verified compiler source: [docs/M3_OWNED_DATA_SEMANTICS.md](https://github.com/zryna/zryna/blob/97eb9c8b64f9e534ad76de996c2eece85a25f729/docs/M3_OWNED_DATA_SEMANTICS.md) at commit `97eb9c8b64f9e534ad76de996c2eece85a25f729`.
+> Verified compiler source: [docs/M3_OWNED_DATA_SEMANTICS.md](https://github.com/zryna/zryna/blob/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510/docs/M3_OWNED_DATA_SEMANTICS.md) at commit `b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`.
 
 # M3 owned data semantics design contract
 
@@ -16,6 +16,10 @@ or public aggregate ABI is activated here.
 The normative language behavior remains defined by
 [`DATA_OWNERSHIP_V1.md`](/reference/compiler/next/reference/data-ownership-v1/). This document fixes the smaller
 implementation boundary that Issue #81 proved before later target work may consume it.
+
+The subsequent [Shared/Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/) freezes Issue #259's
+complete interfaces and required evidence after borrowing closure. It is a planning boundary,
+not implemented Shared/Weak source semantics or an extension of this checkpoint.
 
 ## Current implementation checkpoint
 

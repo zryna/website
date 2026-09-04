@@ -1,9 +1,9 @@
 ---
 title: "M2 control-flow semantics"
-description: "Compiler-owned next documentation imported from 97eb9c8b64f9."
+description: "Compiler-owned next documentation imported from b5be0a8e14cd."
 ---
 
-> Verified compiler source: [docs/M2_CONTROL_FLOW_SEMANTICS.md](https://github.com/zryna/zryna/blob/97eb9c8b64f9e534ad76de996c2eece85a25f729/docs/M2_CONTROL_FLOW_SEMANTICS.md) at commit `97eb9c8b64f9e534ad76de996c2eece85a25f729`.
+> Verified compiler source: [docs/M2_CONTROL_FLOW_SEMANTICS.md](https://github.com/zryna/zryna/blob/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510/docs/M2_CONTROL_FLOW_SEMANTICS.md) at commit `b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`.
 
 # M2 control-flow semantics
 
