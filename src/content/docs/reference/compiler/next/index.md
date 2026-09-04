@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`](https://github.com/zryna/zryna/commit/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510).
+This reference was imported from compiler commit [`8461e2677b397a4cda4431197b4b2ff17237cdf4`](https://github.com/zryna/zryna/commit/8461e2677b397a4cda4431197b4b2ff17237cdf4).
 
 - [Aggregate layout v1](/reference/compiler/next/reference/aggregate-layout-v1/)
 - [Compiler architecture](/reference/compiler/next/reference/architecture/)
@@ -27,6 +27,8 @@ This reference was imported from compiler commit [`b5be0a8e14cd45f40597f3028e9a3
 - [M3 Copy aggregate semantics](/reference/compiler/next/reference/m3-copy-aggregate-semantics/)
 - [M3 verified data and ownership IR](/reference/compiler/next/reference/m3-data-ownership-ir/)
 - [M3 owned data semantics](/reference/compiler/next/reference/m3-owned-data-semantics/)
+- [M3 ownership composition evidence](/reference/compiler/next/reference/m3-ownership-composition-evidence/)
+- [M3 ownership composition interfaces](/reference/compiler/next/reference/m3-ownership-composition/)
 - [M3 ownership runtime ABI authority](/reference/compiler/next/reference/m3-ownership-runtime-abi/)
 - [M3 Shared and Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/)
 - [M3 Shared and Weak evidence matrix](/reference/compiler/next/reference/m3-shared-weak-evidence/)

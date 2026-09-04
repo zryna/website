@@ -1,9 +1,9 @@
 ---
 title: "CLI reference"
-description: "Compiler-owned next documentation imported from b5be0a8e14cd."
+description: "Compiler-owned next documentation imported from 8461e2677b39."
 ---
 
-> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510/docs/CLI.md) at commit `b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`.
+> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/CLI.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
 
 # Zryna CLI reference
 
@@ -184,7 +184,7 @@ overflow, abnormal exit, or malformed result framing fails without a bundle; ina
 the documented cleanup steps uses exit status `6`.
 
 Native discovery, linking, and execution use the separate hard caps and controlled environment in
-the [native executable contract](https://github.com/zryna/zryna/blob/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
+the [native executable contract](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
 not a security sandbox, and the dynamically linked native executable requires the validated host's
 CRT, libc, and loader.
 

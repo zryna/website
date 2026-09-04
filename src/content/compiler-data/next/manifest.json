@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "b5be0a8e14cd45f40597f3028e9a38bd4c0bc510",
+    "commit": "8461e2677b397a4cda4431197b4b2ff17237cdf4",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -164,6 +164,20 @@
       "sha256": "edc89277950b2e36cabdd7bd3a2f77ced618638473fada768c5d946ca1605576"
     },
     {
+      "id": "reference/m3-ownership-composition-evidence",
+      "path": "documents/reference/m3-ownership-composition-evidence.md",
+      "title": "M3 ownership composition evidence",
+      "bytes": 8732,
+      "sha256": "c5e1afef74ac9778f6547aa617a2c1bb1ce0ccb359bf20c884bc7b877a7573ce"
+    },
+    {
+      "id": "reference/m3-ownership-composition",
+      "path": "documents/reference/m3-ownership-composition.md",
+      "title": "M3 ownership composition interfaces",
+      "bytes": 11433,
+      "sha256": "eee153deb797f1851fafe4d76089b252da705e3fcdaa326159b068b2f823d929"
+    },
+    {
       "id": "reference/m3-ownership-runtime-abi",
       "path": "documents/reference/m3-ownership-runtime-abi.md",
       "title": "M3 ownership runtime ABI authority",
@@ -223,8 +237,8 @@
       "id": "status/m0-conformance",
       "path": "documents/status/m0-conformance.md",
       "title": "M0 architecture conformance",
-      "bytes": 7263,
-      "sha256": "f214ff6c4273f492f21c16ef72dd552faee61a7081e3615d21e6ae54672b9a25"
+      "bytes": 8931,
+      "sha256": "8b767260e25a0c5fb0011b32ba1904ca174e56ef20cd5591f1b0426a5ff843d4"
     },
     {
       "id": "status/m1-conformance",

@@ -1,9 +1,9 @@
 ---
 title: "Compiler status"
-description: "Compiler-owned next documentation imported from b5be0a8e14cd."
+description: "Compiler-owned next documentation imported from 8461e2677b39."
 ---
 
-> Verified compiler source: [docs/STATUS.md](https://github.com/zryna/zryna/blob/b5be0a8e14cd45f40597f3028e9a38bd4c0bc510/docs/STATUS.md) at commit `b5be0a8e14cd45f40597f3028e9a38bd4c0bc510`.
+> Verified compiler source: [docs/STATUS.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/STATUS.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
 
 # Compiler status
 
