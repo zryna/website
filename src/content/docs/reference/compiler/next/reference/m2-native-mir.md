@@ -1,9 +1,9 @@
 ---
 title: "M2 verified native MIR"
-description: "Compiler-owned next documentation imported from 8461e2677b39."
+description: "Compiler-owned next documentation imported from c3f828cafc76."
 ---
 
-> Verified compiler source: [docs/M2_NATIVE_MIR.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/M2_NATIVE_MIR.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
+> Verified compiler source: [docs/M2_NATIVE_MIR.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M2_NATIVE_MIR.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
 
 # M2 verified native MIR
 

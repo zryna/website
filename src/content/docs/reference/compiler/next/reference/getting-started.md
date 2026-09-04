@@ -1,9 +1,9 @@
 ---
 title: "Run your first Zryna programs"
-description: "Compiler-owned next documentation imported from 8461e2677b39."
+description: "Compiler-owned next documentation imported from c3f828cafc76."
 ---
 
-> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/GETTING_STARTED.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
+> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/GETTING_STARTED.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
 
 # Run your first Zryna programs
 
@@ -163,7 +163,7 @@ source file beneath the existing `examples` directory. For the M2 example, keep 
 This is editing guidance, not an additional executed example.
 
 Do not put personal source in `.zryna/out`, add a new top-level project directory, or create
-symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/STRICT_WORKSPACE.md)
+symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/STRICT_WORKSPACE.md)
 still checks file names, UTF-8 contents, layout and budgets. There is no `zryna init` command in
 this walkthrough and no architecture bypass; this repository-local workflow is not package or
 standalone-project support.

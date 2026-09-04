@@ -13,8 +13,8 @@ import {
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 
-const COMMIT = '8461e2677b397a4cda4431197b4b2ff17237cdf4';
-const MANIFEST_DIGEST = '78c2bdc64f184e65deb7dde815b0dc847b34b99f36a0e4206b56fe24b21900e7';
+const COMMIT = 'c3f828cafc762fcc9de123226d3f7f9403ad239f';
+const MANIFEST_DIGEST = 'c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -110,10 +110,18 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 		composition,
 		/planned implementation contract, not implemented generic source semantics/,
 	);
+	assert.match(evidence, /planned generic evidence and integration matrix/);
 	assert.match(
 		evidence,
-		/planned evidence and integration matrix, not execution or implemented generic/,
+		/constructor-preparation candidate described below; not implemented generic source capability/,
 	);
+	assert.match(evidence, /single scratch owner state/);
+	assert.match(
+		evidence,
+		/Preparation rejection preserves the real instruction\/place\/cleanup arenas/,
+	);
+	assert.match(evidence, /Mandatory independent full IR verification remains separate/);
+	assert.match(evidence, /does not complete generic C2, #278, #83 or M3/);
 });
 
 test('authored status presents bounded internal borrowing evidence without broad runtime claims', async () => {
@@ -136,6 +144,9 @@ test('authored status presents bounded internal borrowing evidence without broad
 	assert(status.includes('/reference/compiler/next/reference/m3-ownership-composition/'));
 	assert(status.includes('/reference/compiler/next/reference/m3-ownership-composition-evidence/'));
 	assert.match(status, /not runnable public M3 examples or completed runtime support/);
+	assert.match(status, /internal constructor-preparation\s+candidate/);
+	assert.match(status, /Independent IR verification remains\s+mandatory/);
+	assert.match(status, /not complete mixed aggregate\/Vec construction/);
 	assert.match(
 		status,
 		/does\s+not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or\s+CLI route, or a target artifact/,
@@ -177,9 +188,9 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	for (const marker of [
 		COMMIT,
 		MANIFEST_DIGEST,
-		'33836974838',
-		'9923908348',
-		'ba54432cd80869746dcbee67e4646a39edd19f8c01d35df7fce16c9b687c006f',
+		'33853558039',
+		'9929801939',
+		'f60bd16e5a015c1c3f95f6a4fd0598f9bbea52391421ce098cfcce547d164c49',
 	]) {
 		assert(provenance.includes(marker), marker);
 	}

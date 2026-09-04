@@ -1,9 +1,9 @@
 ---
 title: "M3 owned data semantics"
-description: "Compiler-owned next documentation imported from 8461e2677b39."
+description: "Compiler-owned next documentation imported from c3f828cafc76."
 ---
 
-> Verified compiler source: [docs/M3_OWNED_DATA_SEMANTICS.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/M3_OWNED_DATA_SEMANTICS.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
+> Verified compiler source: [docs/M3_OWNED_DATA_SEMANTICS.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M3_OWNED_DATA_SEMANTICS.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
 
 # M3 owned data semantics design contract
 
@@ -20,6 +20,13 @@ implementation boundary that Issue #81 proved before later target work may consu
 The subsequent [Shared/Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/) freezes Issue #259's
 complete interfaces and required evidence after borrowing closure. It is a planning boundary,
 not implemented Shared/Weak source semantics or an extension of this checkpoint.
+
+The private static-projection resolver shares its ordered syntax, exact-type and diagnostic
+checks with a caller-supplied topology view. Existing lowering still materializes each checked
+prefix immediately, preserves cached-prefix identity and the first source span, and retains
+earlier prefixes if a later check fails. A separate scratch topology can consume the same
+descriptors without mutating raw places; this is a prerequisite seam for #278 preparation,
+not complete C2 cost/ownership planning, new admitted source forms, or public activation.
 
 ## Current implementation checkpoint
 

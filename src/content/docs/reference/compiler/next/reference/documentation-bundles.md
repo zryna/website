@@ -1,9 +1,9 @@
 ---
 title: "Compiler documentation bundles"
-description: "Compiler-owned next documentation imported from 8461e2677b39."
+description: "Compiler-owned next documentation imported from c3f828cafc76."
 ---
 
-> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/docs/DOCUMENTATION_BUNDLES.md) at commit `8461e2677b397a4cda4431197b4b2ff17237cdf4`.
+> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/DOCUMENTATION_BUNDLES.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
 
 # Compiler documentation bundles
 
@@ -40,7 +40,7 @@ child of `.zryna/out/docs`; an existing bundle is never replaced.
 ## Bundle format
 
 The `zryna.docs.bundle.v1` schema is
-[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/8461e2677b397a4cda4431197b4b2ff17237cdf4/schemas/zryna-docs-bundle-v1.schema.json). Every
+[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/schemas/zryna-docs-bundle-v1.schema.json). Every
 bundle contains:
 
 - canonical `manifest.json` with no generation timestamp;

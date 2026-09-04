@@ -92,15 +92,15 @@ jobs:
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/current/ >/tmp/zryna-current.html
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/m1-conformance/ >/dev/null
           curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/roadmap/ >/tmp/zryna-roadmap.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-status.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-m3-borrowing.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-current.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-roadmap.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-first-programs.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-status.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-m3-borrowing.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-current.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-roadmap.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-first-programs.html
           grep --fixed-strings --quiet 'ZRYNA-C1009' /tmp/zryna-first-programs.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-m3-composition.html
-          grep --fixed-strings --quiet '8461e2677b397a4cda4431197b4b2ff17237cdf4' /tmp/zryna-m3-composition-evidence.html
-          grep --fixed-strings --quiet '78c2bdc64f184e65deb7dde815b0dc847b34b99f36a0e4206b56fe24b21900e7' /tmp/zryna-status.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-m3-composition.html
+          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-m3-composition-evidence.html
+          grep --fixed-strings --quiet 'c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc' /tmp/zryna-status.html
           grep --fixed-strings --quiet 'implemented M2 explicit profile' /tmp/zryna-status.html
           grep --fixed-strings --quiet 'not production-ready' /tmp/zryna-status.html
           test "$(curl --silent --output /tmp/zryna-404.html --write-out '%{http_code}' http://127.0.0.1:8080/definitely-missing)" = "404"
