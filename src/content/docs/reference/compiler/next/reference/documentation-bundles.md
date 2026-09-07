@@ -1,9 +1,9 @@
 ---
 title: "Compiler documentation bundles"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/DOCUMENTATION_BUNDLES.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/DOCUMENTATION_BUNDLES.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # Compiler documentation bundles
 
@@ -28,7 +28,7 @@ agree. A semantic-version channel must equal the compiler package version and us
 immutable `refs/tags/v<version>` ref.
 
 The official `next` artifact is published only by the dedicated `main`-push documentation job after
-the aggregate required `m2` job succeeds. Its artifact name and job summary bind the exact compiler
+the aggregate required `m3` job (which retains M0–M2) succeeds. Its artifact name and job summary bind the exact compiler
 commit and manifest SHA-256 as `zryna-docs-next-<commit>-<manifest-sha256>`; consumers authenticate
 both values from that immutable workflow run before importing any bytes.
 
@@ -40,7 +40,7 @@ child of `.zryna/out/docs`; an existing bundle is never replaced.
 ## Bundle format
 
 The `zryna.docs.bundle.v1` schema is
-[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/schemas/zryna-docs-bundle-v1.schema.json). Every
+[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/schemas/zryna-docs-bundle-v1.schema.json). Every
 bundle contains:
 
 - canonical `manifest.json` with no generation timestamp;

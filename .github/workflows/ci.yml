@@ -79,30 +79,7 @@ jobs:
             fi
             sleep 1
           done
-          curl --fail --silent http://127.0.0.1:8080/ >/dev/null
-          curl --fail --silent http://127.0.0.1:8080/guides/getting-started/ >/dev/null
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler-status/ >/tmp/zryna-status.html
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/cli/ >/dev/null
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/getting-started/ >/tmp/zryna-first-programs.html
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/control-flow-modules-v1/ >/dev/null
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/m2-conformance/ >/dev/null
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/m3-borrowing-semantics/ >/tmp/zryna-m3-borrowing.html
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/m3-ownership-composition/ >/tmp/zryna-m3-composition.html
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/reference/m3-ownership-composition-evidence/ >/tmp/zryna-m3-composition-evidence.html
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/current/ >/tmp/zryna-current.html
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/m1-conformance/ >/dev/null
-          curl --fail --silent http://127.0.0.1:8080/reference/compiler/next/status/roadmap/ >/tmp/zryna-roadmap.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-status.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-m3-borrowing.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-current.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-roadmap.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-first-programs.html
-          grep --fixed-strings --quiet 'ZRYNA-C1009' /tmp/zryna-first-programs.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-m3-composition.html
-          grep --fixed-strings --quiet 'c3f828cafc762fcc9de123226d3f7f9403ad239f' /tmp/zryna-m3-composition-evidence.html
-          grep --fixed-strings --quiet 'c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc' /tmp/zryna-status.html
-          grep --fixed-strings --quiet 'implemented M2 explicit profile' /tmp/zryna-status.html
-          grep --fixed-strings --quiet 'not production-ready' /tmp/zryna-status.html
+          node tools/docs/check-published-content.mjs --origin http://127.0.0.1:8080
           test "$(curl --silent --output /tmp/zryna-404.html --write-out '%{http_code}' http://127.0.0.1:8080/definitely-missing)" = "404"
           grep --fixed-strings --quiet '<title>404 | Zryna</title>' /tmp/zryna-404.html
           docker exec zryna-website-ci test -f /usr/share/licenses/zryna-website/LICENSE

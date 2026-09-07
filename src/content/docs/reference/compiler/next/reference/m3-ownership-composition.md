@@ -1,9 +1,9 @@
 ---
 title: "M3 ownership composition interfaces"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # M3 ownership composition interfaces
 
@@ -11,6 +11,11 @@ Status: Issue #277 planned implementation contract, not implemented generic sour
 Authority baseline: `8cc4eed8d522976ca557a27ea54993fb0d5ebf1c`. No runtime, backend, driver route,
 public profile or target execution is enabled. The [evidence matrix](/reference/compiler/next/reference/m3-ownership-composition-evidence/)
 separates existing declarations/tests from proposed interfaces and future proofs.
+
+Later #278 candidate extensions are documented in [generic function operations](/reference/compiler/next/reference/m3-generic-function-operations/),
+[structural clone](/reference/compiler/next/reference/m3-generic-clone-core/), and [generic Vec operations](/reference/compiler/next/reference/m3-generic-vec-operations/).
+The bounded constructor/root-replacement slices described below record their original scope;
+their earlier exclusions are not a substitute for the later candidate's separate evidence.
 
 The normative authorities are [data ownership](/reference/compiler/next/reference/data-ownership-v1/), sections
 2–12, and [ownership runtime ABI](/reference/compiler/next/reference/ownership-runtime-v1/), sections 2–8.
@@ -45,7 +50,8 @@ Commit consumes only the prepared inputs and issues the exact result once. Faile
 publishes no result, retains the operation's uncommitted inputs and reverse-cleans completed
 temporaries according to the original trap. This is not rollback of earlier successful expression
 evaluation. A trap prevents later evaluation. Preserve diagnostic precedence, authenticated spans
-and reservation-release order; a terminal resource diagnostic prevents later dependent planning.
+and reservation-release order; a terminal resource diagnostic prevents later dependent work in
+the selected preparation schedule.
 
 Compile-time rejection and runtime failure are separate observations. The internal aggregate
 child-preparation candidate leaves real compiler arenas, ownership state and type cache unchanged
@@ -53,6 +59,19 @@ when a child tree is rejected, while retaining earlier successful statements. It
 instructions still follow the failure/commit contract above; planning is not target execution.
 See the [candidate evidence and remaining scope](/reference/compiler/next/reference/m3-ownership-composition-evidence/) rather than
 interpreting this internal checkpoint as completed generic C2 or public M3 support.
+
+Issue #296 extends that shared authority to mixed non-handle constructor trees. Schedule selection
+precedes evaluation and does not retry a failed operation through another lowerer. Previously
+admitted complete aggregate trees retain interleaved semantic/resource checks. Newly admitted
+mixed owned roots first prepare an ordered semantic/effect summary, then replay recorded resource
+checks with actual ancestor credits. A semantic rejection in that summary precedes deferred
+resource diagnostics. Legacy-shaped children inherit their mixed root's selected schedule;
+standalone legacy Vec operations retain their existing route and precedence. Syntax/input limits,
+layout checks, intrinsic byte bounds and checked arithmetic are not deferred by this policy.
+The evidence matrix documents this deliberate boundary rather than asserting one global ordering.
+For mixed-route local initialization, preparation also checks the destination local place and
+initialization transition before consuming the initializer. Rejection preserves earlier statements,
+bindings and ownership; this does not enable generic destination replacement.
 
 ## C3: Place replacement and initialized shape
 
@@ -67,6 +86,23 @@ handle combination integrated by #261 before #264 closes; #270 owns broader fina
 Bounds and mutation access remain
 mandatory; this does not invent Vec holes, element move-out or pop. Explicit borrowed Vec elements
 remain #256; dynamically indexed elements conservatively belong to their complete container.
+
+The bounded #278 mixed-root replacement slice uses this contract for mutable, fully initialized
+non-Copy Struct/Enum/FixedArray/Vec locals whose target topology selects `MixedSummary`, inside
+the existing private straight-line mixed-result route. A fresh supported constructor, distinct
+whole move, or already admitted RHS operation prepares through the shared summary. Target validity
+is checked first; after RHS semantic/effect preparation, the target must still be wholly owned and
+the replacement must have a distinct exact-type owner. Destination consumption reports M3014 at
+the complete RHS span before deferred resource replay. The final replacement transition is checked
+after replay and before any real consumption. Commit emits one `ReplacePlace`, applies the proved
+owner/fact change and checks the final preparation checkpoint. Rejected preparation preserves
+earlier statements, the old destination, bindings, arenas, facts, type cache and surrounding credits.
+
+Repeated assignments compose within that same straight-line route; the verifier derives each
+old active payload and transfers pending completion order. This does not generalize partial or
+projected replacement, indexed element mutation, clone capability, function signatures or CFG.
+Legacy-shaped targets retain their prior route and diagnostic order, even in a mixed function.
+The evidence matrix distinguishes verified cleanup obligations from runtime/storage execution.
 
 ## C4: Operation effects and cleanup
 
@@ -119,12 +155,79 @@ Input: binding scope, pending completion order, masks/refinements, active borrow
 signature. Output: explicit fallthrough, return or trap, with exact successor state or cleanup.
 Nested/repeated blocks, branches and loops compose these results; termination cannot disappear
 inside an untyped optional value. Return transfers its result and reverse-cleans remaining owners.
-Joins require equal definite state, backedges restore header state, and borrows discharge before
+Joins require equal definite state, backedges restore header state, and lexical borrows discharge before
 edges/returns. Reject mismatched ownership, masks, active variants or escaping authority rather
 than inserting implicit clone/conditional-drop repair. Divergence is not a controlled trap.
 
 \#279 supplies the reusable scope/CFG adapter; #262 integrates authenticated upgrade bodies. Required
 \#83 nested payload calls/matches/returns stay within that integration, not a scalar-only fallback.
+
+The initial internal `owned_aggregate_lowering/structured_cfg.rs` adapter now routes branches and
+loops inside already-selected generic owned functions through the existing preparation machinery.
+It records dense instruction ranges, explicitly restores branch planning state, requires equal
+fallthrough ownership and loop-header masks, inserts lexical cleanup, and replays the completed
+graph through `OwnedCfgState`. Authenticated `structured_owned_` tests cover nested/repeated
+String-owner branches, a nested branch in a loop, terminal branch returns, unequal-state rejection,
+and deterministic replay. `structured_match_` adds exhaustive multi-arm owned payload transfer or
+clone into one typed continuation parameter, both direct-return and local-initializer forms. Copy
+scrutinees use a compiler-private initialized temporary: each arm restores its original once-evaluated
+SSA value through exclusive `BeginBorrow`/`BorrowWrite`/`EndBorrow`, so ordinary verifier refinement
+rules admit the join without owner effects. Mixed Struct/Enum/Array/Vec scope graphs and checked
+value/place/transition/cleanup exact, first-extra, overflow and pristine recovery have focused tests.
+Structured functions are planned once in independent compiler-owned scratch state, sharing immutable
+syntax/layout/catalog authority and staging diagnostics. Rejection leaves the original untouched;
+accepted private state is published once after graph/resource checks, with mandatory full-program
+IR verification still required before producing `VerifiedProgram`.
+`structured_constructor.rs` now carries the existing affine constructor commit reservation and
+ordered SSA operands through matches nested in Struct/Enum/FixedArray/Vec constructors. Earlier owned
+operands remain pending during arm failures and transfer only at the exact typed constructor commit.
+`structured_call.rs` carries the same result reservation through ordered internal value arguments,
+then derives exact CallTrap cleanup from reconciled post-argument owners in scratch, transferring
+owned arguments before the call cleanup. Nested FixedArray and two-function call fixtures repeat
+the checked-resource/recovery matrix. Vec growth failure retains every completed child in reverse
+completion order; its result is not yet pending. At that stage #279 still required the indexed
+composition boundaries described below. The later checked
+[#271 closure matrix](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md) now binds the complete C7 source
+interaction, independent hostile IR, payload/fault cleanup and graph-resource evidence. That
+remains compiler authority only; no runtime execution is claimed.
+
+Existing formal borrow parameters retain their exact sealed identity/access across Match edges,
+as the IR's existing formal-parameter lifetime permits. Structured calls forward them in source
+argument order, then use the canonical value-prefix/borrow-suffix call encoding. Exact aliases are
+preserved at joins, failures end the same formal identity, and no EndBorrow/reborrow gap is emitted.
+`structured_formal_` tests pin shared/exclusive forwarding, wrong-access/missing-alias diagnostics
+and lexical-carry rejection. The resource matrix includes a genuine catalog-backed formal parameter.
+Non-formal lexical/indexed authorities still cannot cross CFG edges (`I3011`); this slice does not
+extend their lifetime or supply the broader #271 edge-borrow contract.
+
+`structured_string.rs` preserves named/static String read places and genuine expression-result
+owners through nested matches, then uses existing StringClone/StringConcat opcodes. Compiler-only
+retained-read exclusions are exact overlapping places, carried unchanged through joins; consuming
+or mutating access rejects while read-only clones remain allowed. The tail revalidates initialized
+state and byte facts before releasing its own exclusions. `structured_string_` tests pin no extra
+move/clone for named reads, arm/tail cleanup, read-only overlap, forbidden moves, post-operation
+release, deterministic diagnostics and replay. Clone/concat shapes join the checked-resource matrix.
+These exclusions do not grant IR borrow authority or extend lexical/indexed borrow lifetimes.
+
+`structured_indexed.rs` admits a Match in the first checked index of a named/static Array or Vec
+observation, including explicit owned element clone. An exact compiler-only container exclusion
+survives the arms; a typed Copy handoff reuses the once-evaluated joined index in the existing
+indexed preparation plan. Bounds and transient authority begin only after the join. The
+`structured_indexed_` tests pin Array/Vec Copy/owned paths, unchanged SSA index identity, one bounds
+site, hostile handoff rejection and pristine recovery; the resource matrix includes indexed clone.
+Later-index and post-bounds RHS Match now use the separately verified internal transient
+continuation contract in [M3\_TRANSIENT\_INDEXED\_ACCESS.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_TRANSIENT_INDEXED_ACCESS.md).
+Staged preparation preserves each completed bounds check, the exact live authority and original
+container while Match arms run; the final typed SSA handoff performs one read, clone or replacement
+and one end. Owned RHS ownership remains pending until replacement. Lexical authority still obeys
+I3011 edge prohibition. `continued_indexed_source` and the expanded structured resource matrix pin
+Array/Vec Copy/owned ordering, failure cleanup, exact/first-extra/overflow rollback and recovery.
+Fresh FixedArray/Vec Match results are also admitted as read-only observation bases. Copy results
+receive genuine initialized temporary storage; owned results retain their exact joined owner
+through index and bounds preparation and the final Copy read or explicit clone, then drop only
+after the final EndBorrow. A Match result is not a mutable initialized source place, so replacement
+through it remains invalid rather than receiving invented mutation authority. No end/reborrow or
+target execution is claimed.
 
 ## C8: Upgrade-success edge signature
 
@@ -149,13 +252,20 @@ descriptor does not decide which outcome will execute. Bounded #260 transition-m
 separate from real target/runtime execution. No reusable Boolean ticket, nullable handle or
 preliminary count test is introduced.
 
-At the frozen baseline, `OwnedCfgState::finish` checks explicit edge arguments against every target
-parameter, even for `WeakUpgradeBranch`. The independent IR instead requires success arguments + 1
-to equal success parameters, issues the first owner and matches remaining arguments to parameters
-after it. This is an unused future-producer adapter gap, not a failing supported source program.
-\#279 must implement that distinction using the #260 producer-facing shape before #262 emits
-upgrade programs; every completed program must still pass mandatory full IR verification. Do not
-weaken IR validation or manufacture a value on the expired edge.
+`OwnedCfgState::finish_with_layouts` now derives the exact #260 `WeakUpgradeShape` from the
+operand place and sealed layout. It matches success arguments after the synthetic first Shared
+parameter and matches expired arguments without a prefix. Ordinary finalization remains unchanged;
+an upgrade without layout context fails closed. The named `owned_cfg_upgrade_success_prefix_is_sealed_and_ordinary_arguments_remain_exact`
+test covers both schemas, malformed prefixes and operands, missing context, and pristine recovery.
+This is producer schema evidence only, not source upgrade support or a full-program ownership
+proof. Every completed program must still pass mandatory full IR verification. The remaining
+\#279 C6/C7 structured ownership composition is not completed by this adapter.
+
+The #262 source route now consumes that schema for an authenticated `upgradeWeak` statement.
+It retains addressable Weak operands, materializes non-addressable operands exactly once, gives
+only the success scope its synthesized Shared owner, and preserves the exact overflow cleanup.
+This is compile-time ownership evidence; #263 integrates its non-executable conformance while
+target outcome execution remains downstream.
 
 ## Integration and closure
 

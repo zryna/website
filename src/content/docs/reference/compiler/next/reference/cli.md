@@ -1,15 +1,31 @@
 ---
 title: "CLI reference"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/CLI.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/CLI.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # Zryna CLI reference
+
+## Public M3 profile
+
+Exact `--profile data-ownership-v1` on `build` and `run` selects the authenticated protocol-v4
+DataOwnershipV1 driver and canonical `zryna-manifest-v3.json`. Both `--profile value` and
+`--profile=value` spellings work. Omission still selects M1; `control-flow-v1` still selects M2.
+Run arguments accept canonical `i32:<decimal>` and `bool:true`/`bool:false` values. Only scalar
+entry exports are public. JSON keeps response version 1 and reports the manifest-v3 portable
+path, authenticated warnings and ordered typed results. A complete typed trap is an `ok: true`
+run observation with exit 0; inspect `results[].outcome.kind`, not just process exit status.
+Invalid source and unsupported features fail without a bundle. Create-only publication never
+replaces an existing destination. See [public boundaries](/reference/compiler/next/reference/m3-public-profile/),
+[manifest v3](/reference/compiler/next/reference/m3-candidate-driver/), and [executable beginner examples](/reference/compiler/next/reference/m3-getting-started/).
 
 Status: implemented for the default M1 `I32V1` slice and the explicit M2 `ControlFlowV1` slice.
 The CLI is a thin request parser and renderer over `zryna-driver`; it does not own compiler
 semantics, module resolution, backend behavior, or bundle publication.
+
+The exact public M3 selector uses the shared conformant driver; its authenticated transaction
+and manifest v3 are documented in [M3 driver](/reference/compiler/next/reference/m3-candidate-driver/).
 
 ## Commands
 
@@ -184,7 +200,7 @@ overflow, abnormal exit, or malformed result framing fails without a bundle; ina
 the documented cleanup steps uses exit status `6`.
 
 Native discovery, linking, and execution use the separate hard caps and controlled environment in
-the [native executable contract](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
+the [native executable contract](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
 not a security sandbox, and the dynamically linked native executable requires the validated host's
 CRT, libc, and loader.
 

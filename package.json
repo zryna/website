@@ -17,10 +17,11 @@
     "format:check": "prettier --check .",
     "typecheck": "astro check",
     "test": "node --test tests/**/*.test.mjs",
-    "build": "pnpm docs:check && pnpm architecture:check && astro check && astro build && pnpm routes:check",
+    "build": "pnpm docs:check && pnpm architecture:check && astro check && astro build && pnpm routes:check && pnpm content:check",
     "verify": "pnpm format:check && pnpm test && pnpm build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "content:check": "node tools/docs/check-published-content.mjs --dist"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

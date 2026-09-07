@@ -4,10 +4,10 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc",
+  "manifestSha256": "7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "c3f828cafc762fcc9de123226d3f7f9403ad239f",
+    "commit": "4c9fbda9ca80decf755fb8313474217e051eb5c8",
     "ref": "refs/heads/main",
     "version": "0.1.0"
   },
@@ -108,6 +108,16 @@
       "route": "/reference/compiler/next/reference/m3-borrowing-semantics/"
     },
     {
+      "id": "reference/m3-candidate-driver",
+      "sourcePath": "docs/M3_CANDIDATE_DRIVER.md",
+      "route": "/reference/compiler/next/reference/m3-candidate-driver/"
+    },
+    {
+      "id": "reference/m3-conformance",
+      "sourcePath": "docs/M3_CONFORMANCE.md",
+      "route": "/reference/compiler/next/reference/m3-conformance/"
+    },
+    {
       "id": "reference/m3-copy-aggregate-semantics",
       "sourcePath": "docs/M3_COPY_AGGREGATE_SEMANTICS.md",
       "route": "/reference/compiler/next/reference/m3-copy-aggregate-semantics/"
@@ -116,6 +126,41 @@
       "id": "reference/m3-data-ownership-ir",
       "sourcePath": "docs/M3_DATA_OWNERSHIP_IR.md",
       "route": "/reference/compiler/next/reference/m3-data-ownership-ir/"
+    },
+    {
+      "id": "reference/m3-generic-clone-core",
+      "sourcePath": "docs/M3_GENERIC_CLONE_CORE.md",
+      "route": "/reference/compiler/next/reference/m3-generic-clone-core/"
+    },
+    {
+      "id": "reference/m3-generic-function-operations",
+      "sourcePath": "docs/M3_GENERIC_FUNCTION_OPERATIONS.md",
+      "route": "/reference/compiler/next/reference/m3-generic-function-operations/"
+    },
+    {
+      "id": "reference/m3-generic-static-places",
+      "sourcePath": "docs/M3_GENERIC_STATIC_PLACES.md",
+      "route": "/reference/compiler/next/reference/m3-generic-static-places/"
+    },
+    {
+      "id": "reference/m3-generic-vec-operations",
+      "sourcePath": "docs/M3_GENERIC_VEC_OPERATIONS.md",
+      "route": "/reference/compiler/next/reference/m3-generic-vec-operations/"
+    },
+    {
+      "id": "reference/m3-getting-started",
+      "sourcePath": "docs/M3_GETTING_STARTED.md",
+      "route": "/reference/compiler/next/reference/m3-getting-started/"
+    },
+    {
+      "id": "reference/m3-indexed-borrow-authority",
+      "sourcePath": "docs/M3_INDEXED_BORROW_AUTHORITY.md",
+      "route": "/reference/compiler/next/reference/m3-indexed-borrow-authority/"
+    },
+    {
+      "id": "reference/m3-opaque-handle-slots",
+      "sourcePath": "docs/M3_OPAQUE_HANDLE_SLOTS.md",
+      "route": "/reference/compiler/next/reference/m3-opaque-handle-slots/"
     },
     {
       "id": "reference/m3-owned-data-semantics",
@@ -136,6 +181,11 @@
       "id": "reference/m3-ownership-runtime-abi",
       "sourcePath": "docs/M3_OWNERSHIP_RUNTIME_ABI.md",
       "route": "/reference/compiler/next/reference/m3-ownership-runtime-abi/"
+    },
+    {
+      "id": "reference/m3-public-profile",
+      "sourcePath": "docs/M3_PUBLIC_PROFILE.md",
+      "route": "/reference/compiler/next/reference/m3-public-profile/"
     },
     {
       "id": "reference/m3-shared-weak-authority",

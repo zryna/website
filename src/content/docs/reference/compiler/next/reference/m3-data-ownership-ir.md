@@ -1,9 +1,9 @@
 ---
 title: "M3 verified data and ownership IR"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/M3_DATA_OWNERSHIP_IR.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M3_DATA_OWNERSHIP_IR.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/M3_DATA_OWNERSHIP_IR.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_DATA_OWNERSHIP_IR.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # M3 verified data and ownership IR
 
@@ -106,10 +106,17 @@ StringFromUtf8, StringClone, StringConcat,
 VecClone, VecConstruct, VecPush,
 SharedConstruct, SharedClone,
 WeakDowngrade, WeakClone,
-BeginBorrow, BorrowRead, BorrowWrite, EndBorrow
+BeginBorrow, BeginIndexedBorrow, BorrowRead, BorrowWrite, BorrowReplace, EndBorrow
 ```
 
 `BeginBorrow` contains one dense `BorrowDefinition` with `Shared` or `Exclusive` access.
+`BeginIndexedBorrow` binds an exact FixedArray/Vec container and evaluated i32 index to an
+element-typed authority whose conflict region is the complete container. Its bounds check precedes
+successful borrow creation and carries a site-bound pre-state cleanup. `BorrowReplace` consumes a
+prepared exact non-Copy RHS through exclusive authority; its old-value drop is the complete
+referent, not the conflict container. The dedicated opaque access and replacement views preserve
+that distinction. The complete contract is in
+[`M3_INDEXED_BORROW_AUTHORITY.md`](/reference/compiler/next/reference/m3-indexed-borrow-authority/).
 `BorrowRead` remains restricted to Copy referents and produces the exact Copy type; it does not
 transfer an owned value or cleanup obligation. The completed Issue #116 semantic checkpoint brackets
 existing String clone/concat, exact Vec Copy-index, and supported whole-aggregate clone operations

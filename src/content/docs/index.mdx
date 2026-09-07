@@ -5,7 +5,7 @@ template: splash
 hero:
   tagline: One source. Three targets. Explicit semantics all the way down.
   actions:
-    - text: Explore the foundation
+    - text: Start learning
       link: /guides/getting-started/
       icon: right-arrow
     - text: View the compiler
@@ -16,12 +16,13 @@ hero:
 
 import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Aside type="caution" title="Foundation stage">
-  Zryna is experimental and not production-ready. The explicit M2 `control-flow-v1` profile adds
-  typed scalar control flow, direct calls, and compiler-owned relative modules across JavaScript,
-  core WebAssembly, and Linux x86-64 native targets. Omitting `--profile` preserves the narrow M1
-  path. Heap values, browser execution, WASI, packages, and broader native platforms remain
-  unsupported. [Read the authenticated compiler status](/reference/compiler-status/).
+<Aside type="caution" title="Experimental compiler">
+  Zryna is experimental and not production-ready. Exact `--profile data-ownership-v1` activates the
+  public M3 owned-data profile with manifest v3. The explicit M2 `control-flow-v1` profile and
+  default M1 remain available. Public observations stay scalar; Windows native execution, browser
+  bindings, WASI, Components and tracing GC remain unsupported. [Read the authenticated compiler
+  status](/reference/compiler-status/) or [run your first M3
+  programs](/reference/compiler/next/reference/m3-getting-started/).
 </Aside>
 
 ## Familiar at the surface, strict underneath
@@ -52,7 +53,7 @@ export function add(left: i32, right: i32): i32 {
   </TabItem>
   <TabItem label="WebAssembly">
     The same verified IR emits an import-free core `.wasm` module directly. Browser bindings, WASI,
-    and Component Model profiles are not part of the current M1 or explicit M2 profiles.
+    and Component Model profiles are not part of the current profiles.
   </TabItem>
   <TabItem label="Native">
     Linux x86-64 builds lower through verified native MIR to a relocatable ELF object; run mode

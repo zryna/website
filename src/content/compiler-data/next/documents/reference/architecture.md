@@ -1,5 +1,10 @@
 # Compiler architecture
 
+Current public M3 selection is `--profile data-ownership-v1`, using protocol v4 and manifest v3.
+See [the public M3 surface](M3_PUBLIC_PROFILE.md) and [the beginner guide](M3_GETTING_STARTED.md).
+The component checkpoints below retain their historical implementation boundaries; they do not
+limit or independently expand the integrated public surface. M0–M2 remain unchanged.
+
 ## Permanent boundary
 
 Verified Universal IR is the permanent contract. Frontend providers and output backends are replaceable around it.
@@ -290,6 +295,15 @@ fixed-oracle aggregate M2 comparison without adding a runtime semantics authorit
 See the [CLI reference](CLI.md) and [manifest-v2 contract](M2_MANIFEST_V2.md) for the exact command, layout, manifest,
 exit-status, runtime, and platform contracts.
 
+The internal M3 candidate uses a separate protocol-v4 and `DataOwnershipV1` route. The driver
+authenticates one final module closure, lowers one verifier-sealed program retaining exact layout
+and ownership-runtime ABI identities, and dispatches selected JavaScript, WebAssembly, and Linux
+x86-64 native targets in fixed order. Run requests validate one typed invocation before any target
+execution. Execution, strict manifest-v3 construction, artifact audit, and create-only whole-bundle
+publication share one private transaction, so failure cannot advertise a partial result. Exact
+`--profile data-ownership-v1` activates this same composition; see the
+[candidate driver contract](M3_CANDIDATE_DRIVER.md).
+
 ## Initial numeric contract
 
 The first vertical slice defines signed 32-bit wrapping addition:
@@ -351,8 +365,8 @@ artifact contract is reinterpreted.
 ## Isolated `DataOwnershipV1` boundary
 
 M3 is specified as another separately selected and separately verified profile. Its syntax,
-layout, and Universal IR authorities are implemented internally, but the profile is not publicly
-selectable. It may not widen `I32V1`, mutate `ControlFlowV1`, or expose a partial public command.
+layout, and Universal IR authorities are implemented internally, and the complete conformant route is publicly
+selectable through exact `--profile data-ownership-v1`. It may not widen `I32V1`, mutate `ControlFlowV1`, or expose a partial public command.
 Its remaining authority chain is:
 
 ```text
@@ -361,12 +375,14 @@ verified protocol-v4 syntax
 compiler-owned nominal/type/ownership semantics
     ├── implemented Copy aggregate lowering
     ├── private straight-line String/Vec ownership checkpoint
+    ├── explicit Shared/Weak producers and sealed WeakUpgrade control flow
     ├── verified aggregate-layout authority
     └── retained sealed ownership-runtime ABI declaration authority
     ↓
 raw DataOwnershipV1 IR
     ↓ independent exhaustive verifier
 opaque verified DataOwnershipV1 views
+    ├── symbolic control/fault/resource proof only
     ├── deterministic JavaScript + private helpers
     ├── audited memory-bearing core WebAssembly
     └── independently verified native MIR → audited Linux x86-64 artifact
@@ -416,6 +432,56 @@ records, checked header evidence, and pure transition evidence behind opaque imm
 not an allocator or runtime implementation and supplies no target object, backend, driver, CLI, or
 public aggregate ABI.
 
+The completed internal #83 compiler boundary covers the frozen Shared/Weak payload categories,
+exact handle transitions and owner identities, indivisible success/expired/overflow upgrade
+outcomes, failure-prefix cleanup and replay, and explicit Weak cycle breaking without tracing.
+Its ABI evidence is symbolic and non-executable: it performs no allocation, concrete target count
+mutation or outcome selection and enables no backend, driver, CLI, or public profile.
+
+The internal #270 closure candidate composes that handle authority with the generic owned operation
+core. A checked matrix binds nested aggregate/container construction and transfer, structural clone,
+ordinary Vec observation/replacement/push, handle-containing static subobjects and finite values
+through legal Vec-indirection recursion to authenticated source, mandatory verified IR, hostile IR,
+resource and replay evidence. This is compiler authority only; runtime execution, backends and
+public activation remain open.
+
+The checked [non-indexed owned borrowing matrix](M3_NONINDEXED_OWNED_BORROWING_MATRIX.md)
+integrates #337 owned roots and static Struct/FixedArray projections, #338 refined active-enum
+payloads, #339 nested lexical and direct-call use, and #340 hostile/resource closure. Source
+lowering emits only the existing borrow, owned-clone and prepare-before-replace operations; the
+mandatory IR verifier independently seals exact place, mode, region, refinement, overlap, cleanup,
+nonescape and resource authority. This compiler-only #275 candidate adds no runtime alias checks,
+backend, driver, CLI, artifact, public ABI/profile, or target execution. The combined compiler
+authority is reconciled by the [#269 source-completion proof](M3_SOURCE_COMPLETION.md).
+
+The checked [internal owned-call closure matrix](M3_OWNED_CALL_CLOSURE_MATRIX.md) integrates #329
+imported signature and canonical identity resolution, #330 structured transfer and exact cleanup,
+and #331 independent hostile-IR and resource proofs. Internal same-module and named-import calls
+admit the sealed by-value ownership graph without adding nominal type-import syntax. Borrowed
+imports, indirect calls, recursion, runtime execution, backends and public activation remain open.
+
+The checked [complete enum matching closure matrix](M3_COMPLETE_ENUM_MATCHING_MATRIX.md) integrates
+#333 authenticated exhaustive source lowering, #334 independently constructed refinement and
+payload ownership verification, and #335 exact resource/overflow evidence. It makes #273 a
+compiler-only closure candidate for sealed multi-variant and nested matches with exact active-
+payload cleanup and Copy or owned result continuations. Terminating and wildcard arms and inactive
+payload access remain outside that matrix; #275 is completed separately at its compiler boundary.
+Runtime, backends and public activation remain open.
+
+The checked [structured owned control-flow matrix](M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md)
+integrates #325 source routing and lexical state, #326 independent hostile-IR authority, and #327
+payload/fault/resource evidence. It makes #271 a compiler-only closure candidate: nested and
+repeated Block/If/While/WeakUpgrade and admitted Match occupants lower to mandatory verified IR,
+with exact joins, backedges, cleanup and checked graph budgets. These verified traces do not
+execute allocation, refcount, drop, calls, upgrades, or faults. #275 is completed separately at its
+compiler boundary and is included in the #269 source-completion proof. Break/continue, exceptions,
+driver integration, CLI and public activation remain open.
+
+The [internal M3 target backends](M3_TARGET_BACKENDS.md) consume the resulting closed operand and
+terminator views. JavaScript emits bounded self-contained ESM, core WebAssembly emits validated
+import-free bytes with private bounded memory, and native lowering independently reseals Linux
+x86-64 layout-bound MIR. Object/link execution and public routing remain downstream boundaries.
+
 The internal [`M3 Copy aggregate semantic boundary`](M3_COPY_AGGREGATE_SEMANTICS.md) consumes the
 exact source-map-bound protocol-v4 authority, resolves canonical nominal identities and exact
 types, verifies one type graph for both layout targets, and lowers recursively Copy structs, enums,
@@ -427,7 +493,8 @@ checked concatenation, moves, return cleanup, and mutable root-local replacement
 Vec construction, explicit clone for exact `Vec<bool>`, `Vec<i32>`, and `Vec<String>`, moves,
 return, push, checked Copy-element indexing, and supported root-local replacement. Bounded private owned functions
 support exact owned parameters and internal calls,
-one top-level branch or while loop, terminal owned branch-result joins, reverse-order cleanup of
+one top-level branch or while loop, terminal owned `if` as exactly three entry/then/else blocks
+with direct returns from both arms and no join block or parameter, reverse-order cleanup of
 branch/iteration locals, and a single stable mutable String or Vec root across the admitted loop
 mutation shape. A separate parameter-free private straight-line route constructs, moves,
 explicitly clones, returns, and reverse-order drops bounded owned Struct, FixedArray, and root Enum
@@ -490,9 +557,9 @@ Vec-element projections, projected aggregate assignment outside the exact static
 or-clone-or-whole-root-move-or-clone-to-static-projection exception, projected aggregate clone outside the exact
 direct-local or distinct-root static-replacement exceptions, partial
 Enum transfer or partial-root transfer outside the exact
-direct-local, final-return, or whole-root assignment forms, general nested or repeated owned control flow, loop-carried owned
-phi values, `break`, `continue`, body returns, and general scope-drop insertion are not yet
-admitted. The assignment exception does not extend to fresh sources, partial/moved projected
+direct-local, final-return, or whole-root assignment forms and loop-carried owned phi values are
+not admitted. The #271 route separately admits general nested/repeated owned control flow, body
+returns and scope-drop insertion; `break` and `continue` remain excluded. The assignment exception does not extend to fresh sources, partial/moved projected
 subtrees, broader projected clone contexts, same-root/overlapping paths, or dynamic/Vec/Enum targets,
 calls,
 direct projected-clone or payload returns, owner-carrying CFG transfer, public functions,
@@ -551,8 +618,9 @@ authority, retains the source, gives each owned result a distinct owner, and reu
 cleanup/fault plans; `BorrowRead` remains Copy-only. It adds no projection, mutation, move,
 runtime, backend, or public capability. Issue #116 passed independent verification and required
 merge gates. Issue #122 consolidates the complete bounded internal borrowing boundary, its named
-resource/negative evidence and integrated regressions. Shared/Weak production and the normative
-#254–#256 indexed-borrowing chain remain separate work; this enables no public profile or runtime.
+resource/negative evidence and integrated regressions. The #83 internal Shared/Weak compiler and
+proof boundary is complete; the #254–#256 indexed-borrowing chain remains separately tracked. This
+enables no public profile or runtime.
 
 `zryna-syntax::v4` is the provider-neutral M3 syntax boundary. Its closed JSON schema, bounded raw
 DTOs, pinned TypeScript 6 syntax-only worker, strict process handshake, and Rust verifier preserve
