@@ -1,9 +1,9 @@
 ---
 title: "Roadmap"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/ROADMAP.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/ROADMAP.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # Delivery roadmap
 
@@ -186,13 +186,20 @@ Completion gates:
 
 ## M3 — Data, Memory, and Ownership
 
+Current compiler state: exact `--profile data-ownership-v1` activates the #89-conformant route
+with manifest v3. [Public support and exclusions](/reference/compiler/next/reference/m3-public-profile/) and the
+[beginner guide](/reference/compiler/next/reference/m3-getting-started/) are exported in the authenticated documentation bundle.
+Final milestone closure is recorded externally in #90 only after the merged-commit website
+import, hosted checks, deployment, live provenance and independent review succeed. The following
+issue-by-issue checkpoints preserve the development history rather than making deployment claims.
+
 Goal: add a separate explicit `DataOwnershipV1` profile without reinterpreting default M1 or
 explicit M2. Issue #75 freezes the specification, exact non-goals, real issue graph, first internal
 Pair slice, checked layout rules, ownership transitions, and non-Rust runtime ABI before any M3
 implementation is activated. The canonical planning inventory is digest-pinned in
 `tests/m3-contract-v1.json`.
 
-Current status: the contract, internal verified aggregate-layout authority, separately versioned
+Original internal checkpoint: the contract, internal verified aggregate-layout authority, separately versioned
 protocol-v4 syntax boundary, isolated `DataOwnershipV1` raw-to-verified IR boundary, and internal
 Copy-only struct/enum/fixed-array semantic lowerer, and sealed ownership-runtime ABI v1 declaration
 authority are implemented. The semantic boundary resolves
@@ -202,6 +209,11 @@ checked header evidence, and pure transitions; it implements no allocator or hel
 selected by the public driver and exposes no runtime, backend, CLI, public aggregate ABI, target
 artifact, or host capability.
 
+Internal explicit Shared/Weak construction, clone, downgrade, release and sealed upgrade lowering
+are complete across the frozen payload and control-flow matrix. Mandatory verified IR plus
+non-executable ABI/control/fault/resource evidence proves the compiler boundary without claiming an
+allocator, target runtime, backend, driver, CLI, public profile, or target execution.
+
 Issue #81 is complete at a bounded internal compiler checkpoint. Private functions cover String
 literals, explicit clone, checked concatenation, moves, return cleanup, and root-local replacement,
 plus Vec construction, explicit clone for exact `Vec<bool>`, `Vec<i32>`, and `Vec<String>`, moves,
@@ -209,8 +221,8 @@ return, push, checked Copy-element indexing, and supported exact
 root-local replacement. Zero-argument producers and one-argument owned identity calls transfer
 owners through independently verified direct-call boundaries. One canonical top-level no-phi
 String/Vec branch restores its incoming owner state after reverse-dropping branch locals, and one
-bounded terminal branch transfers either owned arm result through a canonical block-parameter
-join. One bounded top-level no-carried-owner loop reevaluates its condition in a canonical header,
+bounded terminal branch uses exactly three entry/then/else blocks, returning the owned result
+directly from each arm with no join block or parameter. One bounded top-level no-carried-owner loop reevaluates its condition in a canonical header,
 reverse-drops iteration locals before the backedge, and restores its exact incoming state on both
 the backedge and false exit. Its stable-place subset replaces one mutable outer String after full
 RHS preparation or pushes a Copy element into one mutable outer exact Vec without an owned header
@@ -307,6 +319,8 @@ accepted cases, and 13 exclusions at merged-main provenance
 artifact, and public-profile boundary remain unchanged. The remaining dependency-ordered slices
 retain nested/repeated control flow, runtime, backend, and public-profile work.
 
+Historical gate ledger after #88, before #89/#90; the current public status is stated above:
+
 | Issue | Gate                                                                   | Depends on              | State    |
 | ----: | ---------------------------------------------------------------------- | ----------------------- | -------- |
 |   #75 | normative profile, layout, ownership, and runtime ABI contract         | M2 closure              | complete |
@@ -317,18 +331,23 @@ retain nested/repeated control flow, runtime, backend, and public-profile work.
 |   #80 | versioned ownership runtime ABI authority                              | #75, #77                | complete |
 |   #81 | owned String/Vec, move checking, and deterministic drop                | #78, #79, #80           | complete |
 |   #82 | bounded nonescaping lexical borrowing                                  | #81                     | complete |
-|   #83 | explicit shared and weak reference semantics                           | #80, #81, #82           | planned  |
-|   #84 | deterministic JavaScript and sealed helpers                            | #79, #80, #81, #82, #83 | planned  |
-|   #85 | audited memory-bearing core WebAssembly                                | #79, #80, #81, #82, #83 | planned  |
-|   #86 | independently verified native MIR                                      | #78, #80, #81, #82, #83 | planned  |
-|   #87 | audited Linux x86-64 object, runtime, link, and execution              | #77, #80, #86           | planned  |
-|   #88 | candidate driver integration and atomic manifest v3 bundles            | #76, #84, #85, #87      | planned  |
+|   #83 | explicit shared and weak reference semantics                           | #80, #81, #82           | complete |
+|   #84 | deterministic JavaScript and sealed helpers                            | #79, #80, #81, #82, #83 | complete |
+|   #85 | audited memory-bearing core WebAssembly                                | #79, #80, #81, #82, #83 | complete |
+|   #86 | independently verified native MIR                                      | #78, #80, #81, #82, #83 | complete |
+|   #87 | audited Linux x86-64 object, runtime, link, and execution              | #77, #80, #86           | complete |
+|   #88 | candidate driver integration and atomic manifest v3 bundles            | #76, #84, #85, #87      | complete |
 |   #89 | fixed-oracle three-target conformance and resource gates               | #88                     | planned  |
 |   #90 | public profile activation, authenticated docs, website, and provenance | #89                     | planned  |
 
-The bounded #82/#120 checkpoint rejects dynamic-index and Vec-element source borrows. This does
-not implement or waive the normative complete-container overlap rule. The remaining M3 capability
-is explicitly tracked before complete target support and public activation:
+The historical #82/#120 checkpoint rejected dynamic-index and Vec-element source borrows.
+The current authenticated #255/#256 producer now uses #254 exact referent and conservative
+complete-container authority for shared reads and exclusive replacement, including Copy,
+String, aggregates, Shared/Weak and nested handle-containing elements. Named source, hostile-IR,
+cleanup and resource evidence is mapped in the
+[indexed source contract](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256).
+The owning issues and required integration gates remain tracked independently of target support
+and public activation:
 
 | Issue | Normative completion work                                                                 | Dependencies                    |
 | ----: | ----------------------------------------------------------------------------------------- | ------------------------------- |
@@ -339,51 +358,77 @@ is explicitly tracked before complete target support and public activation:
 Issues #84, #85, and #86 retain their existing dependencies and also require this chain before
 claiming complete M3 target support. #89/#90 remain conformance and activation gates, not owners
 of missing source semantics. Copy-only staged evidence cannot close generic owned-element
-requirements; any staged remainder needs explicit blocking work. These tracked gaps do not
+requirements; any staged remainder needs explicit blocking work. These source capabilities do not
 activate new syntax or a public profile, and do not certify all other normative M3 requirements
 complete. Bounded #122 closure must preserve the distinction and its actual verification gates.
 
 The checked M3 registry records this dependency order rather than assuming that an earlier GitHub
 issue number cannot depend on later-discovered work. Its current SHA-256 is
-`4840114001e53f510a285114a33fb15e3a9599067473e8707d2607333c339d18`.
+`dfa23281785a225042f32c082abef0f1cb61dd5971bb713625995d5ee0f51d22`.
 The original #119 provenance and unchanged borrow-call fixture digest remain historical evidence;
 updating the graph does not implement any of its planned capabilities.
 
-Issue #83 has six tracked sub-issues: #259 freezes the shared/weak interface, #260 verifies
-transition and upgrade graphs, #261 implements source handles and cleanup, #262 implements
-indivisible upgrade control flow, #263 proves failure/count/resource boundaries, and #264 owns
-integrated closure. Issue #83 is dependency-ready after the verified #82 closure change merges.
-Existing IR/ABI
-operations are reusable authority, not evidence that these source producers are implemented.
-Independent proof work may proceed after its interface is frozen; full payload support and all
-parent acceptance criteria remain required before #83 closes.
+Issue #83's six tracked sub-issues are complete: #259 froze the shared/weak interface, #260 verified
+transition and upgrade graphs, #261 implemented source handles and cleanup, #262 implemented
+indivisible upgrade control flow, #263 proved failure/count/resource boundaries, and #264
+reconciled the integrated closure. Full payload support and all parent acceptance criteria are
+mapped to executable source/IR tests or explicitly labelled symbolic ABI evidence.
 
-Issue #269 tracks the remaining normative M3 source and independently verified IR composition.
-It is an additional completion prerequisite for #84/#85/#86, retaining every existing dependency;
-neither backend implementation nor #89 conformance supplies missing source semantics. These are
-planned capabilities, not changes to the completed bounded #79/#81/#82 checkpoints:
+Issue #269 reconciles the completed normative M3 source and independently verified IR composition.
+It remains an explicit prerequisite for #84/#85/#86 and retains every existing dependency;
+neither backend implementation nor #89 conformance supplies source semantics. The completed
+capabilities do not change the bounded #79/#81/#82 checkpoints:
 
-| Issue | Planned source-completion responsibility                                                 | Completion prerequisites                 |
-| ----: | ---------------------------------------------------------------------------------------- | ---------------------------------------- |
-|  #277 | generic ownership integration contract and operation/CFG hooks                           | #259, retaining #77/#78/#80/#82          |
-|  #278 | non-handle generic owned operation core                                                  | #277                                     |
-|  #279 | compositional ownership CFG core                                                         | #277/#278/#260                           |
-|  #270 | full generic owned composition, structural clone, ordinary generic Vec reads/replacement | #83/#277/#278, retaining #76–#81         |
-|  #271 | full structured owned control flow and lexical cleanup                                   | #270/#279                                |
-|  #272 | internal owned calls and inherited imported-function resolution                          | #270/#271                                |
-|  #273 | exhaustive enum matching and active-payload composition                                  | #270/#271                                |
-|  #274 | ordinary dynamic fixed-array access using the indexed authority                          | #254/#270; coordinate #255               |
-|  #275 | non-indexed owned/static/active-payload lexical borrowing                                | #82/#254/#270/#271/#272/#273             |
-|  #269 | complete source-composition integration                                                  | #83/#254/#255/#256 and every child above |
+| Issue | Source-completion responsibility                                                          | Completion prerequisites                 |
+| ----: | ----------------------------------------------------------------------------------------- | ---------------------------------------- |
+|  #277 | generic ownership integration contract and operation/CFG hooks                            | #259, retaining #77/#78/#80/#82          |
+|  #278 | non-handle generic owned operation core                                                   | #277                                     |
+|  #279 | compositional ownership CFG core                                                          | #277/#278/#260                           |
+|  #270 | full generic owned composition, structural clone, ordinary generic Vec reads/replacement  | #83/#277/#278, retaining #76–#81         |
+|  #271 | checked compiler-only structured owned control flow and lexical cleanup closure candidate | #270/#279; integrated by #325/#326/#327  |
+|  #272 | checked internal owned calls and imported-function closure candidate                      | #270/#271; integrated by #329/#330/#331  |
+|  #273 | checked exhaustive enum matching and active-payload closure candidate                     | #270/#271; integrated by #333/#334/#335  |
+|  #274 | ordinary dynamic fixed-array access using the indexed authority                           | #254/#270; coordinate #255               |
+|  #275 | non-indexed owned/static/active-payload lexical borrowing                                 | #82/#254/#270/#271/#272/#273             |
+|  #269 | completed source-composition integration                                                  | #83/#254/#255/#256 and every child above |
 
-Stages #277/#278/#279 are separately closeable children of #269, not dependents of its closure.
-\#259 freezes full Shared/Weak meaning and required payload/CFG contexts; #277 fixes reusable
-integration interfaces. #260 consumes #277; #261 consumes #278; #262 consumes #279 and implements
-actual WeakUpgrade source control flow. #264 verifies the complete #83 contract before #83 closes.
+Stages #277/#278/#279 closed separately as children of #269, not dependents of its closure.
+\#259 froze full Shared/Weak meaning and required payload/CFG contexts; #277 fixed reusable
+integration interfaces. #260 consumed #277; #261 consumed #278; #262 consumed #279 and implemented
+actual WeakUpgrade source control flow. Its completed compile-time closure covers authenticated
+addressable and temporary Weak operands, the complete frozen payload categories, required nested
+if/while/call/match composition, sealed successor ownership, exact diagnostics and bounded
+recovery. #263 integrated the corresponding non-executable fault, count, cycle and resource
+conformance; target execution remains downstream. #264 reconciles the complete #83 contract and
+its immutable verification provenance.
+The current #270 integration reconciles #320's checked matrix with #321 handle-containing static
+transfers, #322 ordinary handle-aware Vec operations and #323 finite recursive composition.
+Exact source, hostile-IR and bounded resource/replay bindings make it a compiler-only closure
+candidate; full/ignored suites, preflight, M0/M2, independent review and hosted CI were required
+merge gates. Its historical scope did not independently complete #273, #275, #269 or
+target/runtime/public-profile work.
 The cores use typed operation hooks without claiming source handle execution. Required #83
-payload, call, match and CFG cases cannot wait for later #270–#273 closure. Full #270/#271 then
-integrate actual handles into broader generic behavior; no parent-completion dependency cycle is
-permitted. Large children retain explicit bounded implementation sub-issues and integration gates.
+payload, call, match and CFG cases could not wait for every source-completion parent. #271 now has a
+checked compiler-only closure matrix: #325 completes source routing and lexical state, #326 pins
+independent hostile-IR authority, and #327 integrates the #270 payload/fault and block/edge resource
+rows. Required full/ignored suites, preflight, M0/M2, review and hosted CI remain closure gates.
+The checked #272 owned-call matrix integrates #329 signature/identity resolution, #330 structured
+transfer/cleanup and #331 hostile-IR/resource evidence. Its historical scope did not close #273/#275/#269, execute
+runtime handle behavior, add break/continue or exceptions,
+or enable a runtime, backend, CLI or public profile.
+The checked #273 complete enum matching matrix integrates #333 authenticated source/exhaustiveness,
+\#334 independent refinement/ownership verification and #335 resource/overflow evidence. It does
+did not itself implement #275/#269, add terminating or wildcard arms, expose inactive payloads, or
+enable runtime, backend, CLI or public-profile behavior. The checked #275 matrix separately
+integrates #337 owned roots/static projections, #338 active payload refinement, #339 lexical calls,
+and #340 hostile/resource closure. Together these completed children feed the checked #269
+source-completion integration proof.
+
+Issues #84–#86 provide the internal target boundaries described in `M3_TARGET_BACKENDS.md`:
+deterministic ESM, validated memory-bearing core WebAssembly and independently verified Linux
+x86-64 native MIR. #87 completes native object/runtime execution and #88 completes candidate
+integration plus atomic manifest-v3 bundles. #89 and #90 retain conformance and public activation
+in order.
 
 \#254–#256 keep indexed-borrow ownership; #274 does not duplicate it. #83 keeps handle/count
 semantics. The new source work invents no type-import syntax, break/continue, Vec pop, implicit

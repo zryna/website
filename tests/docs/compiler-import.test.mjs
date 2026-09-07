@@ -13,8 +13,8 @@ import {
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 
-const COMMIT = 'c3f828cafc762fcc9de123226d3f7f9403ad239f';
-const MANIFEST_DIGEST = 'c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc';
+const COMMIT = '4c9fbda9ca80decf755fb8313474217e051eb5c8';
+const MANIFEST_DIGEST = '7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -23,7 +23,7 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 36);
+	assert.equal(files.size, 46);
 	assert.deepEqual(
 		[...files.keys()],
 		[
@@ -46,12 +46,22 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m2-straight-line-semantics.md',
 			'reference/m2-webassembly-backend.md',
 			'reference/m3-borrowing-semantics.md',
+			'reference/m3-candidate-driver.md',
+			'reference/m3-conformance.md',
 			'reference/m3-copy-aggregate-semantics.md',
 			'reference/m3-data-ownership-ir.md',
+			'reference/m3-generic-clone-core.md',
+			'reference/m3-generic-function-operations.md',
+			'reference/m3-generic-static-places.md',
+			'reference/m3-generic-vec-operations.md',
+			'reference/m3-getting-started.md',
+			'reference/m3-indexed-borrow-authority.md',
+			'reference/m3-opaque-handle-slots.md',
 			'reference/m3-owned-data-semantics.md',
 			'reference/m3-ownership-composition-evidence.md',
 			'reference/m3-ownership-composition.md',
 			'reference/m3-ownership-runtime-abi.md',
+			'reference/m3-public-profile.md',
 			'reference/m3-shared-weak-authority.md',
 			'reference/m3-shared-weak-evidence.md',
 			'reference/memory-model.md',
@@ -110,10 +120,13 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 		composition,
 		/planned implementation contract, not implemented generic source semantics/,
 	);
-	assert.match(evidence, /planned generic evidence and integration matrix/);
 	assert.match(
 		evidence,
-		/constructor-preparation candidate described below; not implemented generic source capability/,
+		/generic evidence and integration matrix with implemented internal ownership/,
+	);
+	assert.match(
+		evidence,
+		/composition checkpoints described below\. No public profile or target execution is enabled/,
 	);
 	assert.match(evidence, /single scratch owner state/);
 	assert.match(
@@ -124,49 +137,35 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 	assert.match(evidence, /does not complete generic C2, #278, #83 or M3/);
 });
 
-test('authored status presents bounded internal borrowing evidence without broad runtime claims', async () => {
+test('authored M3 status preserves earlier profiles and explicit exclusions', async () => {
 	const root = new URL('../../src/content/docs/', import.meta.url);
 	const status = await readFile(new URL('reference/compiler-status.md', root), 'utf8');
 	const home = await readFile(new URL('index.mdx', root), 'utf8');
 	const gettingStarted = await readFile(new URL('guides/getting-started.md', root), 'utf8');
 	const roadmap = await readFile(new URL('guides/roadmap.md', root), 'utf8');
 	for (const content of [status, home, gettingStarted, roadmap]) {
-		assert.doesNotMatch(
-			content,
-			/M2 features remain unsupported|Add control flow and functions through .* M2/,
-		);
+		assert(content.includes('data-ownership-v1'));
+		assert(content.includes('/reference/compiler/next/reference/m3-getting-started/'));
+		assert.doesNotMatch(content, /only public profiles|not runnable public M3/);
 	}
-	assert.match(status, new RegExp(COMMIT));
-	assert.match(status, new RegExp(MANIFEST_DIGEST));
-	assert.match(status, /\/reference\/compiler\/next\/reference\/m3-borrowing-semantics\//);
-	assert.match(status, /completed bounded internal Issue #82 boundary/);
-	assert.match(status, /M1 default and explicit M2 remain the only public profiles/);
-	assert(status.includes('/reference/compiler/next/reference/m3-ownership-composition/'));
-	assert(status.includes('/reference/compiler/next/reference/m3-ownership-composition-evidence/'));
-	assert.match(status, /not runnable public M3 examples or completed runtime support/);
-	assert.match(status, /internal constructor-preparation\s+candidate/);
-	assert.match(status, /Independent IR verification remains\s+mandatory/);
-	assert.match(status, /not complete mixed aggregate\/Vec construction/);
-	assert.match(
-		status,
-		/does\s+not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or\s+CLI route, or a target artifact/,
-	);
-	assert.doesNotMatch(status, /M3 (?:is )?(?:implemented|supported|publicly available)/i);
-	assert.doesNotMatch(
-		status,
-		/M3 (?:is )?(?:enabled|active|activated|production-ready|a public profile)/i,
-	);
-	assert.doesNotMatch(
-		status,
-		/(?:general|public) borrowing (?:is )?(?:supported|enabled|active|available)/i,
-	);
-	assert.doesNotMatch(
-		status,
-		/(?:runtime|backend|ABI|driver|CLI|target) (?:is )?(?:enabled|active|activated|supported|available)/i,
-	);
-	assert.match(home, /explicit M2 `control-flow-v1` profile/);
-	assert.match(gettingStarted, /not a general zero-runtime\s+or GC-free guarantee/);
-	assert.match(roadmap, /Completed as the explicit M2 `control-flow-v1` profile/);
+	assert(status.includes(COMMIT));
+	assert(status.includes(MANIFEST_DIGEST));
+	for (const marker of [
+		'manifest v3',
+		'M1',
+		'M2',
+		'Windows native execution',
+		'public owned/aggregate',
+		'tracing GC',
+		'WASI',
+		'Components',
+		'not production-ready',
+	])
+		assert(status.includes(marker), marker);
+	for (const id of ['m3-public-profile', 'm3-conformance', 'm3-candidate-driver'])
+		assert(status.includes(`/reference/compiler/next/reference/${id}/`));
+	assert(home.includes('explicit M2 `control-flow-v1` profile'));
+	assert(roadmap.includes('Completed as the explicit M2 `control-flow-v1` profile'));
 });
 
 test('walkthrough navigation and authored provenance agree with the reviewed import', async () => {
@@ -182,15 +181,16 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	);
 	assert.equal(lock.source.commit, COMMIT);
 	assert.equal(lock.manifestSha256, MANIFEST_DIGEST);
-	assert.equal(lock.documents.length, 35);
+	assert.equal(lock.documents.length, 45);
 	assert(config.includes("slug: 'reference/compiler/next/reference/getting-started'"));
+	assert(config.includes("slug: 'reference/compiler/next/reference/m3-getting-started'"));
 	assert(guide.includes('/reference/compiler/next/reference/getting-started/'));
 	for (const marker of [
 		COMMIT,
 		MANIFEST_DIGEST,
-		'33853558039',
-		'9929801939',
-		'f60bd16e5a015c1c3f95f6a4fd0598f9bbea52391421ce098cfcce547d164c49',
+		'34091122586',
+		'10007513825',
+		'79e48bd995bcb89482186a2062212d5c2de5314dbf45ea6b5cbde0efa3f18c7d',
 	]) {
 		assert(provenance.includes(marker), marker);
 	}

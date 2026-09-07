@@ -64,6 +64,10 @@ HTML pages, and resolves every local HTML `href` and `src` target plus fragment 
 network access. This makes missing generated pages and broken local links build failures on every
 supported CI host.
 
+`pnpm content:check` then checks the rendered compiler identity and required M3 status, profile,
+walkthrough, and conformance content. The same checker runs against the Docker HTTP server to
+verify every published route and its configured security headers before publication.
+
 ## Request path
 
 ```text

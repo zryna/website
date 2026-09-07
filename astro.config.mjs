@@ -56,6 +56,10 @@ export default defineConfig({
 							label: 'Run your first programs',
 							slug: 'reference/compiler/next/reference/getting-started',
 						},
+						{
+							label: 'Your first M3 programs',
+							slug: 'reference/compiler/next/reference/m3-getting-started',
+						},
 						{ label: 'Roadmap', slug: 'guides/roadmap' },
 					],
 				},

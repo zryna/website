@@ -1,9 +1,9 @@
 ---
 title: "M3 ownership runtime ABI authority"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/M3_OWNERSHIP_RUNTIME_ABI.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M3_OWNERSHIP_RUNTIME_ABI.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/M3_OWNERSHIP_RUNTIME_ABI.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_OWNERSHIP_RUNTIME_ABI.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # M3 ownership runtime ABI authority
 

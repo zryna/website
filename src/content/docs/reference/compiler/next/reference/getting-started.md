@@ -1,14 +1,15 @@
 ---
 title: "Run your first Zryna programs"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/GETTING_STARTED.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/GETTING_STARTED.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # Run your first Zryna programs
 
 Zryna is experimental. This walkthrough uses the existing public M1 scalar and M2 control-flow
-profiles, not the internal M3 ownership profile. Run commands from the compiler repository root.
+profiles. For the separately selected public M3 ownership profile, continue with
+[Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/). Run commands from the compiler repository root.
 You do not need to run the contributor regression suite after every program edit.
 
 ## Prepare the checkout
@@ -163,7 +164,7 @@ source file beneath the existing `examples` directory. For the M2 example, keep 
 This is editing guidance, not an additional executed example.
 
 Do not put personal source in `.zryna/out`, add a new top-level project directory, or create
-symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/STRICT_WORKSPACE.md)
+symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/STRICT_WORKSPACE.md)
 still checks file names, UTF-8 contents, layout and budgets. There is no `zryna init` command in
 this walkthrough and no architecture bypass; this repository-local workflow is not package or
 standalone-project support.

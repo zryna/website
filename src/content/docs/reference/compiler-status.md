@@ -4,43 +4,34 @@ description: The authenticated current compiler status imported from the compile
 ---
 
 The website pins and validates the compiler-owned `next` bundle from commit
-[`c3f828cafc762fcc9de123226d3f7f9403ad239f`](https://github.com/zryna/zryna/commit/c3f828cafc762fcc9de123226d3f7f9403ad239f).
+[`4c9fbda9ca80decf755fb8313474217e051eb5c8`](https://github.com/zryna/zryna/commit/4c9fbda9ca80decf755fb8313474217e051eb5c8).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
-`c1afd7b4b1cb93bcfefc5da0084883405b46c19fefed32b011a833ab56a0e9bc`.
+`7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03`.
 
-[Read the imported current status](/reference/compiler/next/status/current/), including the default
-M1 boundary, implemented M2 explicit profile, toolchain evidence, and deliberately unsupported
-capabilities. The [M2 conformance evidence](/reference/compiler/next/reference/m2-conformance/) and
-[control-flow contract](/reference/compiler/next/reference/control-flow-modules-v1/) are imported
-from the same authenticated bundle.
+Exact public `--profile data-ownership-v1` selects the implemented M3 profile and manifest v3.
+Read the [public surface](/reference/compiler/next/reference/m3-public-profile/) and
+[M3 conformance](/reference/compiler/next/reference/m3-conformance/) for compiler-owned supported
+and rejected boundaries. The website presents authenticated bytes without defining new semantics.
 
-The [M3 borrowing evidence](/reference/compiler/next/reference/m3-borrowing-semantics/) documents a
-completed bounded internal Issue #82 boundary: shared/exclusive Copy-root borrows, bounded
-reborrowing, one canonical conditional and bool-root loop, static Copy projections, and exact
-whole-root direct calls. Lexical authorities end before control-flow edges; call access cannot
-escape. Nested/repeated control-flow borrowing and dynamic/Vec source projections remain later
-work. This is internal compiler evidence, not a public language profile.
+Start with [Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/): setup,
+complete sources, build/run, expected scalar output and safe create-only reruns. Aggregates,
+String/Vec, explicit move/clone, lexical borrows, live/expired Weak upgrades, rejected programs and
+executable corrections are included.
 
-The [first-program walkthrough](/reference/compiler/next/reference/getting-started/) covers the
-public M1/M2 workflow. The [Shared/Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/)
-and [evidence matrix](/reference/compiler/next/reference/m3-shared-weak-evidence/) distinguish
-verified contracts from remaining implementation and runtime evidence.
+The [current status](/reference/compiler/next/status/current/) preserves default M1 and the
+implemented M2 explicit profile. The [M1/M2 walkthrough](/reference/compiler/next/reference/getting-started/)
+and [M2 conformance](/reference/compiler/next/reference/m2-conformance/) remain available.
 
-The [ownership composition contract](/reference/compiler/next/reference/m3-ownership-composition/)
-and [composition evidence matrix](/reference/compiler/next/reference/m3-ownership-composition-evidence/)
-describe the planned integration of ownership features and the internal constructor-preparation
-candidate. The admitted aggregate child trees are prepared before real compiler state changes;
-rejected trees preserve prior statements, and single-use consumption checks bind operands,
-ownership effects, cleanup roles, and resource accounting. Independent IR verification remains
-mandatory.
+M3 keeps owned values internal and public observations scalar. JavaScript and core WebAssembly
+are verified on Linux x86-64 and Windows x64; native execution requires Linux x86-64 and the
+specified GNU toolchain. Typed traps and deterministic cleanup use the compiler's fixed oracles.
+Existing output bundles are never overwritten. Windows native execution, public owned/aggregate
+ABI, escaping borrows, tracing GC, FFI, threads, WASI and Components remain unsupported.
 
-This is not complete mixed aggregate/Vec construction, generic ownership composition, runtime
-failure testing, or public M3 support. The documents distinguish the current internal implementation
-from remaining work; they are not runnable public M3 examples or completed runtime support.
+[Manifest v3](/reference/compiler/next/reference/m3-candidate-driver/) binds the source graph,
+layout/runtime identities, artifact hashes and typed results. Historical component checkpoints
+do not independently expand public support.
 
-M1 default and explicit M2 remain the only public profiles. The imported borrowing evidence does
-not activate general M3 support or add runtime lifetime state, an ABI, a backend path, a driver or
-CLI route, or a target artifact.
-
-Zryna remains experimental and not production-ready.
+Zryna remains experimental and not production-ready. Final milestone closure is recorded in
+[Issue #90](https://github.com/zryna/zryna/issues/90) after deployment and live provenance checks.

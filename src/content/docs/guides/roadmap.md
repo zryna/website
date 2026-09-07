@@ -8,7 +8,7 @@ set of language semantics across JavaScript, WebAssembly, and native targets; a 
 quietly reinterpret the program for its own convenience.
 
 This page is a non-normative public planning summary. The compiler repository's
-[roadmap](https://github.com/zryna/zryna/blob/main/docs/ROADMAP.md) is authoritative.
+[authenticated roadmap](/reference/compiler/next/status/roadmap/) is authoritative.
 
 ## 0. Foundation
 
@@ -44,11 +44,15 @@ Completed as the explicit M2 `control-flow-v1` profile:
 
 ## 3. Ownership and runtime
 
-- Define owned values, borrowing rules, deterministic destruction, and the versioned native
-  runtime and data-layout ABI beyond scalar ABI v1.
-- Keep garbage collection optional and explicit where a managed runtime profile is eventually
-  useful; native code must not silently acquire a collector.
-- Specify foreign-function boundaries and platform behavior before broad library work.
+Public compiler activation is available through exact `--profile data-ownership-v1` and manifest
+v3. The [public surface](/reference/compiler/next/reference/m3-public-profile/),
+[conformance](/reference/compiler/next/reference/m3-conformance/), and
+[beginner guide](/reference/compiler/next/reference/m3-getting-started/) describe observed behavior.
+
+Final milestone closure requires the merged-commit bundle, exact website import, hosted checks,
+deployment, live provenance and independent review. Its final state is recorded in
+[Issue #90](https://github.com/zryna/zryna/issues/90). Public activation does not add tracing GC,
+WASI/Components, a public owned ABI, FFI, threads or broader native platforms.
 
 ## 4. Tooling and packages
 

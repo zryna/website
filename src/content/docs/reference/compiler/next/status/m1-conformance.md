@@ -1,16 +1,16 @@
 ---
 title: "M1 three-target conformance"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/M1_CONFORMANCE.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M1_CONFORMANCE.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/M1_CONFORMANCE.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M1_CONFORMANCE.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # M1 three-target conformance
 
 Status: implemented for the checked `I32V1` slice. M1 closure evidence includes the authenticated
 compiler-owned status bundle and verified zryna.com synchronization tracked in Issue #21.
 
-The versioned [`m1-conformance-v1.json`](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/tests/m1-conformance-v1.json) registry freezes one
+The versioned [`m1-conformance-v1.json`](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/tests/m1-conformance-v1.json) registry freezes one
 source entrypoint, one logical export, canonical target order, exact typed arguments, and exact
 typed results. The suite invokes the public CLI and compares structured outcomes and committed
 manifests; it does not reproduce backend implementation logic or use one target as the oracle.
@@ -35,7 +35,7 @@ triage; it does not replace the complete gate.
 | `i32::MIN - 1` returns `i32::MAX`                  | `minimum-minus-one-wraps`                                                                                                                  | same three-target test                                                                           | JavaScript, core WebAssembly, Linux x86-64 native    |
 | Portable result behavior                           | all three numeric cases                                                                                                                    | `m1_javascript_and_webassembly_match_every_portable_fixture`                                     | JavaScript and core WebAssembly on Linux and Windows |
 | Target-independent source rejection                | `invalidSource` / `ZRYNA-M1004`                                                                                                            | `m1_invalid_source_is_target_independent_and_publishes_nothing`                                  | Linux and Windows                                    |
-| Typed Boolean host normalization                   | [`scalar-v1-fixtures.json`](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/spec/abi/scalar-v1-fixtures.json) | `m1_bool_host_normalization_matches_without_enabling_bool_source` plus component-owned ABI tests | ABI carrier contract only                            |
+| Typed Boolean host normalization                   | [`scalar-v1-fixtures.json`](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/spec/abi/scalar-v1-fixtures.json) | `m1_bool_host_normalization_matches_without_enabling_bool_source` plus component-owned ABI tests | ABI carrier contract only                            |
 | Boolean source remains closed                      | `gatedBooleanSource` / `ZRYNA-I1006`                                                                                                       | same Boolean gate test                                                                           | Every target selection; no artifact                  |
 | Unsupported native execution closes without output | `ZRYNA-N4002`                                                                                                                              | `m1_windows_native_and_all_runs_are_rejected_without_a_bundle`                                   | Windows portability, not native execution            |
 

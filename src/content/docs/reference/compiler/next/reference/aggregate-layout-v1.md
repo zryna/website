@@ -1,9 +1,9 @@
 ---
 title: "Aggregate layout v1"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [spec/memory-model/AGGREGATE_LAYOUT_V1.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/spec/memory-model/AGGREGATE_LAYOUT_V1.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [spec/memory-model/AGGREGATE_LAYOUT_V1.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/spec/memory-model/AGGREGATE_LAYOUT_V1.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # Aggregate layout v1
 

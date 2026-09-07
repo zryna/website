@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`c3f828cafc762fcc9de123226d3f7f9403ad239f`](https://github.com/zryna/zryna/commit/c3f828cafc762fcc9de123226d3f7f9403ad239f).
+This reference was imported from compiler commit [`4c9fbda9ca80decf755fb8313474217e051eb5c8`](https://github.com/zryna/zryna/commit/4c9fbda9ca80decf755fb8313474217e051eb5c8).
 
 - [Aggregate layout v1](/reference/compiler/next/reference/aggregate-layout-v1/)
 - [Compiler architecture](/reference/compiler/next/reference/architecture/)
@@ -24,12 +24,22 @@ This reference was imported from compiler commit [`c3f828cafc762fcc9de123226d3f7
 - [M2 straight-line semantics](/reference/compiler/next/reference/m2-straight-line-semantics/)
 - [M2 direct core WebAssembly backend](/reference/compiler/next/reference/m2-webassembly-backend/)
 - [M3 bounded borrowing semantics](/reference/compiler/next/reference/m3-borrowing-semantics/)
+- [M3 driver and manifest v3](/reference/compiler/next/reference/m3-candidate-driver/)
+- [M3 fixed-oracle conformance](/reference/compiler/next/reference/m3-conformance/)
 - [M3 Copy aggregate semantics](/reference/compiler/next/reference/m3-copy-aggregate-semantics/)
 - [M3 verified data and ownership IR](/reference/compiler/next/reference/m3-data-ownership-ir/)
+- [M3 canonical structural clone](/reference/compiler/next/reference/m3-generic-clone-core/)
+- [M3 private generic function operations](/reference/compiler/next/reference/m3-generic-function-operations/)
+- [M3 complete generic static subobjects](/reference/compiler/next/reference/m3-generic-static-places/)
+- [M3 ordinary generic Vec operations](/reference/compiler/next/reference/m3-generic-vec-operations/)
+- [Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/)
+- [M3 indexed borrow authority](/reference/compiler/next/reference/m3-indexed-borrow-authority/)
+- [M3 opaque typed handle slots](/reference/compiler/next/reference/m3-opaque-handle-slots/)
 - [M3 owned data semantics](/reference/compiler/next/reference/m3-owned-data-semantics/)
 - [M3 ownership composition evidence](/reference/compiler/next/reference/m3-ownership-composition-evidence/)
 - [M3 ownership composition interfaces](/reference/compiler/next/reference/m3-ownership-composition/)
 - [M3 ownership runtime ABI authority](/reference/compiler/next/reference/m3-ownership-runtime-abi/)
+- [Public DataOwnershipV1 profile](/reference/compiler/next/reference/m3-public-profile/)
 - [M3 Shared and Weak authority contract](/reference/compiler/next/reference/m3-shared-weak-authority/)
 - [M3 Shared and Weak evidence matrix](/reference/compiler/next/reference/m3-shared-weak-evidence/)
 - [Memory model direction](/reference/compiler/next/reference/memory-model/)

@@ -1,5 +1,10 @@
 # Compiler status
 
+Current public M3 selection is `--profile data-ownership-v1`, using protocol v4 and manifest v3.
+See [the public M3 surface](M3_PUBLIC_PROFILE.md) and [the beginner guide](M3_GETTING_STARTED.md).
+The component checkpoints below retain their historical implementation boundaries; they do not
+limit or independently expand the integrated public surface. M0–M2 remain unchanged.
+
 Status channel: `next`
 
 Zryna is an experimental compiler project. It is not production-ready, and the current executable
@@ -129,8 +134,9 @@ owned identity calls are available internally. String/Vec functions also admit o
 top-level no-phi `if`/`else` from a bool literal or Copy bool parameter; branch-local owners drop in
 reverse, incoming owners are restored exactly, and mutation of an incoming Vec fails before its
 right-hand side. Private String and exact Vec result functions additionally admit one bounded
-terminal `if`/`else`: each arm returns one owned-producing expression through a canonical
-one-parameter owned join, and return cleanup excludes the joined value. One bounded top-level
+terminal `if`/`else` as exactly three entry/then/else blocks: each arm returns one owned-producing
+expression directly, no join block or parameter is created, and cleanup excludes the returned
+owner. One bounded top-level
 no-carried-owner `while` evaluates its bool condition in a canonical header, reverse-drops
 iteration-local owners before the backedge, restores incoming ownership state on the backedge and
 false exit, and permits only the final return afterward. Its stable-place subset supports prepared
@@ -208,10 +214,11 @@ enum-payload moves, dynamic or Vec-element projections, projected aggregate assi
 exact static-subobject-move-or-clone-or-whole-root-move-or-clone-to-static-projection site, projected aggregate
 clone outside the direct-local or distinct-root static-replacement exceptions, partial Enum
 transfer or partial-root transfer in call/CFG contexts, direct projected-clone returns, public
-contexts, or non-final/non-reference returns, general owned phi joins,
-owned loop-carried phi joins, repeated or nested branches or loops, and general scope exits remain
-deliberately unavailable future extensions; `break`, `continue`, loop-body return, and post-loop
-effects remain excluded. Issue #82 is complete at its bounded internal lexical-borrowing boundary.
+contexts, or non-final/non-reference returns, general owned phi joins and owned loop-carried phi
+joins remain deliberately unavailable future extensions. The checked #271 route separately admits
+repeated/nested branches and loops, general lexical scope exits, loop-body return and post-loop
+continuation; `break` and `continue` remain excluded.
+Issue #82 is complete at its bounded internal lexical-borrowing boundary.
 Issues #113 through #117, #119, #120, and #121 freeze the bounded borrowing contract, retain the independent verified-IR
 authority, and implement one internal private parameter-free literal-initialized `bool`/`i32` root
 with shared or exclusive aliases. Straight-line aliases use one nested lexical block, conditional
@@ -231,9 +238,9 @@ roots, non-Copy roots, and unsupported projections fail before raw IR constructi
 projected resource formulas, complete replay traces, and independent IR move/replace/drop/call
 tests retain the verifier as the final authority. One canonical bool-root loop now uses fixed preheader/header/body/exit blocks and discharges its
 body-local authority before every backedge and restores exact root owner/initialization state at
-the header. It carries no borrow authority, value block parameter, or edge argument. This adds no
-runtime, ABI, backend, driver, CLI, artifact, or public-profile
-capability. The completed Issue #116 implementation additionally admits exactly one
+the header. It carries no borrow authority, value block parameter, or edge argument. This adds no runtime,
+ABI, backend, driver, CLI, artifact, website-support, or public-profile capability. The
+completed Issue #116 implementation additionally admits exactly one
 private parameter-free whole non-Copy root and one const shared alias in one lexical block. Reads
 are limited to String clone/checked concat, exact `Vec<bool>`/`Vec<i32>` Copy indexing, and
 supported whole Struct/root-Enum/fixed-array clone. Existing owned instructions and cleanup/fault
@@ -252,32 +259,56 @@ cases, and 13 exclusions. Its merged registry SHA-256 is
 `d61d1ec50005bbed7d86f029fa6ece5efa7517d495b6aed6e9b0f1c15f69e20f`; its canonical borrow-call
 section SHA-256 is `ca7ca013771f8ebb0ddc3f7791bc46db6378892e89f3e8e570a44e42e687fc20`.
 The current registry additionally tracks normative indexed-borrow prerequisites #254–#256 and
-source-completion #269 before complete target support; its SHA-256 is
-`4840114001e53f510a285114a33fb15e3a9599067473e8707d2607333c339d18`.
-This updates planned dependencies, not implemented capability. The #119 commit and digest above
+the now-integrated source-completion #269 authority before target support; its SHA-256 is
+`dfa23281785a225042f32c082abef0f1cb61dd5971bb713625995d5ee0f51d22`.
+This preserves the dependency identities; #269 closure is documented in
+`M3_SOURCE_COMPLETION.md`. The #119 commit and digest above
 remain immutable historical provenance; the borrow-call section and fixture bytes are unchanged.
-The planned #277 integration contract, #278 non-handle owned core and #279 ownership CFG core
-are separately closeable prerequisites for the full Shared/Weak producers, not dependents of
-#83 or #269 closure. #259–#264 retain full payload and control-flow obligations. Later #270–#275
-complete generic ownership, CFG, calls, enums, ordinary dynamic-array access and non-indexed
-owned borrowing; #270 also owns ordinary generic Vec reads and replacement. These source/IR
-requirements remain mandatory and block complete #84/#85/#86 support alongside existing gates.
-Protocol v4 is unchanged; projected forwarding, repeated calls, CFG
-crossing, recursion, owned aggregate call shapes, public borrow signatures, retained authority,
-and nested/repeated control flow remain later or unavailable child work. This adds no runtime,
-ABI, backend, driver, CLI, artifact, website-support, or public-profile capability.
+The completed #277 integration contract, #278 non-handle owned core and #279 ownership CFG core
+provided the reusable foundation for the completed #259–#264/#83 internal Shared/Weak compiler
+chain. The current #270 closure candidate composes nested Struct/Enum/FixedArray/Vec ownership,
+finite Vec-indirection recursion, structural clone, handle-containing static transfers, and
+ordinary handle-aware Vec observation/replacement/push through mandatory verified IR. Its checked
+matrix binds exact source, hostile-IR, resource and replay tests from #320–#323. Issue #271 is now
+a checked compiler-only closure candidate: its exact #325 source/lexical, #326 hostile-IR, and #327
+payload/fault/resource bindings are recorded in `M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md`.
+Issue #272 is a checked compiler-only closure candidate through #329 signature/identity,
+#330 structured transfer/cleanup and #331 hostile-IR/resource evidence. Its exact bindings are in
+`M3_OWNED_CALL_CLOSURE_MATRIX.md`. Issue #273 is now a checked compiler-only closure candidate
+through #333 source/exhaustiveness, #334 independent refinement/ownership verification and #335
+resource/overflow evidence; `M3_COMPLETE_ENUM_MATCHING_MATRIX.md` binds its exact rows. Issue #275
+is now a checked compiler-only closure candidate through #337 owned roots/static projections, #338
+active enum payloads, #339 lexical calls, and #340 hostile/resource evidence. Its exact enabled
+bindings and retained exclusions are in `M3_NONINDEXED_OWNED_BORROWING_MATRIX.md`; #274 remains
+separately completed and #269 now reconciles the complete compiler source/IR authority. Verified
+instruction, cleanup and fault traces alone are not target execution. The internal #84/#85/#86
+boundaries add deterministic JavaScript, audited memory-bearing core WebAssembly and independently
+verified Linux x86-64 native MIR as documented in `M3_TARGET_BACKENDS.md`. Issue #87 now adds the
+audited native object, exact ownership runtime, sealed link and real executable boundary. Issue #88
+adds one authenticated internal driver route, strict manifest v3, actual three-target candidate
+execution, and create-only whole-bundle publication. Aggregate conformance and public activation
+remain open as #89 and #90.
+Protocol v4 is unchanged; projected forwarding, call recursion, public borrow signatures and
+retained borrow authority remain later or unavailable child work. The source-completion closure
+itself added no driver, CLI, published artifact, website-support or public-profile capability.
 
-The public compiler still does not accept M3 declarations or values, select syntax protocol v4,
-route DataOwnershipV1 IR, provide an allocator or ownership runtime, emit memory-bearing M3
-JavaScript/WebAssembly/native artifacts, or accept `--profile data-ownership-v1`. Default M1 and
-explicit `control-flow-v1` M2 remain the only public profiles.
+The public compiler selects protocol v4 through exact `--profile data-ownership-v1`.
+It executes the #89-conformant driver and publishes strict manifest-v3 bundles. Default M1
+and explicit M2 remain separate public profiles. Website deployment is recorded by #90.
 
-The first planned executable slice remains an internal scalarizable `Pair` struct observed through
-a scalar ABI v1 result. Its semantic oracle is implemented, but target execution is not. The
-completed bounded owned String/Vec and lexical-borrow compiler boundaries remain internal;
-#122 consolidates borrowing closure evidence. Issue #83 is the next dependency-ready work. Later issues add
-explicit shared/weak references, three target implementations, an atomic manifest v3 CLI,
-fixed-oracle conformance, and authenticated website publication. Tracing GC,
+The internal #83 compiler boundary now provides explicit Shared/Weak construction, clone,
+downgrade, deterministic release cleanup and one indivisible success/expired/overflow upgrade
+contract across the frozen payload/control-flow matrix. Mandatory verified IR preserves source
+ownership, original traps and deterministic replay. The internal target/runtime chain now executes
+the supported bounded ownership surface; general aggregate ABI and public-profile claims remain
+excluded.
+
+The first executable slice remains an internal scalarizable `Pair` struct observed through scalar
+ABI v1. Its candidate route now executes JavaScript, WebAssembly, and Linux x86-64 native artifacts
+and publishes one atomic manifest-v3 bundle. The completed bounded owned String/Vec and lexical-borrow compiler boundaries remain internal;
+#122 consolidates borrowing closure evidence.
+Issue #83 internal compile-time semantics are complete. Later issues add fixed-oracle conformance
+and authenticated public/website activation. Tracing GC,
 public aggregate ABI,
 raw pointers, unsafe, FFI, threads, WASI, Components, custom allocators, and freestanding targets
 remain outside M3.
@@ -294,14 +325,15 @@ remain outside M3.
 
 ## Deliberately unsupported
 
-Public source-level Boolean execution requires explicit `control-flow-v1`; it remains rejected by
+Public source-level Boolean execution requires explicit `control-flow-v1` or `data-ownership-v1`; it remains rejected by
 the default M1 path. The compiler-owned M2 gate checks three-target equivalence for one fixed
 source control-flow and module oracle; it is not a claim of general language completeness. The
-current public executable profiles do not claim heap values, an allocator, a tracing-GC profile,
-browser execution, WASI, Windows or macOS native execution, static native executables, package
-resolution, watch mode, incremental builds, or production readiness. The absence of heap or GC
-capabilities in these scalar profiles is not a general zero-runtime or GC-free guarantee for future
-data profiles.
+M1/M2 scalar profiles do not claim heap values, an allocator or a tracing-GC profile. Their
+scalar-only surface is not a general zero-runtime or GC-free guarantee for data profiles.
+Explicit M3 uses bounded owned allocation and deterministic cleanup under its
+[public profile](M3_PUBLIC_PROFILE.md). No current profile claims tracing GC, browser execution,
+WASI/Components, Windows or macOS native execution, static native executables, package resolution,
+watch mode, incremental builds, or production readiness.
 
 ## Evidence and reference
 

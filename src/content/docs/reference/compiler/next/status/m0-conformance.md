@@ -1,14 +1,14 @@
 ---
 title: "M0 architecture conformance"
-description: "Compiler-owned next documentation imported from c3f828cafc76."
+description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
 ---
 
-> Verified compiler source: [docs/M0_CONFORMANCE.md](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/docs/M0_CONFORMANCE.md) at commit `c3f828cafc762fcc9de123226d3f7f9403ad239f`.
+> Verified compiler source: [docs/M0_CONFORMANCE.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M0_CONFORMANCE.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
 
 # M0 conformance and closure gate
 
 M0 closes only through the repository-owned `pnpm m0:check` command. The command reads the frozen
-[`tests/m0-conformance-v1.json`](https://github.com/zryna/zryna/blob/c3f828cafc762fcc9de123226d3f7f9403ad239f/tests/m0-conformance-v1.json) registry, validates it before
+[`tests/m0-conformance-v1.json`](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/tests/m0-conformance-v1.json) registry, validates it before
 starting subprocesses, and then runs every registered command directly without a shell. It has no
 mode that omits the architecture check or selects only a favorable subset.
 
