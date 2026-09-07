@@ -71,6 +71,20 @@ export function verifyHeaders(headers) {
 		assert.equal(headers.get(name), value, `security header ${name}`);
 }
 
+export function verifyHttpsRedirect(status, location, origin) {
+	assert([301, 308].includes(status), 'HTTP must redirect permanently to HTTPS');
+	assert(typeof location === 'string' && location.length > 0, 'redirect location required');
+	const destination = new URL('/', origin);
+	assert.equal(destination.protocol, 'https:');
+	const request = new URL(destination);
+	request.protocol = 'http:';
+	assert.equal(
+		new URL(location, request).href,
+		destination.href,
+		'exact HTTPS destination required',
+	);
+}
+
 async function run() {
 	const [mode, origin] = process.argv.slice(2);
 	assert(mode === '--dist' || (mode === '--origin' && origin), 'use --dist or --origin <URL>');
@@ -91,6 +105,7 @@ async function run() {
 		]),
 	];
 	let observedHsts = null;
+	let observedHttpRedirect = null;
 	for (const route of routes) {
 		let html;
 		if (mode === '--dist') {
@@ -121,11 +136,8 @@ async function run() {
 			redirect: 'manual',
 			signal: AbortSignal.timeout(20000),
 		});
-		assert.equal(redirect.status, 308, 'HTTP must redirect permanently to HTTPS');
-		assert.equal(
-			new URL(redirect.headers.get('location'), insecure).href,
-			new URL('/', origin).href,
-		);
+		verifyHttpsRedirect(redirect.status, redirect.headers.get('location'), origin);
+		observedHttpRedirect = redirect.status;
 	}
 
 	console.log(
@@ -137,6 +149,7 @@ async function run() {
 			origin: origin ?? null,
 			result: 'passed',
 			observedHsts,
+			observedHttpRedirect,
 		}),
 	);
 }

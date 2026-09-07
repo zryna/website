@@ -4,6 +4,7 @@ import {
 	CONTENT,
 	verifyContent,
 	verifyHeaders,
+	verifyHttpsRedirect,
 } from '../../tools/docs/check-published-content.mjs';
 
 test('rendered public content rejects stale provenance and missing M3 claims', () => {
@@ -18,6 +19,25 @@ test('rendered public content rejects stale provenance and missing M3 claims', (
 			assert.throws(() => verifyContent(route, stripped, commit, digest));
 		}
 	}
+});
+
+test('HTTPS verification accepts permanent redirects and rejects unsafe or temporary redirects', () => {
+	const origin = 'https://zryna.com';
+	for (const status of [301, 308]) {
+		verifyHttpsRedirect(status, `${origin}/`, origin);
+		for (const location of [
+			null,
+			'',
+			'/',
+			'http://zryna.com/',
+			'https://example.com/',
+			`${origin}/other`,
+			`${origin}/?next=other`,
+		])
+			assert.throws(() => verifyHttpsRedirect(status, location, origin));
+	}
+	for (const status of [200, 302, 303, 307, 404])
+		assert.throws(() => verifyHttpsRedirect(status, `${origin}/`, origin));
 });
 
 test('runtime verification rejects missing or weakened security headers', () => {
