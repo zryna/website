@@ -18,8 +18,14 @@
     "$schema": { "const": "../../../schemas/compiler-docs-lock-v1.schema.json" },
     "schema": { "const": "zryna.website.compiler-docs-lock.v1" },
     "version": { "const": 1 },
-    "channel": { "const": "next" },
-    "bundlePath": { "const": "src/content/compiler-data/next" },
+    "channel": {
+      "type": "string",
+      "pattern": "^(?:next|(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*))$"
+    },
+    "bundlePath": {
+      "type": "string",
+      "pattern": "^src/content/compiler-data/(?:next|(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*))$"
+    },
     "manifestSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
     "source": {
       "type": "object",
@@ -28,10 +34,13 @@
       "properties": {
         "repository": { "const": "https://github.com/zryna/zryna" },
         "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
-        "ref": { "const": "refs/heads/main" },
+        "ref": {
+          "type": "string",
+          "pattern": "^(?:refs/heads/main|refs/tags/v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*))$"
+        },
         "version": {
           "type": "string",
-          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?$"
+          "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
         }
       }
     },
@@ -49,9 +58,38 @@
             "type": "string",
             "pattern": "^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*\\.md$"
           },
-          "route": { "type": "string", "pattern": "^/reference/compiler/next/[a-z0-9/-]+/$" }
+          "route": {
+            "type": "string",
+            "pattern": "^/reference/compiler/(?:next|(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*))/[a-z0-9][a-z0-9/-]*/$"
+          }
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "channel": { "const": "next" } }, "required": ["channel"] },
+      "then": {
+        "properties": {
+          "source": {
+            "type": "object",
+            "properties": { "ref": { "type": "string", "const": "refs/heads/main" } }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "source": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "pattern": "^refs/tags/v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

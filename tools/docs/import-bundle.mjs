@@ -10,10 +10,14 @@ import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
 import { captureValidatedDocsBundle, readBoundedRegular } from './check-bundle.mjs';
+import {
+	COMPILER_IMPORTS,
+	importPaths,
+	validateCompilerImports,
+	validateImportIdentity,
+} from './compiler-imports.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const LOCK_PATH = path.join(ROOT, 'src', 'content', 'compiler-data', 'compiler-docs.lock.json');
-const GENERATED_ROOT = path.join(ROOT, 'src', 'content', 'docs', 'reference', 'compiler', 'next');
 const LOCK_SCHEMA_PATH = path.join(ROOT, 'schemas', 'compiler-docs-lock-v1.schema.json');
 const MAX_LOCK_BYTES = 1024 * 1024;
 
@@ -85,8 +89,9 @@ function generatedRelative(documentPath) {
 	return documentPath.slice('documents/'.length);
 }
 
-function routeFor(documentPath) {
-	return `/reference/compiler/next/${generatedRelative(documentPath).slice(0, -3)}/`;
+export function routeFor(documentPath, channel = 'next') {
+	const { rootRoute } = importPaths(channel);
+	return `${rootRoute}${generatedRelative(documentPath).slice(0, -3)}/`;
 }
 
 function splitUrl(url) {
@@ -151,18 +156,16 @@ export function renderImportedDocument(markdown, document, sourcePath, lock, sou
 	return `---\ntitle: ${JSON.stringify(document.title)}\ndescription: ${JSON.stringify(`Compiler-owned ${lock.channel} documentation imported from ${lock.source.commit.slice(0, 12)}.`)}\n---\n\n> Verified compiler source: [${sourcePath}](${sourceUrl}) at commit \`${lock.source.commit}\`.\n\n${body}`;
 }
 
-export async function buildExpectedCompilerDocs() {
-	const lock = await loadJson(LOCK_PATH, MAX_LOCK_BYTES, true);
+async function captureExpectedCompilerDocs(registration, root = ROOT) {
+	validateCompilerImports([registration]);
+	const lockPath = path.join(root, ...registration.lockPath.split('/'));
+	const lock = await loadJson(lockPath, MAX_LOCK_BYTES, true);
 	const schema = await loadJson(LOCK_SCHEMA_PATH);
 	const validate = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
 	if (!validate(lock))
 		fail(`lock schema failed: ${validate.errors[0]?.instancePath} ${validate.errors[0]?.message}`);
-	const bundleRoot = path.resolve(ROOT, lock.bundlePath);
-	const relativeBundle = path.relative(
-		path.join(ROOT, 'src', 'content', 'compiler-data'),
-		bundleRoot,
-	);
-	if (relativeBundle !== 'next') fail('bundle path is outside the registered next channel');
+	const paths = validateImportIdentity(registration, lock);
+	const bundleRoot = path.join(root, ...paths.bundlePath.split('/'));
 	const captured = await captureValidatedDocsBundle(bundleRoot, {
 		expectedManifestSha256: lock.manifestSha256,
 		expectedChannel: lock.channel,
@@ -185,7 +188,7 @@ export async function buildExpectedCompilerDocs() {
 	validateLockedSourcePaths(sourcePaths.values());
 	if (new Set(lockedRoutes.values()).size !== lockedRoutes.size) fail('lock routes are not unique');
 	for (const document of manifest.documents) {
-		if (lockedRoutes.get(document.id) !== routeFor(document.path)) {
+		if (lockedRoutes.get(document.id) !== routeFor(document.path, lock.channel)) {
 			fail(`locked route differs from manifest path for ${document.id}`);
 		}
 	}
@@ -208,17 +211,46 @@ export async function buildExpectedCompilerDocs() {
 	}
 	const index = [
 		'---',
-		'title: Compiler reference (next)',
-		'description: Authenticated compiler documentation imported from the next channel.',
+		`title: Compiler reference (${lock.channel})`,
+		`description: Authenticated compiler documentation imported from the ${lock.channel} channel.`,
 		'---',
 		'',
 		`This reference was imported from compiler commit [\`${lock.source.commit}\`](${lock.source.repository}/commit/${lock.source.commit}).`,
 		'',
-		...manifest.documents.map((document) => `- [${document.title}](${routeFor(document.path)})`),
+		...manifest.documents.map(
+			(document) => `- [${document.title}](${routeFor(document.path, lock.channel)})`,
+		),
 		'',
 	].join('\n');
 	files.set('index.md', Buffer.from(index));
-	return files;
+	return {
+		registration,
+		lock,
+		files,
+		root,
+		generatedRoot: path.join(root, ...paths.generatedPath.split('/')),
+		generatedPath: paths.generatedPath,
+	};
+}
+
+export async function buildExpectedCompilerDocs(registration = COMPILER_IMPORTS[0]) {
+	return (await captureExpectedCompilerDocs(registration)).files;
+}
+
+export async function buildAllExpectedCompilerDocs(imports = COMPILER_IMPORTS) {
+	validateCompilerImports(imports);
+	const captures = [];
+	const routes = new Set();
+	for (const registration of imports) {
+		const capture = await captureExpectedCompilerDocs(registration);
+		for (const document of capture.lock.documents) {
+			const folded = document.route.toLowerCase();
+			if (routes.has(folded)) fail(`registered document routes collide: ${document.route}`);
+			routes.add(folded);
+		}
+		captures.push(capture);
+	}
+	return captures;
 }
 
 async function listFiles(root, relative = '', files = []) {
@@ -234,7 +266,13 @@ async function listFiles(root, relative = '', files = []) {
 	return files;
 }
 
-export async function assertSafeGeneratedRoot(repoRoot = ROOT, generatedRoot = GENERATED_ROOT) {
+export async function assertSafeGeneratedRoot(
+	repoRoot = ROOT,
+	generatedRoot = path.join(
+		ROOT,
+		...importPaths(COMPILER_IMPORTS[0].channel).generatedPath.split('/'),
+	),
+) {
 	const resolvedRepo = path.resolve(repoRoot);
 	const resolvedGenerated = path.resolve(generatedRoot);
 	const relative = path.relative(resolvedRepo, resolvedGenerated);
@@ -267,24 +305,27 @@ export async function assertSafeGeneratedRoot(repoRoot = ROOT, generatedRoot = G
 	}
 }
 
-async function writeGenerated(files) {
-	const relative = path.relative(path.join(ROOT, 'src', 'content', 'docs'), GENERATED_ROOT);
-	if (relative !== path.join('reference', 'compiler', 'next')) fail('unsafe generated output root');
+export async function writeGeneratedCompilerDocs(capture) {
+	const { files, generatedRoot, generatedPath, root = ROOT } = capture;
+	if (path.resolve(root, ...generatedPath.split('/')) !== generatedRoot) {
+		fail('unsafe generated output root');
+	}
 	// The repository is assumed not to be mutated concurrently by a hostile local process.
 	// Recheck every existing ancestor immediately before the destructive replacement.
-	await assertSafeGeneratedRoot();
-	await rm(GENERATED_ROOT, { recursive: true, force: true });
+	await assertSafeGeneratedRoot(root, generatedRoot);
+	await rm(generatedRoot, { recursive: true, force: true });
 	for (const [relativePath, bytes] of files) {
-		const destination = path.join(GENERATED_ROOT, ...relativePath.split('/'));
+		const destination = path.join(generatedRoot, ...relativePath.split('/'));
 		await mkdir(path.dirname(destination), { recursive: true });
-		await assertSafeGeneratedRoot();
+		await assertSafeGeneratedRoot(root, generatedRoot);
 		await writeFile(destination, bytes, { flag: 'wx' });
 	}
 }
 
-async function checkGenerated(files) {
-	await assertSafeGeneratedRoot();
-	const actual = await listFiles(GENERATED_ROOT);
+async function checkGenerated(capture) {
+	const { files, generatedRoot } = capture;
+	await assertSafeGeneratedRoot(ROOT, generatedRoot);
+	const actual = await listFiles(generatedRoot);
 	exactList(
 		actual,
 		[...files.keys()].sort((left, right) => left.localeCompare(right, 'en')),
@@ -292,7 +333,7 @@ async function checkGenerated(files) {
 	);
 	for (const [relativePath, expected] of files) {
 		const actualBytes = await readBoundedRegular(
-			path.join(GENERATED_ROOT, ...relativePath.split('/')),
+			path.join(generatedRoot, ...relativePath.split('/')),
 			2 * 1024 * 1024,
 		);
 		if (!actualBytes.equals(expected)) fail(`generated file is stale: ${relativePath}`);
@@ -307,11 +348,15 @@ async function main() {
 		return;
 	}
 	try {
-		const files = await buildExpectedCompilerDocs();
-		if (mode === '--write') await writeGenerated(files);
-		else await checkGenerated(files);
+		const captures = await buildAllExpectedCompilerDocs();
+		if (mode === '--write') {
+			for (const capture of captures) await writeGeneratedCompilerDocs(capture);
+		} else {
+			for (const capture of captures) await checkGenerated(capture);
+		}
+		const fileCount = captures.reduce((total, capture) => total + capture.files.size, 0);
 		console.log(
-			`Compiler documentation import ${mode === '--write' ? 'updated' : 'verified'} (${files.size} files).`,
+			`Compiler documentation import ${mode === '--write' ? 'updated' : 'verified'} (${fileCount} files across ${captures.length} channels).`,
 		);
 	} catch (error) {
 		console.error(error.message);

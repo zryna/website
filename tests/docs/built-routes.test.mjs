@@ -105,3 +105,30 @@ test('checks canonical targets except for the static 404 fallback', async (conte
 	assert(diagnostics.some((item) => item.includes('broken href "https://zryna.com/missing/"')));
 	assert(!diagnostics.some((item) => item.includes('https://zryna.com/404/')));
 });
+
+test('accepts multiple explicit compiler channel roots without conflating their routes', async (context) => {
+	const root = await fixture();
+	context.after(() => rm(root, { recursive: true, force: true }));
+	await write(
+		root,
+		'reference/compiler/0.1.0/index.html',
+		'<html><body><a href="/reference/compiler/0.1.0/status/current/">Release status</a></body></html>',
+	);
+	await write(
+		root,
+		'reference/compiler/0.1.0/status/current/index.html',
+		'<html><body><a href="/reference/compiler/next/status/current/">Next status</a></body></html>',
+	);
+	assert.deepEqual(
+		await checkBuiltRoutes({
+			distRoot: root,
+			authoredRoutes: ['/', '/guide/'],
+			compilerRootRoutes: ['/reference/compiler/next/', '/reference/compiler/0.1.0/'],
+			compilerRoutes: [
+				'/reference/compiler/next/status/current/',
+				'/reference/compiler/0.1.0/status/current/',
+			],
+		}),
+		[],
+	);
+});
