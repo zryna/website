@@ -27,8 +27,7 @@ import {
 const COMMIT = '4c9fbda9ca80decf755fb8313474217e051eb5c8';
 const MANIFEST_DIGEST = '7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03';
 const RELEASE_COMMIT = 'f4d28002a014cd2e717eba4e59764bd925bef8c1';
-const RELEASE_MANIFEST_DIGEST =
-	'838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
+const RELEASE_MANIFEST_DIGEST = '838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -406,10 +405,7 @@ test('registers the immutable 0.1.0 compiler documentation identity', async () =
 	assert(locked);
 	assert.equal(locked.lock.source.commit, RELEASE_COMMIT);
 	assert.equal(locked.lock.source.ref, 'refs/tags/v0.1.0');
-	assert.equal(
-		locked.lock.manifestSha256,
-		RELEASE_MANIFEST_DIGEST,
-	);
+	assert.equal(locked.lock.manifestSha256, RELEASE_MANIFEST_DIGEST);
 	assert.equal(locked.lock.documents.length, 47);
 });
 
