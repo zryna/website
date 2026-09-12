@@ -1,0 +1,251 @@
+{
+  "$schema": "../../../schemas/compiler-docs-lock-v1.schema.json",
+  "schema": "zryna.website.compiler-docs-lock.v1",
+  "version": 1,
+  "channel": "0.1.0",
+  "bundlePath": "src/content/compiler-data/0.1.0",
+  "manifestSha256": "838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa",
+  "source": {
+    "repository": "https://github.com/zryna/zryna",
+    "commit": "f4d28002a014cd2e717eba4e59764bd925bef8c1",
+    "ref": "refs/tags/v0.1.0",
+    "version": "0.1.0"
+  },
+  "documents": [
+    {
+      "id": "reference/aggregate-layout-v1",
+      "sourcePath": "spec/memory-model/AGGREGATE_LAYOUT_V1.md",
+      "route": "/reference/compiler/0.1.0/reference/aggregate-layout-v1/"
+    },
+    {
+      "id": "reference/architecture",
+      "sourcePath": "docs/ARCHITECTURE.md",
+      "route": "/reference/compiler/0.1.0/reference/architecture/"
+    },
+    {
+      "id": "reference/cli",
+      "sourcePath": "docs/CLI.md",
+      "route": "/reference/compiler/0.1.0/reference/cli/"
+    },
+    {
+      "id": "reference/control-flow-modules-v1",
+      "sourcePath": "spec/language/CONTROL_FLOW_MODULES_V1.md",
+      "route": "/reference/compiler/0.1.0/reference/control-flow-modules-v1/"
+    },
+    {
+      "id": "reference/data-ownership-v1",
+      "sourcePath": "spec/language/DATA_OWNERSHIP_V1.md",
+      "route": "/reference/compiler/0.1.0/reference/data-ownership-v1/"
+    },
+    {
+      "id": "reference/developer-preview",
+      "sourcePath": "docs/DEVELOPER_PREVIEW.md",
+      "route": "/reference/compiler/0.1.0/reference/developer-preview/"
+    },
+    {
+      "id": "reference/documentation-bundles",
+      "sourcePath": "docs/DOCUMENTATION_BUNDLES.md",
+      "route": "/reference/compiler/0.1.0/reference/documentation-bundles/"
+    },
+    {
+      "id": "reference/frontends",
+      "sourcePath": "docs/FRONTENDS.md",
+      "route": "/reference/compiler/0.1.0/reference/frontends/"
+    },
+    {
+      "id": "reference/getting-started",
+      "sourcePath": "docs/GETTING_STARTED.md",
+      "route": "/reference/compiler/0.1.0/reference/getting-started/"
+    },
+    {
+      "id": "reference/language-overview",
+      "sourcePath": "spec/language/OVERVIEW.md",
+      "route": "/reference/compiler/0.1.0/reference/language-overview/"
+    },
+    {
+      "id": "reference/language-server",
+      "sourcePath": "docs/LANGUAGE_SERVER.md",
+      "route": "/reference/compiler/0.1.0/reference/language-server/"
+    },
+    {
+      "id": "reference/m2-conformance",
+      "sourcePath": "docs/M2_CONFORMANCE.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-conformance/"
+    },
+    {
+      "id": "reference/m2-control-flow-semantics",
+      "sourcePath": "docs/M2_CONTROL_FLOW_SEMANTICS.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-control-flow-semantics/"
+    },
+    {
+      "id": "reference/m2-javascript-backend",
+      "sourcePath": "docs/M2_JAVASCRIPT_BACKEND.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-javascript-backend/"
+    },
+    {
+      "id": "reference/m2-manifest-v2",
+      "sourcePath": "docs/M2_MANIFEST_V2.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-manifest-v2/"
+    },
+    {
+      "id": "reference/m2-module-closure",
+      "sourcePath": "docs/M2_MODULE_CLOSURE.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-module-closure/"
+    },
+    {
+      "id": "reference/m2-native-backend",
+      "sourcePath": "docs/M2_NATIVE_BACKEND.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-native-backend/"
+    },
+    {
+      "id": "reference/m2-native-mir",
+      "sourcePath": "docs/M2_NATIVE_MIR.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-native-mir/"
+    },
+    {
+      "id": "reference/m2-straight-line-semantics",
+      "sourcePath": "docs/M2_STRAIGHT_LINE_SEMANTICS.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-straight-line-semantics/"
+    },
+    {
+      "id": "reference/m2-webassembly-backend",
+      "sourcePath": "docs/M2_WEBASSEMBLY_BACKEND.md",
+      "route": "/reference/compiler/0.1.0/reference/m2-webassembly-backend/"
+    },
+    {
+      "id": "reference/m3-borrowing-semantics",
+      "sourcePath": "docs/M3_BORROWING_SEMANTICS.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-borrowing-semantics/"
+    },
+    {
+      "id": "reference/m3-candidate-driver",
+      "sourcePath": "docs/M3_CANDIDATE_DRIVER.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-candidate-driver/"
+    },
+    {
+      "id": "reference/m3-conformance",
+      "sourcePath": "docs/M3_CONFORMANCE.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-conformance/"
+    },
+    {
+      "id": "reference/m3-copy-aggregate-semantics",
+      "sourcePath": "docs/M3_COPY_AGGREGATE_SEMANTICS.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-copy-aggregate-semantics/"
+    },
+    {
+      "id": "reference/m3-data-ownership-ir",
+      "sourcePath": "docs/M3_DATA_OWNERSHIP_IR.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-data-ownership-ir/"
+    },
+    {
+      "id": "reference/m3-generic-clone-core",
+      "sourcePath": "docs/M3_GENERIC_CLONE_CORE.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-generic-clone-core/"
+    },
+    {
+      "id": "reference/m3-generic-function-operations",
+      "sourcePath": "docs/M3_GENERIC_FUNCTION_OPERATIONS.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-generic-function-operations/"
+    },
+    {
+      "id": "reference/m3-generic-static-places",
+      "sourcePath": "docs/M3_GENERIC_STATIC_PLACES.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-generic-static-places/"
+    },
+    {
+      "id": "reference/m3-generic-vec-operations",
+      "sourcePath": "docs/M3_GENERIC_VEC_OPERATIONS.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-generic-vec-operations/"
+    },
+    {
+      "id": "reference/m3-getting-started",
+      "sourcePath": "docs/M3_GETTING_STARTED.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-getting-started/"
+    },
+    {
+      "id": "reference/m3-indexed-borrow-authority",
+      "sourcePath": "docs/M3_INDEXED_BORROW_AUTHORITY.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-indexed-borrow-authority/"
+    },
+    {
+      "id": "reference/m3-opaque-handle-slots",
+      "sourcePath": "docs/M3_OPAQUE_HANDLE_SLOTS.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-opaque-handle-slots/"
+    },
+    {
+      "id": "reference/m3-owned-data-semantics",
+      "sourcePath": "docs/M3_OWNED_DATA_SEMANTICS.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-owned-data-semantics/"
+    },
+    {
+      "id": "reference/m3-ownership-composition-evidence",
+      "sourcePath": "docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-ownership-composition-evidence/"
+    },
+    {
+      "id": "reference/m3-ownership-composition",
+      "sourcePath": "docs/M3_OWNERSHIP_COMPOSITION.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-ownership-composition/"
+    },
+    {
+      "id": "reference/m3-ownership-runtime-abi",
+      "sourcePath": "docs/M3_OWNERSHIP_RUNTIME_ABI.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-ownership-runtime-abi/"
+    },
+    {
+      "id": "reference/m3-public-profile",
+      "sourcePath": "docs/M3_PUBLIC_PROFILE.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-public-profile/"
+    },
+    {
+      "id": "reference/m3-shared-weak-authority",
+      "sourcePath": "docs/M3_SHARED_WEAK_AUTHORITY.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-shared-weak-authority/"
+    },
+    {
+      "id": "reference/m3-shared-weak-evidence",
+      "sourcePath": "docs/M3_SHARED_WEAK_EVIDENCE.md",
+      "route": "/reference/compiler/0.1.0/reference/m3-shared-weak-evidence/"
+    },
+    {
+      "id": "reference/memory-model",
+      "sourcePath": "spec/memory-model/OVERVIEW.md",
+      "route": "/reference/compiler/0.1.0/reference/memory-model/"
+    },
+    {
+      "id": "reference/ownership-runtime-v1",
+      "sourcePath": "spec/abi/OWNERSHIP_RUNTIME_V1.md",
+      "route": "/reference/compiler/0.1.0/reference/ownership-runtime-v1/"
+    },
+    {
+      "id": "reference/scalar-abi-v1",
+      "sourcePath": "spec/abi/SCALAR_V1.md",
+      "route": "/reference/compiler/0.1.0/reference/scalar-abi-v1/"
+    },
+    {
+      "id": "reference/syntax-protocol-v4",
+      "sourcePath": "docs/SYNTAX_PROTOCOL_V4.md",
+      "route": "/reference/compiler/0.1.0/reference/syntax-protocol-v4/"
+    },
+    {
+      "id": "status/current",
+      "sourcePath": "docs/STATUS.md",
+      "route": "/reference/compiler/0.1.0/status/current/"
+    },
+    {
+      "id": "status/m0-conformance",
+      "sourcePath": "docs/M0_CONFORMANCE.md",
+      "route": "/reference/compiler/0.1.0/status/m0-conformance/"
+    },
+    {
+      "id": "status/m1-conformance",
+      "sourcePath": "docs/M1_CONFORMANCE.md",
+      "route": "/reference/compiler/0.1.0/status/m1-conformance/"
+    },
+    {
+      "id": "status/roadmap",
+      "sourcePath": "docs/ROADMAP.md",
+      "route": "/reference/compiler/0.1.0/status/roadmap/"
+    }
+  ]
+}

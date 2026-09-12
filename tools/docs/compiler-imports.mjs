@@ -8,6 +8,10 @@ export const COMPILER_IMPORTS = Object.freeze([
 		channel: 'next',
 		lockPath: 'src/content/compiler-data/compiler-docs.lock.json',
 	}),
+	Object.freeze({
+		channel: '0.1.0',
+		lockPath: 'src/content/compiler-data/compiler-docs-0.1.0.lock.json',
+	}),
 ]);
 
 function fail(message) {

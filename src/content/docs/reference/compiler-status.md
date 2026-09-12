@@ -33,5 +33,22 @@ ABI, escaping borrows, tracing GC, FFI, threads, WASI and Components remain unsu
 layout/runtime identities, artifact hashes and typed results. Historical component checkpoints
 do not independently expand public support.
 
+## v0.1.0 Developer Preview
+
+The [source-only v0.1.0 Developer Preview](https://github.com/zryna/zryna/releases/tag/v0.1.0)
+freezes compiler commit
+[`f4d28002a014cd2e717eba4e59764bd925bef8c1`](https://github.com/zryna/zryna/commit/f4d28002a014cd2e717eba4e59764bd925bef8c1)
+and documentation manifest SHA-256
+`838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa`.
+Read the immutable [0.1.0 compiler reference](/reference/compiler/0.1.0/).
+
+The reviewed source archives are
+[`zryna-0.1.0.tar.gz`](https://github.com/zryna/zryna/releases/download/v0.1.0/zryna-0.1.0.tar.gz)
+(`389700329d3a3b78b6c0aa182df747c0fb4f8ce2e01b1733e1be5439d0380a1f`, 2,459,048 bytes)
+and
+[`zryna-0.1.0.zip`](https://github.com/zryna/zryna/releases/download/v0.1.0/zryna-0.1.0.zip)
+(`6654afacb1495b35cb36257d8cfe1387f54ae8f3b813b6fe802e4a035d55270f`, 3,331,980 bytes).
+They contain complete source, not standalone binaries or installers.
+
 Zryna remains experimental and not production-ready. Final milestone closure is recorded in
 [Issue #90](https://github.com/zryna/zryna/issues/90) after deployment and live provenance checks.

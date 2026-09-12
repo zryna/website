@@ -94,6 +94,11 @@ export function routeFor(documentPath, channel = 'next') {
 	return `${rootRoute}${generatedRelative(documentPath).slice(0, -3)}/`;
 }
 
+export function explicitAstroSlug(documentPath, channel) {
+	if (channel === 'next') return null;
+	return routeFor(documentPath, channel).slice(1, -1);
+}
+
 function splitUrl(url) {
 	const index = url.search(/[?#]/);
 	return index === -1 ? [url, ''] : [url.slice(0, index), url.slice(index)];
@@ -153,7 +158,9 @@ export function renderImportedDocument(markdown, document, sourcePath, lock, sou
 	});
 	const body = processor.stringify(tree);
 	const sourceUrl = `${lock.source.repository}/blob/${lock.source.commit}/${sourcePath}`;
-	return `---\ntitle: ${JSON.stringify(document.title)}\ndescription: ${JSON.stringify(`Compiler-owned ${lock.channel} documentation imported from ${lock.source.commit.slice(0, 12)}.`)}\n---\n\n> Verified compiler source: [${sourcePath}](${sourceUrl}) at commit \`${lock.source.commit}\`.\n\n${body}`;
+	const explicitSlug = explicitAstroSlug(document.path, lock.channel);
+	const slugFrontmatter = explicitSlug === null ? '' : `slug: ${JSON.stringify(explicitSlug)}\n`;
+	return `---\ntitle: ${JSON.stringify(document.title)}\ndescription: ${JSON.stringify(`Compiler-owned ${lock.channel} documentation imported from ${lock.source.commit.slice(0, 12)}.`)}\n${slugFrontmatter}---\n\n> Verified compiler source: [${sourcePath}](${sourceUrl}) at commit \`${lock.source.commit}\`.\n\n${body}`;
 }
 
 async function captureExpectedCompilerDocs(registration, root = ROOT) {
@@ -213,6 +220,9 @@ async function captureExpectedCompilerDocs(registration, root = ROOT) {
 		'---',
 		`title: Compiler reference (${lock.channel})`,
 		`description: Authenticated compiler documentation imported from the ${lock.channel} channel.`,
+		...(lock.channel === 'next'
+			? []
+			: [`slug: ${JSON.stringify(importPaths(lock.channel).rootRoute.slice(1, -1))}`]),
 		'---',
 		'',
 		`This reference was imported from compiler commit [\`${lock.source.commit}\`](${lock.source.repository}/commit/${lock.source.commit}).`,
@@ -342,13 +352,24 @@ async function checkGenerated(capture) {
 
 async function main() {
 	const mode = process.argv[2];
-	if (mode !== '--write' && mode !== '--check') {
-		console.error('Usage: node tools/docs/import-bundle.mjs <--write|--check>');
+	const channel = process.argv[3];
+	if (
+		(mode !== '--write' && mode !== '--check') ||
+		process.argv.length > 4 ||
+		(channel !== undefined && !COMPILER_IMPORTS.some((entry) => entry.channel === channel))
+	) {
+		console.error(
+			'Usage: node tools/docs/import-bundle.mjs <--write|--check> [registered-channel]',
+		);
 		process.exitCode = 2;
 		return;
 	}
 	try {
-		const captures = await buildAllExpectedCompilerDocs();
+		const imports =
+			channel === undefined
+				? COMPILER_IMPORTS
+				: COMPILER_IMPORTS.filter((entry) => entry.channel === channel);
+		const captures = await buildAllExpectedCompilerDocs(imports);
 		if (mode === '--write') {
 			for (const capture of captures) await writeGeneratedCompilerDocs(capture);
 		} else {
