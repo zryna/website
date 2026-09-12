@@ -1,6 +1,7 @@
 import { lstat, opendir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadRegisteredCompilerLocks } from './compiler-imports.mjs';
 
 import { parse } from 'parse5';
 
@@ -23,7 +24,10 @@ function portablePath(value) {
 }
 
 function routeFile(route) {
-	if (!/^\/(?:[a-z0-9][a-z0-9-]*\/)*$/.test(route)) {
+	const authored = /^\/(?:[a-z0-9][a-z0-9-]*\/)*$/;
+	const compiler =
+		/^\/reference\/compiler\/(?:next|(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))\/(?:[a-z0-9][a-z0-9-]*\/)*$/;
+	if (!authored.test(route) && !compiler.test(route)) {
 		throw new Error(`unsafe route in authority: ${route}`);
 	}
 	return route === '/' ? 'index.html' : `${route.slice(1)}index.html`;
@@ -105,12 +109,13 @@ function localTarget(raw, sourceRoute) {
 export async function checkBuiltRoutes({
 	distRoot,
 	compilerRoutes,
+	compilerRootRoutes = ['/reference/compiler/next/'],
 	authoredRoutes = AUTHORED_ROUTES,
 }) {
 	const files = await scan(distRoot);
 	const expectedHtml = new Set([
 		...authoredRoutes.map(routeFile),
-		routeFile('/reference/compiler/next/'),
+		...compilerRootRoutes.map(routeFile),
 		...compilerRoutes.map(routeFile),
 		'404.html',
 	]);
@@ -195,15 +200,13 @@ export async function checkBuiltRoutes({
 
 async function main() {
 	const repositoryRoot = fileURLToPath(new URL('../..', import.meta.url));
-	const lock = JSON.parse(
-		await readFile(
-			path.join(repositoryRoot, 'src/content/compiler-data/compiler-docs.lock.json'),
-			'utf8',
-		),
-	);
+	const imports = await loadRegisteredCompilerLocks(repositoryRoot);
 	const diagnostics = await checkBuiltRoutes({
 		distRoot: path.join(repositoryRoot, 'dist'),
-		compilerRoutes: lock.documents.map((document) => document.route),
+		compilerRootRoutes: imports.map((entry) => entry.rootRoute),
+		compilerRoutes: imports.flatMap((entry) =>
+			entry.lock.documents.map((document) => document.route),
+		),
 	});
 	if (diagnostics.length > 0) {
 		for (const diagnostic of diagnostics) console.error(diagnostic);
@@ -211,7 +214,7 @@ async function main() {
 		return;
 	}
 	console.log(
-		`Built route check passed: ${AUTHORED_ROUTES.length + lock.documents.length + 2} HTML routes.`,
+		`Built route check passed: ${AUTHORED_ROUTES.length + imports.length + imports.reduce((total, entry) => total + entry.lock.documents.length, 0) + 1} HTML routes.`,
 	);
 }
 

@@ -54,3 +54,24 @@ test('runtime verification rejects missing or weakened security headers', () => 
 		assert.throws(() => verifyHeaders(changed));
 	}
 });
+
+test('semantic-version routes require their own immutable compiler identity', () => {
+	const commit = 'd'.repeat(40);
+	const html = `<main>${commit}</main>`;
+	verifyContent(
+		'/reference/compiler/0.1.0/reference/example/',
+		html,
+		commit,
+		'e'.repeat(64),
+		'/reference/compiler/0.1.0/',
+	);
+	assert.throws(() =>
+		verifyContent(
+			'/reference/compiler/0.1.0/reference/example/',
+			html.replace(commit, 'f'.repeat(40)),
+			commit,
+			'e'.repeat(64),
+			'/reference/compiler/0.1.0/',
+		),
+	);
+});

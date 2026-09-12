@@ -50,11 +50,13 @@ stable ASCII ordering, hard scan budgets, and the absence of timestamps make exp
 and auditable. `manifest.sha256` is not trusted by itself: ingestion also requires the expected
 manifest digest, channel, commit, and ref from an authenticated compiler workflow or signed release.
 
-Tracked raw bytes live in `src/content/compiler-data/next`, while
-`src/content/compiler-data/compiler-docs.lock.json` is the reviewed trust root and source/route map.
-The importer captures authenticated bytes, rejects active Markdown constructs and unsafe links,
-rewrites relative links to versioned site routes or immutable compiler permalinks, and owns
-`src/content/docs/reference/compiler/next`. `pnpm docs:sync` updates that generated subtree;
+Tracked raw bytes live in one explicitly registered channel directory under
+`src/content/compiler-data`, while each registered lock is a reviewed trust root and source/route
+map. `tools/docs/compiler-imports.mjs` is the closed registry; import never discovers locks or
+channels from directory contents. The importer captures every registered bundle before mutation,
+rejects active Markdown constructs and unsafe links, rewrites relative links to same-channel site
+routes or immutable compiler permalinks, and owns the matching subtree under
+`src/content/docs/reference/compiler`. `pnpm docs:sync` updates only those registered subtrees;
 `pnpm docs:check` rejects stale, missing, extra, or manually edited output. Production builds never
 fetch a moving branch or require cross-repository credentials.
 

@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'parse5';
+import { loadRegisteredCompilerLocks } from './compiler-imports.mjs';
 
 const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 const PREFIX = '/reference/compiler/next/reference/';
@@ -48,9 +49,15 @@ function visibleText(html) {
 	return text(parse(html)).replace(/\s+/g, ' ');
 }
 
-export function verifyContent(route, html, sourceCommit, manifestDigest) {
+export function verifyContent(
+	route,
+	html,
+	sourceCommit,
+	manifestDigest,
+	rootRoute = '/reference/compiler/next/',
+) {
 	const text = visibleText(html);
-	if (route.startsWith('/reference/compiler/next/') || route === '/reference/compiler-status/') {
+	if (route.startsWith(rootRoute) || route === '/reference/compiler-status/') {
 		assert(text.includes(sourceCommit), `${route}: exact compiler commit missing`);
 	}
 	if (route === '/reference/compiler-status/') {
@@ -88,9 +95,9 @@ export function verifyHttpsRedirect(status, location, origin) {
 async function run() {
 	const [mode, origin] = process.argv.slice(2);
 	assert(mode === '--dist' || (mode === '--origin' && origin), 'use --dist or --origin <URL>');
-	const lock = JSON.parse(
-		await readFile(path.join(ROOT, 'src/content/compiler-data/compiler-docs.lock.json'), 'utf8'),
-	);
+	const imports = await loadRegisteredCompilerLocks(ROOT);
+	const next = imports.find((entry) => entry.registration.channel === 'next');
+	assert(next, 'the next compiler documentation channel must remain registered');
 	const routes = [
 		...new Set([
 			'/',
@@ -99,9 +106,9 @@ async function run() {
 			'/reference/compiler-status/',
 			'/reference/architecture/',
 			'/reference/documentation-bundles/',
-			'/reference/compiler/next/',
+			...imports.map((entry) => entry.rootRoute),
 			...CONTENT.keys(),
-			...lock.documents.map((document) => document.route),
+			...imports.flatMap((entry) => entry.lock.documents.map((document) => document.route)),
 		]),
 	];
 	let observedHsts = null;
@@ -119,7 +126,15 @@ async function run() {
 			observedHsts = response.headers.get('strict-transport-security');
 			html = await response.text();
 		}
-		verifyContent(route, html, lock.source.commit, lock.manifestSha256);
+		const imported = imports.find((entry) => route.startsWith(entry.rootRoute));
+		const authority = imported ?? next;
+		verifyContent(
+			route,
+			html,
+			authority.lock.source.commit,
+			authority.lock.manifestSha256,
+			authority.rootRoute,
+		);
 	}
 	if (mode === '--origin') {
 		const response = await fetch(new URL('/definitely-missing', origin), {
@@ -142,8 +157,8 @@ async function run() {
 
 	console.log(
 		JSON.stringify({
-			sourceCommit: lock.source.commit,
-			manifestSha256: lock.manifestSha256,
+			sourceCommit: next.lock.source.commit,
+			manifestSha256: next.lock.manifestSha256,
 			routes: routes.length,
 			mode,
 			origin: origin ?? null,

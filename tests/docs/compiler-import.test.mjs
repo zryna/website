@@ -3,15 +3,23 @@ import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promis
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import Ajv2020 from 'ajv/dist/2020.js';
 
 import {
 	assertSafeGeneratedRoot,
 	buildExpectedCompilerDocs,
 	parseCanonicalJson,
 	renderImportedDocument,
+	routeFor,
 	validateLockedSourcePaths,
+	writeGeneratedCompilerDocs,
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
+import {
+	importPaths,
+	validateCompilerImports,
+	validateImportIdentity,
+} from '../../tools/docs/compiler-imports.mjs';
 
 const COMMIT = '4c9fbda9ca80decf755fb8313474217e051eb5c8';
 const MANIFEST_DIGEST = '7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03';
@@ -323,4 +331,128 @@ test('rejects non-portable and case-colliding locked source paths', () => {
 		() => validateLockedSourcePaths(['docs/STATUS.md', 'docs/status.md']),
 		/collide case-insensitively/,
 	);
+});
+
+test('derives strict semantic-version import paths and rewrites links within that channel', () => {
+	const registration = {
+		channel: '0.1.0',
+		lockPath: 'src/content/compiler-data/compiler-docs-v0.1.0.lock.json',
+	};
+	const lock = {
+		channel: '0.1.0',
+		bundlePath: 'src/content/compiler-data/0.1.0',
+		source: {
+			repository: 'https://github.com/zryna/zryna',
+			commit: 'a'.repeat(40),
+			ref: 'refs/tags/v0.1.0',
+			version: '0.1.0',
+		},
+		documents: [{ route: '/reference/compiler/0.1.0/reference/example/' }],
+	};
+	assert.deepEqual(importPaths('0.1.0'), {
+		bundlePath: 'src/content/compiler-data/0.1.0',
+		generatedPath: 'src/content/docs/reference/compiler/0.1.0',
+		rootRoute: '/reference/compiler/0.1.0/',
+	});
+	validateImportIdentity(registration, lock);
+	assert.equal(
+		routeFor('documents/reference/example.md', '0.1.0'),
+		'/reference/compiler/0.1.0/reference/example/',
+	);
+	const rendered = renderImportedDocument(
+		'[Other](OTHER.md)\n',
+		DOCUMENT,
+		'docs/EXAMPLE.md',
+		lock,
+		new Map([['docs/OTHER.md', '/reference/compiler/0.1.0/reference/other/']]),
+	);
+	assert(rendered.includes('](/reference/compiler/0.1.0/reference/other/)'));
+	assert(rendered.includes(`/blob/${'a'.repeat(40)}/docs/EXAMPLE.md`));
+});
+
+test('rejects unsafe, duplicate, and mismatched compiler import registrations', () => {
+	const next = {
+		channel: 'next',
+		lockPath: 'src/content/compiler-data/compiler-docs.lock.json',
+	};
+	assert.throws(() => validateCompilerImports([next, { ...next }]), /duplicate channel/);
+	assert.throws(
+		() => validateCompilerImports([{ channel: '1.2', lockPath: next.lockPath }]),
+		/unsafe channel/,
+	);
+	assert.throws(
+		() =>
+			validateImportIdentity(
+				{ channel: '0.1.0', lockPath: 'src/content/compiler-data/release.lock.json' },
+				{
+					channel: '0.1.0',
+					bundlePath: 'src/content/compiler-data/next',
+					source: { version: '0.1.0', ref: 'refs/tags/v0.1.0' },
+					documents: [],
+				},
+			),
+		/bundle path differs/,
+	);
+	assert.throws(
+		() =>
+			validateImportIdentity(
+				{ channel: '0.1.0', lockPath: 'src/content/compiler-data/release.lock.json' },
+				{
+					channel: '0.1.0',
+					bundlePath: 'src/content/compiler-data/0.1.0',
+					source: { version: '0.1.0', ref: 'refs/tags/v0.1.1' },
+					documents: [],
+				},
+			),
+		/release lock ref differs/,
+	);
+});
+
+test('lock schema accepts only matching strict channel-shaped release fields', async () => {
+	const root = new URL('../../', import.meta.url);
+	const schema = JSON.parse(
+		await readFile(new URL('schemas/compiler-docs-lock-v1.schema.json', root), 'utf8'),
+	);
+	const current = JSON.parse(
+		await readFile(new URL('src/content/compiler-data/compiler-docs.lock.json', root), 'utf8'),
+	);
+	const validate = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
+	const release = structuredClone(current);
+	release.channel = '0.1.0';
+	release.bundlePath = 'src/content/compiler-data/0.1.0';
+	release.source.ref = 'refs/tags/v0.1.0';
+	release.documents = release.documents.map((document) => ({
+		...document,
+		route: document.route.replace('/compiler/next/', '/compiler/0.1.0/'),
+	}));
+	assert.equal(validate(release), true, JSON.stringify(validate.errors));
+	for (const mutate of [
+		(value) => (value.channel = '0.1'),
+		(value) => (value.bundlePath = 'src/content/compiler-data/0.1'),
+		(value) => (value.source.ref = 'refs/heads/main'),
+		(value) => (value.documents[0].route = '/reference/compiler/0.1.0.bad/reference/example/'),
+	]) {
+		const invalid = structuredClone(release);
+		mutate(invalid);
+		assert.equal(validate(invalid), false);
+	}
+});
+
+test('a channel-scoped sync preserves another registered generated subtree', async (context) => {
+	const root = await mkdtemp(path.join(os.tmpdir(), 'zryna-channel-sync-'));
+	context.after(() => rm(root, { recursive: true, force: true }));
+	const nextRoot = path.join(root, 'src/content/docs/reference/compiler/next');
+	const releaseRoot = path.join(root, 'src/content/docs/reference/compiler/0.1.0');
+	await mkdir(nextRoot, { recursive: true });
+	await mkdir(releaseRoot, { recursive: true });
+	await writeFile(path.join(nextRoot, 'stale.md'), 'stale\n');
+	await writeFile(path.join(releaseRoot, 'preserved.md'), 'preserved\n');
+	await writeGeneratedCompilerDocs({
+		root,
+		generatedRoot: nextRoot,
+		generatedPath: 'src/content/docs/reference/compiler/next',
+		files: new Map([['fresh.md', Buffer.from('fresh\n')]]),
+	});
+	assert.equal(await readFile(path.join(nextRoot, 'fresh.md'), 'utf8'), 'fresh\n');
+	assert.equal(await readFile(path.join(releaseRoot, 'preserved.md'), 'utf8'), 'preserved\n');
 });
