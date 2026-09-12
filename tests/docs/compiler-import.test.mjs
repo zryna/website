@@ -3,6 +3,7 @@ import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promis
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 import {
@@ -16,13 +17,18 @@ import {
 } from '../../tools/docs/import-bundle.mjs';
 import { readBoundedRegular } from '../../tools/docs/check-bundle.mjs';
 import {
+	COMPILER_IMPORTS,
 	importPaths,
+	loadRegisteredCompilerLocks,
 	validateCompilerImports,
 	validateImportIdentity,
 } from '../../tools/docs/compiler-imports.mjs';
 
 const COMMIT = '4c9fbda9ca80decf755fb8313474217e051eb5c8';
 const MANIFEST_DIGEST = '7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03';
+const RELEASE_COMMIT = 'f4d28002a014cd2e717eba4e59764bd925bef8c1';
+const RELEASE_MANIFEST_DIGEST =
+	'838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
 const LOCK = {
 	channel: 'next',
 	source: { repository: 'https://github.com/zryna/zryna', commit: COMMIT },
@@ -174,6 +180,18 @@ test('authored M3 status preserves earlier profiles and explicit exclusions', as
 		assert(status.includes(`/reference/compiler/next/reference/${id}/`));
 	assert(home.includes('explicit M2 `control-flow-v1` profile'));
 	assert(roadmap.includes('Completed as the explicit M2 `control-flow-v1` profile'));
+	for (const marker of [
+		RELEASE_COMMIT,
+		RELEASE_MANIFEST_DIGEST,
+		'https://github.com/zryna/zryna/releases/tag/v0.1.0',
+		'/reference/compiler/0.1.0/',
+		'389700329d3a3b78b6c0aa182df747c0fb4f8ce2e01b1733e1be5439d0380a1f',
+		'6654afacb1495b35cb36257d8cfe1387f54ae8f3b813b6fe802e4a035d55270f',
+	]) {
+		assert(status.includes(marker), marker);
+	}
+	assert(home.includes('https://github.com/zryna/zryna/releases/tag/v0.1.0'));
+	assert(home.includes('/reference/compiler/0.1.0/'));
 });
 
 test('walkthrough navigation and authored provenance agree with the reviewed import', async () => {
@@ -202,6 +220,11 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	]) {
 		assert(provenance.includes(marker), marker);
 	}
+	for (const marker of [RELEASE_COMMIT, RELEASE_MANIFEST_DIGEST, '/reference/compiler/0.1.0/']) {
+		assert(provenance.includes(marker), marker);
+	}
+	assert(provenance.includes('pnpm docs:export --channel next'));
+	assert(!provenance.includes('pnpm docs:export -- --channel'));
 });
 
 test('rejects raw HTML and active URL protocols before generation', () => {
@@ -368,6 +391,26 @@ test('derives strict semantic-version import paths and rewrites links within tha
 	);
 	assert(rendered.includes('](/reference/compiler/0.1.0/reference/other/)'));
 	assert(rendered.includes(`/blob/${'a'.repeat(40)}/docs/EXAMPLE.md`));
+});
+
+test('registers the immutable 0.1.0 compiler documentation identity', async () => {
+	const release = COMPILER_IMPORTS.find((entry) => entry.channel === '0.1.0');
+	assert.deepEqual(release, {
+		channel: '0.1.0',
+		lockPath: 'src/content/compiler-data/compiler-docs-0.1.0.lock.json',
+	});
+	const imports = await loadRegisteredCompilerLocks(
+		fileURLToPath(new URL('../../', import.meta.url)),
+	);
+	const locked = imports.find((entry) => entry.registration.channel === '0.1.0');
+	assert(locked);
+	assert.equal(locked.lock.source.commit, RELEASE_COMMIT);
+	assert.equal(locked.lock.source.ref, 'refs/tags/v0.1.0');
+	assert.equal(
+		locked.lock.manifestSha256,
+		RELEASE_MANIFEST_DIGEST,
+	);
+	assert.equal(locked.lock.documents.length, 47);
 });
 
 test('rejects unsafe, duplicate, and mismatched compiler import registrations', () => {

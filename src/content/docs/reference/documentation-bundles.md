@@ -13,7 +13,7 @@ The compiler exposes commands equivalent to:
 
 ```sh
 pnpm docs:check
-pnpm docs:export -- --channel next --source-commit <commit> --source-ref refs/heads/main --output .zryna/out/docs/next
+pnpm docs:export --channel next --source-commit <commit> --source-ref refs/heads/main --output .zryna/out/docs/next
 ```
 
 The compiler's successful `main` CI exports the exact commit-and-digest-bound `next` artifact
@@ -59,7 +59,12 @@ node tools/docs/check-bundle.mjs /path/to/bundle \
 - `stable` will be a website alias to one already verified semantic-version bundle; it is not a
   mutable bundle channel.
 
-The compiler currently has no release tags, so `next` is the only valid present-day channel. This
-site vendors one reviewed artifact plus a separate trust lock; it never follows moving `main` or
-downloads compiler content during a production build. Generated reference pages are checked
+The immutable `v0.1.0` tag supplies the source-only Developer Preview channel. Its reviewed bundle
+is pinned at compiler commit `f4d28002a014cd2e717eba4e59764bd925bef8c1` with manifest SHA-256
+`838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa` and is published under
+the [0.1.0 reference](/reference/compiler/0.1.0/). The `next` channel remains separately registered
+for reviewed compiler development.
+
+The site vendors each reviewed bundle plus a separate trust lock; it never follows moving `main`
+or downloads compiler content during a production build. Generated reference pages are checked
 byte-for-byte on Linux and Windows.
