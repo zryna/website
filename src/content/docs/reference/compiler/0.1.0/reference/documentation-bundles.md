@@ -1,6 +1,7 @@
 ---
 title: "Compiler documentation bundles"
 description: "Compiler-owned 0.1.0 documentation imported from f4d28002a014."
+slug: "reference/compiler/0.1.0/reference/documentation-bundles"
 ---
 
 > Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/f4d28002a014cd2e717eba4e59764bd925bef8c1/docs/DOCUMENTATION_BUNDLES.md) at commit `f4d28002a014cd2e717eba4e59764bd925bef8c1`.

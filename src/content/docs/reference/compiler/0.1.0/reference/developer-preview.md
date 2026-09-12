@@ -1,6 +1,7 @@
 ---
 title: "v0.1.0 Developer Preview policy"
 description: "Compiler-owned 0.1.0 documentation imported from f4d28002a014."
+slug: "reference/compiler/0.1.0/reference/developer-preview"
 ---
 
 > Verified compiler source: [docs/DEVELOPER_PREVIEW.md](https://github.com/zryna/zryna/blob/f4d28002a014cd2e717eba4e59764bd925bef8c1/docs/DEVELOPER_PREVIEW.md) at commit `f4d28002a014cd2e717eba4e59764bd925bef8c1`.

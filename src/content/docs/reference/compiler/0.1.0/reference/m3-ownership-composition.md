@@ -1,6 +1,7 @@
 ---
 title: "M3 ownership composition interfaces"
 description: "Compiler-owned 0.1.0 documentation imported from f4d28002a014."
+slug: "reference/compiler/0.1.0/reference/m3-ownership-composition"
 ---
 
 > Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/f4d28002a014cd2e717eba4e59764bd925bef8c1/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `f4d28002a014cd2e717eba4e59764bd925bef8c1`.

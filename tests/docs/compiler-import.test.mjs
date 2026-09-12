@@ -9,6 +9,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import {
 	assertSafeGeneratedRoot,
 	buildExpectedCompilerDocs,
+	explicitAstroSlug,
 	parseCanonicalJson,
 	renderImportedDocument,
 	routeFor,
@@ -383,13 +384,19 @@ test('derives strict semantic-version import paths and rewrites links within tha
 	);
 	const rendered = renderImportedDocument(
 		'[Other](OTHER.md)\n',
-		DOCUMENT,
+		{ ...DOCUMENT, path: 'documents/reference/example.md' },
 		'docs/EXAMPLE.md',
 		lock,
 		new Map([['docs/OTHER.md', '/reference/compiler/0.1.0/reference/other/']]),
 	);
 	assert(rendered.includes('](/reference/compiler/0.1.0/reference/other/)'));
 	assert(rendered.includes(`/blob/${'a'.repeat(40)}/docs/EXAMPLE.md`));
+	assert(rendered.includes('slug: "reference/compiler/0.1.0/reference/example"'));
+	assert.equal(
+		explicitAstroSlug('documents/reference/example.md', '0.1.0'),
+		'reference/compiler/0.1.0/reference/example',
+	);
+	assert.equal(explicitAstroSlug('documents/reference/example.md', 'next'), null);
 });
 
 test('registers the immutable 0.1.0 compiler documentation identity', async () => {
@@ -407,6 +414,12 @@ test('registers the immutable 0.1.0 compiler documentation identity', async () =
 	assert.equal(locked.lock.source.ref, 'refs/tags/v0.1.0');
 	assert.equal(locked.lock.manifestSha256, RELEASE_MANIFEST_DIGEST);
 	assert.equal(locked.lock.documents.length, 47);
+	const files = await buildExpectedCompilerDocs(release);
+	assert.match(
+		files.get('reference/getting-started.md').toString('utf8'),
+		/^slug: "reference\/compiler\/0\.1\.0\/reference\/getting-started"$/m,
+	);
+	assert.match(files.get('index.md').toString('utf8'), /^slug: "reference\/compiler\/0\.1\.0"$/m);
 });
 
 test('rejects unsafe, duplicate, and mismatched compiler import registrations', () => {

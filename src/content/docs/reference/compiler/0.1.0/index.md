@@ -1,6 +1,7 @@
 ---
 title: Compiler reference (0.1.0)
 description: Authenticated compiler documentation imported from the 0.1.0 channel.
+slug: "reference/compiler/0.1.0"
 ---
 
 This reference was imported from compiler commit [`f4d28002a014cd2e717eba4e59764bd925bef8c1`](https://github.com/zryna/zryna/commit/f4d28002a014cd2e717eba4e59764bd925bef8c1).

@@ -1,6 +1,7 @@
 ---
 title: "M2 straight-line semantics"
 description: "Compiler-owned 0.1.0 documentation imported from f4d28002a014."
+slug: "reference/compiler/0.1.0/reference/m2-straight-line-semantics"
 ---
 
 > Verified compiler source: [docs/M2_STRAIGHT_LINE_SEMANTICS.md](https://github.com/zryna/zryna/blob/f4d28002a014cd2e717eba4e59764bd925bef8c1/docs/M2_STRAIGHT_LINE_SEMANTICS.md) at commit `f4d28002a014cd2e717eba4e59764bd925bef8c1`.

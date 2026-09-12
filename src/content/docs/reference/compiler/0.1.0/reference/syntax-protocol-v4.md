@@ -1,6 +1,7 @@
 ---
 title: "Syntax protocol v4"
 description: "Compiler-owned 0.1.0 documentation imported from f4d28002a014."
+slug: "reference/compiler/0.1.0/reference/syntax-protocol-v4"
 ---
 
 > Verified compiler source: [docs/SYNTAX_PROTOCOL_V4.md](https://github.com/zryna/zryna/blob/f4d28002a014cd2e717eba4e59764bd925bef8c1/docs/SYNTAX_PROTOCOL_V4.md) at commit `f4d28002a014cd2e717eba4e59764bd925bef8c1`.

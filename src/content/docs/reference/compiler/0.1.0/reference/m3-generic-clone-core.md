@@ -1,6 +1,7 @@
 ---
 title: "M3 canonical structural clone"
 description: "Compiler-owned 0.1.0 documentation imported from f4d28002a014."
+slug: "reference/compiler/0.1.0/reference/m3-generic-clone-core"
 ---
 
 > Verified compiler source: [docs/M3_GENERIC_CLONE_CORE.md](https://github.com/zryna/zryna/blob/f4d28002a014cd2e717eba4e59764bd925bef8c1/docs/M3_GENERIC_CLONE_CORE.md) at commit `f4d28002a014cd2e717eba4e59764bd925bef8c1`.
