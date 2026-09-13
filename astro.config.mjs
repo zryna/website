@@ -49,6 +49,20 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/zryna/zryna' }],
 			sidebar: [
 				{
+					label: 'Tutorial',
+					items: [
+						{ label: 'Start here', slug: 'tutorial' },
+						{ label: '1. Setup and first run', slug: 'tutorial/setup' },
+						{ label: '2. Values and operators', slug: 'tutorial/values-and-operators' },
+						{ label: '3. Conditions and loops', slug: 'tutorial/control-flow' },
+						{ label: '4. Functions and modules', slug: 'tutorial/functions-and-modules' },
+						{ label: '5. Data shapes', slug: 'tutorial/data-shapes' },
+						{ label: '6. Ownership, moves, and clones', slug: 'tutorial/ownership' },
+						{ label: '7. Borrowing', slug: 'tutorial/borrowing' },
+						{ label: '8. Study-score project', slug: 'tutorial/project' },
+					],
+				},
+				{
 					label: 'Learn',
 					items: [
 						{ label: 'Getting started', slug: 'guides/getting-started' },

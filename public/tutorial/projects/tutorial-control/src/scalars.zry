@@ -1,0 +1,10 @@
+export function calculate(start: i32, step: i32): i32 {
+  let total: i32 = start;
+  const doubled: i32 = step * 2;
+  total = total + doubled;
+  return total - 1;
+}
+
+export function isAtLeast(left: i32, right: i32): bool {
+  return left >= right;
+}

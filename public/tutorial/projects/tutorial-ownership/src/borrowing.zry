@@ -1,0 +1,12 @@
+function update(): i32 {
+  let score: i32 = 7;
+  {
+    const loan: BorrowMut<i32> = borrowMut(score);
+    loan = 12;
+  }
+  return score;
+}
+
+export function score(): i32 {
+  return update();
+}
