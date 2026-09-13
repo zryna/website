@@ -1,0 +1,6 @@
+import { addPerfectBonus, sumTo } from "./study.zry";
+
+export function finalScore(sessions: i32, perfect: bool): i32 {
+  const studyPoints: i32 = sumTo(sessions);
+  return addPerfectBonus(studyPoints, perfect);
+}

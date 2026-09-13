@@ -1,0 +1,9 @@
+import { triple } from "./math.zry";
+
+function addBonus(value: i32): i32 {
+  return value + 2;
+}
+
+export function score(value: i32): i32 {
+  return addBonus(triple(value));
+}

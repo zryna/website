@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
 	CONTENT,
+	TUTORIAL_CONTENT,
 	verifyContent,
 	verifyHeaders,
 	verifyHttpsRedirect,
@@ -15,7 +16,24 @@ test('rendered public content rejects stale provenance and missing M3 claims', (
 		verifyContent(route, html, commit, digest);
 		assert.throws(() => verifyContent(route, html.replace(commit, 'c'.repeat(40)), commit, digest));
 		for (const marker of markers) {
-			const stripped = html.replace(marker.replaceAll('<', '&lt;').replaceAll('>', '&gt;'), '');
+			const stripped = html.replaceAll(marker.replaceAll('<', '&lt;').replaceAll('>', '&gt;'), '');
+			assert.throws(() => verifyContent(route, stripped, commit, digest));
+		}
+	}
+});
+
+test('rendered tutorial content retains the immutable release identity and lesson markers', () => {
+	const commit = 'a'.repeat(40);
+	const digest = 'b'.repeat(64);
+	const releaseCommit = '841c8aee901782c9f7bf442bfe8eb2fe6b7f6446';
+	for (const [route, markers] of TUTORIAL_CONTENT) {
+		const html = `<main>0.2.1 ${releaseCommit} ${markers.join(' ').replaceAll('<', '&lt;').replaceAll('>', '&gt;')}</main>`;
+		verifyContent(route, html, commit, digest);
+		assert.throws(() =>
+			verifyContent(route, html.replace(releaseCommit, 'c'.repeat(40)), commit, digest),
+		);
+		for (const marker of markers) {
+			const stripped = html.replaceAll(marker.replaceAll('<', '&lt;').replaceAll('>', '&gt;'), '');
 			assert.throws(() => verifyContent(route, stripped, commit, digest));
 		}
 	}

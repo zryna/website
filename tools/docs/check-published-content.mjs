@@ -7,6 +7,7 @@ import { loadRegisteredCompilerLocks } from './compiler-imports.mjs';
 
 const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 const PREFIX = '/reference/compiler/next/reference/';
+const TUTORIAL_SOURCE_COMMIT = '841c8aee901782c9f7bf442bfe8eb2fe6b7f6446';
 export const CONTENT = new Map([
 	[
 		'/reference/compiler-status/',
@@ -40,6 +41,18 @@ export const CONTENT = new Map([
 	[`${PREFIX}m3-conformance/`, ['15 scalar cases', '26 injected fault cases', 'M0-M2', 'manifest']],
 ]);
 
+export const TUTORIAL_CONTENT = new Map([
+	['/tutorial/', ['Developer Preview', 'does not track', 'zryna/zryna#410']],
+	['/tutorial/setup/', ['zryna 0.2.1', 'javascript: i32 12', 'package-locked']],
+	['/tutorial/values-and-operators/', ['i32', 'bool', 'javascript: bool true']],
+	['/tutorial/control-flow/', ['while', 'webassembly: i32 15', 'does not admit for']],
+	['/tutorial/functions-and-modules/', ['import { triple }', 'javascript: i32 32']],
+	['/tutorial/data-shapes/', ['ZrynaStruct', 'FixedArray<i32, 3>', 'ZrynaEnum']],
+	['/tutorial/ownership/', ['clone(first)', 'ZRYNA-M3011']],
+	['/tutorial/borrowing/', ['BorrowMut<i32>', 'ZRYNA-M3017']],
+	['/tutorial/project/', ['finalScore', 'javascript: i32 15', 'zryna/zryna#410']],
+]);
+
 function visibleText(html) {
 	function text(node) {
 		if (['script', 'style'].includes(node.tagName)) return '';
@@ -63,8 +76,15 @@ export function verifyContent(
 	if (route === '/reference/compiler-status/') {
 		assert(text.includes(manifestDigest), `${route}: authenticated manifest digest missing`);
 	}
+	if (route.startsWith('/tutorial/')) {
+		assert(text.includes('0.2.1'), `${route}: release version missing`);
+		assert(text.includes(TUTORIAL_SOURCE_COMMIT), `${route}: release source commit missing`);
+	}
 	for (const marker of CONTENT.get(route) ?? []) {
 		assert(text.includes(marker), `${route}: required content missing: ${marker}`);
+	}
+	for (const marker of TUTORIAL_CONTENT.get(route) ?? []) {
+		assert(text.includes(marker), `${route}: required tutorial content missing: ${marker}`);
 	}
 }
 
@@ -106,6 +126,7 @@ async function run() {
 			'/reference/compiler-status/',
 			'/reference/architecture/',
 			'/reference/documentation-bundles/',
+			...TUTORIAL_CONTENT.keys(),
 			...imports.map((entry) => entry.rootRoute),
 			...CONTENT.keys(),
 			...imports.flatMap((entry) => entry.lock.documents.map((document) => document.route)),
