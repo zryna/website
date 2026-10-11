@@ -1,9 +1,9 @@
 ---
 title: "Compiler documentation bundles"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/DOCUMENTATION_BUNDLES.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/DOCUMENTATION_BUNDLES.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Compiler documentation bundles
 
@@ -27,8 +27,11 @@ The command verifies that the commit, ref, clean tracked worktree, and GitHub wo
 agree. A semantic-version channel must equal the compiler package version and use the matching
 immutable `refs/tags/v<version>` ref.
 
-The official `next` artifact is published only by the dedicated `main`-push documentation job after
-the aggregate required `m3` job (which retains M0–M2) succeeds. Its artifact name and job summary bind the exact compiler
+The official `next` artifact is published only by the dedicated manual documentation dispatch on
+exact current `main`. The job validates documentation, then authenticates a completed successful
+full CI run and all M4 evidence for the same immutable revision before exporting. The dispatch
+requires the CI run ID and attempt plus independently reviewed expectations JSON and its SHA-256;
+both the bundle and authenticated gate metadata are retained for 90 days. Its artifact name and job summary bind the exact compiler
 commit and manifest SHA-256 as `zryna-docs-next-<commit>-<manifest-sha256>`; consumers authenticate
 both values from that immutable workflow run before importing any bytes.
 
@@ -40,7 +43,7 @@ child of `.zryna/out/docs`; an existing bundle is never replaced.
 ## Bundle format
 
 The `zryna.docs.bundle.v1` schema is
-[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/schemas/zryna-docs-bundle-v1.schema.json). Every
+[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/schemas/zryna-docs-bundle-v1.schema.json). Every
 bundle contains:
 
 - canonical `manifest.json` with no generation timestamp;

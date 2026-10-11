@@ -1,9 +1,19 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'parse5';
 import { loadRegisteredCompilerLocks } from './compiler-imports.mjs';
+import { readBoundedRegular } from './check-bundle.mjs';
+import {
+	M4_SUPPORT_ROUTE,
+	M4_CONFORMANCE_ROUTE,
+	MAX_PUBLISHED_HTML_BYTES,
+	checkerSourceIdentity,
+	boundedPublishedBytes,
+	hashResponse,
+	loadM4PublishedExpectation,
+	verifyRenderedM4Support,
+} from './m4-published-content.mjs';
 
 const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 const PREFIX = '/reference/compiler/next/reference/';
@@ -39,6 +49,34 @@ export const CONTENT = new Map([
 		],
 	],
 	[`${PREFIX}m3-conformance/`, ['15 scalar cases', '26 injected fault cases', 'M0-M2', 'manifest']],
+]);
+
+export const M4_CONTENT = new Map([
+	[M4_SUPPORT_ROUTE, ['static contract', 'not-evaluated', 'Runnable examples', 'M0–M3']],
+	[
+		M4_CONFORMANCE_ROUTE,
+		['twelve primary rows', 'Exact-limit', 'live publication', 'not-evaluated'],
+	],
+	[
+		`${PREFIX}browser-component-v1/`,
+		['add(20, 22) === 42', 'browser-component-v1', 'create-only', 'cannot be preempted'],
+	],
+	[
+		`${PREFIX}wasi-command-getting-started/`,
+		['command-h1-v1', 'command-pure-1', 'installed-pure-1', '--grant-file', 'MODE'],
+	],
+	[
+		'/reference/compiler/next/examples/wasi-command/',
+		['ok(())', 'err(())', 'MODE', 'caller-private'],
+	],
+	[
+		'/reference/compiler/next/examples/wasi-server-status/',
+		['server-status-v1', '--listener-approval', 'empty', 'finite'],
+	],
+	[
+		'/reference/compiler/next/examples/wasi-server-clock/',
+		['server-clock-status-v1', 'local-clock-denied', 'local-clock-granted', 'C4201'],
+	],
 ]);
 
 export const TUTORIAL_CONTENT = new Map([
@@ -83,6 +121,9 @@ export function verifyContent(
 	for (const marker of CONTENT.get(route) ?? []) {
 		assert(text.includes(marker), `${route}: required content missing: ${marker}`);
 	}
+	for (const marker of M4_CONTENT.get(route) ?? []) {
+		assert(text.includes(marker), `${route}: required M4 content missing: ${marker}`);
+	}
 	for (const marker of TUTORIAL_CONTENT.get(route) ?? []) {
 		assert(text.includes(marker), `${route}: required tutorial content missing: ${marker}`);
 	}
@@ -114,10 +155,30 @@ export function verifyHttpsRedirect(status, location, origin) {
 
 async function run() {
 	const [mode, origin] = process.argv.slice(2);
-	assert(mode === '--dist' || (mode === '--origin' && origin), 'use --dist or --origin <URL>');
+	assert(
+		(mode === '--dist' && process.argv.length === 3) ||
+			(mode === '--origin' && origin && process.argv.length === 4),
+		'use --dist or --origin <URL>',
+	);
+	if (origin) {
+		const base = new URL(origin);
+		assert(
+			!base.username && !base.password && !base.search && !base.hash && base.pathname === '/',
+			'canonical origin without credentials',
+		);
+		assert(
+			base.protocol === 'https:' ||
+				(base.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname)),
+			'HTTPS required for deployed content',
+		);
+	}
 	const imports = await loadRegisteredCompilerLocks(ROOT);
 	const next = imports.find((entry) => entry.registration.channel === 'next');
 	assert(next, 'the next compiler documentation channel must remain registered');
+	const m4 = await loadM4PublishedExpectation(ROOT, next);
+	const observedAt = new Date().toISOString();
+	const responses = [];
+	const { checkerWebsiteCommit, checkerWebsiteTree } = checkerSourceIdentity(mode, ROOT);
 	const routes = [
 		...new Set([
 			'/',
@@ -129,6 +190,9 @@ async function run() {
 			...TUTORIAL_CONTENT.keys(),
 			...imports.map((entry) => entry.rootRoute),
 			...CONTENT.keys(),
+			...M4_CONTENT.keys(),
+			M4_SUPPORT_ROUTE,
+			M4_CONFORMANCE_ROUTE,
 			...imports.flatMap((entry) => entry.lock.documents.map((document) => document.route)),
 		]),
 	];
@@ -136,8 +200,19 @@ async function run() {
 	let observedHttpRedirect = null;
 	for (const route of routes) {
 		let html;
+		let bytes;
 		if (mode === '--dist') {
-			html = await readFile(path.join(ROOT, 'dist', route.slice(1), 'index.html'), 'utf8');
+			bytes = await readBoundedRegular(
+				path.join(ROOT, 'dist', route.slice(1), 'index.html'),
+				MAX_PUBLISHED_HTML_BYTES,
+			);
+			responses.push({
+				route,
+				status: null,
+				url: null,
+				bytes: bytes.length,
+				sha256: hashResponse(bytes),
+			});
 		} else {
 			const url = new URL(route, origin);
 			assert(['http:', 'https:'].includes(url.protocol), 'HTTP(S) origin required');
@@ -145,7 +220,31 @@ async function run() {
 			assert.equal(response.status, 200, route);
 			verifyHeaders(response.headers);
 			observedHsts = response.headers.get('strict-transport-security');
-			html = await response.text();
+			assert(
+				response.headers.get('content-type')?.split(';')[0] === 'text/html',
+				'HTML response required',
+			);
+			bytes = await boundedPublishedBytes(response);
+			responses.push({
+				route,
+				url: url.href,
+				status: response.status,
+				bytes: bytes.length,
+				sha256: hashResponse(bytes),
+			});
+		}
+		html = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+		if (route === M4_SUPPORT_ROUTE) verifyRenderedM4Support(html, m4);
+		if (route === '/reference/documentation-bundles/') {
+			const text = visibleText(html);
+			for (const value of [
+				m4.compilerCommit,
+				m4.manifestSha256,
+				m4.support.registrySha256,
+				m4.matrixSha256,
+			]) {
+				assert(text.includes(value), 'exact authored compiler publication provenance');
+			}
 		}
 		const imported = imports.find((entry) => route.startsWith(entry.rootRoute));
 		const authority = imported ?? next;
@@ -173,12 +272,20 @@ async function run() {
 			signal: AbortSignal.timeout(20000),
 		});
 		verifyHttpsRedirect(redirect.status, redirect.headers.get('location'), origin);
-		observedHttpRedirect = redirect.status;
+		observedHttpRedirect = { status: redirect.status, location: redirect.headers.get('location') };
 	}
 
 	console.log(
 		JSON.stringify({
 			sourceCommit: next.lock.source.commit,
+			registrySha256: m4.support.registrySha256,
+			matrixSha256: m4.matrixSha256,
+			lockSha256: m4.lockSha256,
+			observedAt,
+			checkerWebsiteCommit,
+			checkerWebsiteTree,
+			observedDeployment: null,
+			responses,
 			manifestSha256: next.lock.manifestSha256,
 			routes: routes.length,
 			mode,

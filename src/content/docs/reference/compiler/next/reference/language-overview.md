@@ -1,9 +1,9 @@
 ---
 title: "Language overview"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/spec/language/OVERVIEW.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/language/OVERVIEW.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Zryna language profile v1
 
@@ -29,6 +29,14 @@ verified IR, and resource budgets. It is selected only by exact `--profile contr
 covered by the fixed-oracle three-target M2 gate. Omitting `--profile` continues to select the M1
 `I32V1` slice.
 
+## Cross-target composition
+
+The specified-only [cross-target profile composition v1](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/language/CROSS_TARGET_PROFILES_V1.md) separates
+language admission, output target and deployment-host permissions. It defines transitive
+dependency requirements and explicit denial policies without adding a public selector or
+package/host implementation. Backend choice and native metadata do not grant host authority
+or establish execution isolation. Its WIT mapping depends on Issue #167's pinned-world contract.
+
 ## WebAssembly profiles
 
 The implemented `I32V1` scalar subset maps directly to core WebAssembly without passing through
@@ -39,7 +47,16 @@ and public `run` command use the standard browser-compatible WebAssembly API, bu
 and a generated loader remain untested future work, as does a general strict typed host wrapper.
 The CLI validates its `I32V1` invocation before making the raw host call.
 
-WASI and Component Model support is a separately versioned host profile. WIT and Canonical ABI types describe component boundaries; they do not redefine Zryna's internal ownership or memory model.
+The specified-only M4 [WIT capability contract](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/wit/CAPABILITY_PROFILES_V1.md) pins separate
+browser, command, and server world identities plus a WASI version and denied-by-default host
+policy. It does not activate WASI or Component Model support. WIT and Canonical ABI types describe
+component boundaries; they do not redefine Zryna's internal ownership or memory model.
+
+The specified-only [typed JS/WASM adapter design](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/interop/JS_WASM_ADAPTERS_V1.md) separately
+defines ESM carriers, component conversion and resource lifetime rules. Public String/list/resource
+bridges, library API alignment, generation, conformance and activation remain separately gated;
+internal M3 layouts and borrows are not a public interface. No browser, Node package or WASI
+support is added by those declarations.
 
 ## Native profile
 

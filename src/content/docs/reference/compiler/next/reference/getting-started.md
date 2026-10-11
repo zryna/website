@@ -1,15 +1,23 @@
 ---
 title: "Run your first Zryna programs"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/GETTING_STARTED.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/GETTING_STARTED.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Run your first Zryna programs
 
-Zryna is experimental. This walkthrough uses the existing public M1 scalar and M2 control-flow
-profiles. For the separately selected public M3 ownership profile, continue with
-[Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/). Run commands from the compiler repository root.
+Zryna v0.1.0 is an experimental, source-based Developer Preview. It is not
+production-ready. It provides the documented repository-local M1–M3 workflows; it does not
+include standalone binaries, package installation, or stable compatibility guarantees.
+Current `main` separately implements the source-checkout standalone default-M1 project path
+documented below, outside that v0.1.0 preview policy. The
+`v0.1.0` tag and pre-release are not yet published. This walkthrough uses the existing public M1
+scalar and M2 control-flow profiles. For the separately
+selected public M3 ownership profile, continue with
+[Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/). This walkthrough runs commands from the compiler
+repository root; use [Standalone source projects](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/STANDALONE_PROJECTS.md) to keep source and output
+in a separate project tree.
 You do not need to run the contributor regression suite after every program edit.
 
 ## Prepare the checkout
@@ -164,10 +172,10 @@ source file beneath the existing `examples` directory. For the M2 example, keep 
 This is editing guidance, not an additional executed example.
 
 Do not put personal source in `.zryna/out`, add a new top-level project directory, or create
-symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/STRICT_WORKSPACE.md)
-still checks file names, UTF-8 contents, layout and budgets. There is no `zryna init` command in
-this walkthrough and no architecture bypass; this repository-local workflow is not package or
-standalone-project support.
+symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/STRICT_WORKSPACE.md)
+still checks file names, UTF-8 contents, layout and budgets. This repository-local walkthrough does
+not use `zryna new`; the [standalone guide](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/STANDALONE_PROJECTS.md) documents that separate
+package-authenticated path. Both paths retain validation; there is no architecture bypass.
 
 ## Targets and limits
 
@@ -181,7 +189,7 @@ See [the existing alternative-target commands](/reference/compiler/next/referenc
 using those targets; this walkthrough does not validate a new platform configuration.
 
 M2 supports the documented scalar subset, not all TypeScript. Packages, general I/O, browser/WASI
-integration, watch mode and editor tooling are not supplied by these examples. Public
-`--profile data-ownership-v1` tutorials must wait for the M3 conformance/activation gates #89/#90;
-internal ownership tests do not enable that CLI profile. Consult the [roadmap](/reference/compiler/next/status/roadmap/) for
-those separate capabilities.
+integration, watch mode and editor tooling are not supplied by these examples. Exact public
+`--profile data-ownership-v1` is the separately selected M3 profile; use the complete
+[M3 beginner guide](/reference/compiler/next/reference/m3-getting-started/); internal ownership tests do not enable that CLI profile
+or replace its public tutorial. Consult the [roadmap](/reference/compiler/next/status/roadmap/) for separate capabilities.

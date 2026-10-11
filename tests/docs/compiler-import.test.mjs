@@ -25,8 +25,8 @@ import {
 	validateImportIdentity,
 } from '../../tools/docs/compiler-imports.mjs';
 
-const COMMIT = '4c9fbda9ca80decf755fb8313474217e051eb5c8';
-const MANIFEST_DIGEST = '7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03';
+const COMMIT = '418af134f16091affce76ca08fc49eb4b874072f';
+const MANIFEST_DIGEST = 'c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac';
 const RELEASE_COMMIT = 'f4d28002a014cd2e717eba4e59764bd925bef8c1';
 const RELEASE_MANIFEST_DIGEST = '838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
 const LOCK = {
@@ -37,19 +37,25 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 46);
+	assert.equal(files.size, 58);
 	assert.deepEqual(
 		[...files.keys()],
 		[
+			'examples/wasi-command.md',
+			'examples/wasi-server-clock.md',
+			'examples/wasi-server-status.md',
 			'reference/aggregate-layout-v1.md',
 			'reference/architecture.md',
+			'reference/browser-component-v1.md',
 			'reference/cli.md',
 			'reference/control-flow-modules-v1.md',
 			'reference/data-ownership-v1.md',
+			'reference/developer-preview.md',
 			'reference/documentation-bundles.md',
 			'reference/frontends.md',
 			'reference/getting-started.md',
 			'reference/language-overview.md',
+			'reference/language-server.md',
 			'reference/m2-conformance.md',
 			'reference/m2-control-flow-semantics.md',
 			'reference/m2-javascript-backend.md',
@@ -78,10 +84,16 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m3-public-profile.md',
 			'reference/m3-shared-weak-authority.md',
 			'reference/m3-shared-weak-evidence.md',
+			'reference/m4-conformance.md',
+			'reference/m4-support.md',
 			'reference/memory-model.md',
 			'reference/ownership-runtime-v1.md',
 			'reference/scalar-abi-v1.md',
 			'reference/syntax-protocol-v4.md',
+			'reference/wasi-command-getting-started.md',
+			'reference/wasi-command-manifest-v1.md',
+			'reference/wasi-server-clock-status-v1.md',
+			'reference/wasi-server-status-v1.md',
 			'status/current.md',
 			'status/m0-conformance.md',
 			'status/m1-conformance.md',
@@ -207,16 +219,16 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	);
 	assert.equal(lock.source.commit, COMMIT);
 	assert.equal(lock.manifestSha256, MANIFEST_DIGEST);
-	assert.equal(lock.documents.length, 45);
+	assert.equal(lock.documents.length, 57);
 	assert(config.includes("slug: 'reference/compiler/next/reference/getting-started'"));
 	assert(config.includes("slug: 'reference/compiler/next/reference/m3-getting-started'"));
 	assert(guide.includes('/reference/compiler/next/reference/getting-started/'));
 	for (const marker of [
 		COMMIT,
 		MANIFEST_DIGEST,
-		'34091122586',
-		'10007513825',
-		'79e48bd995bcb89482186a2062212d5c2de5314dbf45ea6b5cbde0efa3f18c7d',
+		'38156672531',
+		'11708548986',
+		'7acae747514906859b0d82ed8da13357fa2b5a2b3281dcd2887f2ae3de0386c5',
 	]) {
 		assert(provenance.includes(marker), marker);
 	}

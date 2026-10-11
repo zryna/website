@@ -1,5 +1,37 @@
 # Zryna CLI reference
 
+## Bounded public source-checkout server profiles
+
+This change introduces bounded public Linux x64/Windows x64 source-checkout support when
+integrated after #400 and the required #401 review and exact-revision gates:
+
+- `serve ENTRY --profile server-status-v1 --export NAME --node PINNED --server-config PRIVATE --listener-approval PRIVATE --name FRESH` authenticates one no-argument i32 status export, returns status 200–599 with an empty body, and retains empty guest grants.
+- `serve ENTRY --profile server-clock-status-v1 --export NAME --node PINNED --server-config PRIVATE --listener-approval PRIVATE --guest-request PRIVATE --guest-approval PRIVATE --name FRESH` additionally performs one actual monotonic read per admitted request through the generated guest arrangement. Separate private guest request/root approval files are required; the timestamp is discarded and no source-language clock intrinsic is added.
+
+Both profiles require separate configuration-bound listener approval, literal 127.0.0.1,
+finite budgets and serial requests. Create-only manifest v1/status and v2/clock records follow
+actual Store/resource/listener teardown; forced termination proves OS handle release only.
+See the [status contract](WASI_SERVER_STATUS_V1.md), [clock contract](WASI_SERVER_CLOCK_STATUS_V1.md)
+and [denied/granted example](../examples/wasi-server/CLOCK_EXAMPLE.md). Installed server execution,
+production deployment and whole-M4 conformance/publication (#402) remain excluded.
+
+## Bounded WASI command profile
+
+The source-checkout route `run ENTRY --target wasi-command --profile command-h1-v1
+--export main --node PINNED [--grant-file ABSOLUTE_FILE]` executes the separately verified
+command profile. A newly verified complete installation instead accepts
+`run ENTRY --project-root PROJECT --target wasi-command --profile command-h1-v1 --export main
+[--grant-file ABSOLUTE_FILE]`, without compiler-root or Node overrides. It uses its authenticated
+bundled runtime/provider and one project-relative source file, without dependency packages.
+Both routes accept no scalar arguments or build-only selection. The [command walkthrough](WASI_COMMAND_GETTING_STARTED.md) covers private
+input creation, the initial grant table, typed WIT results, limits and create-only bundles;
+the [manifest reference](WASI_COMMAND_MANIFEST_V1.md) specifies its distinct execution record.
+This change introduces this bounded route when integrated; the
+[review record](WASI_COMMAND_H1_REVIEW.md) tracks final revision checks and acceptance.
+Supported evidence covers supervised Linux x86-64, hosted Ubuntu 24.04 x86-64 and hosted
+Windows Server 2022 x64. Existing immutable beta archives do not support this route.
+Existing M1–M3 profiles retain their contracts below.
+
 ## Public M3 profile
 
 Exact `--profile data-ownership-v1` on `build` and `run` selects the authenticated protocol-v4
@@ -26,15 +58,24 @@ and manifest v3 are documented in [M3 driver](M3_CANDIDATE_DRIVER.md).
 ```text
 zryna architecture check [--root <PATH>] [--json]
 zryna doctor             [--root <PATH>] [--json]
-zryna build <ENTRYPOINT> --target <javascript|webassembly|native|all> --node <PATH> [--profile control-flow-v1] [--root <PATH>] [--name <STEM>] [--json]
+zryna support            [--json]
+zryna package resolve <PACKAGE> --source-root <PATH> --mode <frozen|update> [--git-cache <PATH>] [--json]
+zryna build <ENTRYPOINT> --target <javascript|webassembly|native|component|all> --node <PATH> [--profile <control-flow-v1|data-ownership-v1|browser-component-v1>] [--root <PATH>] [--name <STEM>] [--json]
 zryna run   <ENTRYPOINT> --target <javascript|webassembly|native|all> --export <NAME> --node <PATH> [--profile control-flow-v1] [--arg=<i32|bool>:<VALUE> ...] [--root <PATH>] [--name <STEM>] [--json]
+zryna run   <ENTRYPOINT> --target wasi-command --profile command-h1-v1 --export main --node <PATH> [--grant-file <ABSOLUTE_PATH>] [--root <PATH>] [--name <STEM>] [--json]
+zryna run   <ENTRYPOINT> --target wasi-command --profile command-h1-v1 --export main [--project-root <PATH>] [--grant-file <ABSOLUTE_PATH>] [--name <STEM>] [--json] # newly verified complete installation
 ```
 
-`architecture check` and `doctor` run the same mandatory fail-closed workspace gate. Every
+`architecture check` and `doctor` run the same mandatory fail-closed workspace gate. Every checkout
 `build` and `run` performs that gate before reading source, creating output, discovering a target
 runtime, or doing target work. There is no bypass flag.
+Installed commands validate the build-bound installation and its retained source architecture
+receipt; they require no compiler checkout and accept no compiler-root/runtime override.
 Architecture and doctor `--json` output retains the existing deterministic `ValidationReport`
 shape containing its `diagnostics` array.
+
+`package resolve` is the source-only package command documented in
+[Package resolution](PACKAGE_RESOLUTION.md). It does not compile source or select a backend.
 
 `ENTRYPOINT` is exactly one workspace-relative `.zry` path. Absolute paths, traversal,
 normalized-away components, backslashes, links or Windows reparse points, and paths outside
@@ -44,8 +85,13 @@ bounded, deterministic graph of explicit relative `.zry` imports. The driver dis
 authenticates one final source map, and performs semantic lowering exactly once before target
 dispatch. The frontend never resolves imports or reads the workspace.
 
-`--profile` has no hidden default: omission means M1, and the only accepted explicit value is exact
-lowercase `control-flow-v1`. `--target` is mandatory, exact, lowercase, and has no alias or default.
+`--profile` has no hidden default: omission means M1. Exact lowercase `control-flow-v1` selects
+M2; `data-ownership-v1` selects M3; `browser-component-v1` selects the default M1 scalar compiler
+with an explicit browser bundle.
+`--target` is mandatory, exact, lowercase, and has no alias or default. `component` is build-only;
+the browser profile requires it. Other explicit profiles with `component` reject before source or
+target work. The repository-local browser route and component emission are outside the advertised
+[v0.1.0 preview support matrix](DEVELOPER_PREVIEW.md).
 `--root` defaults to the current directory; the driver requires its resolved
 workspace root to be an absolute real directory. `--name` defaults to the entrypoint stem and must
 be 1 to 128 ASCII letters, digits, underscores, or hyphens, begin with a letter or underscore, and
@@ -70,6 +116,7 @@ Boolean source and invocation remain rejected when `--profile` is omitted.
 | `javascript` | deterministic `.mjs` | sealed module through Node.js | Linux, Windows |
 | `webassembly` | validated import-free `.wasm` | direct standard WebAssembly API through Node.js | Linux, Windows |
 | `native` | audited Linux x86-64 `.o` | invocation-specific audited `.elf` | Linux x86-64 for run |
+| `component` | audited import-free Component Model `.wasm`; explicit browser profile also emits ESM loader and declarations | unsupported | Linux, Windows build; pinned Chrome for browser execution |
 | `all` | `.mjs`, `.wasm`, `.o` | `.mjs`, `.wasm`, `.elf` | Linux x86-64 for run |
 
 `build native` emits a relocatable object and does not invent `main`. `run native` generates the
@@ -84,6 +131,14 @@ runtime semantics authority. This composition rule applies independently to M1 a
 fixed oracle on every supported platform. Issue #57 records authenticated website import,
 deployment, and live commit/digest evidence separately from the CLI contract.
 
+`component` preserves the unchanged audited M1 core module and canonically lifts its verified
+scalar exports. It binds the exact authenticated `zryna:capability-profiles/browser@0.1.0` source
+identity, whose capability-world import and export sets are empty. Without an explicit profile it
+remains artifact emission only. `browser-component-v1` adds a generated browser binding that
+hashes the exact component and invokes its retained import-free core scalar functions. See the
+[browser quickstart and interface contract](BROWSER_COMPONENT_V1.md). Neither path joins `all`.
+Artifact emission does not claim Component Model support for the v0.1.0 preview release.
+
 ## Output bundles
 
 The public output root is `<root>/.zryna/out`:
@@ -94,6 +149,7 @@ The public output root is `<root>/.zryna/out`:
   javascript/<stem>.mjs
   webassembly/<stem>.wasm
   native/<stem>.o
+  component/<stem>.wasm
 
 .zryna/out/<stem>.run/
   zryna-manifest-v1.json
@@ -106,6 +162,17 @@ An explicit `--profile control-flow-v1` request uses the same bundle names and s
 subdirectories, but contains `zryna-manifest-v2.json` instead. A bundle contains exactly one
 manifest version. Consequently an existing `<stem>.build` or `<stem>.run` bundle collides
 create-only regardless of profile; selecting M2 never replaces an M1 bundle.
+
+An explicit `--profile browser-component-v1` build contains exactly
+`component/<stem>.wasm`, `component/<stem>.mjs`, `component/<stem>.d.mts`, and
+`zryna-browser-manifest-v1.json`. It is also create-only and collides with a same-stem M1/M2
+build. The browser manifest retains the M1 source and artifact fields plus a `browser` record
+with binding revision, WIT world/source digest, component/core/interface digests, and the exact
+retained-core offset. Each of the three files has its own ordered artifact record and hash.
+
+The tree above shows every possible M1 build subdirectory; only selected target paths exist. A
+default `component` build therefore contains only `component/<stem>.wasm` and
+`zryna-manifest-v1.json`.
 
 Only selected target paths exist. Build and run bundles with the same stem may coexist. A second
 command of the same kind is create-only and fails without changing the existing bundle. The Linux
@@ -129,7 +196,10 @@ equal to `zryna-m1-cli-v1`. Its top-level fields are `version`, `profile`, `comm
 results, and diagnostics are in stable order. Each artifact records its `target`, `kind`, bundle-
 relative `/`-separated `path`, `bytes`, and lowercase `sha256`. Artifact kinds are
 `ecmascript-module`, `core-webassembly-module`, `linux-x86-64-relocatable-object`, and
-`linux-x86-64-invocation-executable` as applicable. `invocation` is `null` for `build`; for `run`
+`linux-x86-64-invocation-executable` as applicable. A component build uses target `component` and
+artifact kind `webassembly-component`. Its public function labels are
+`zryna-export-<lowercase-hex-of-logical-name-bytes>`; this collision-free mapping accommodates
+every scalar ABI logical name without changing existing target names. `invocation` is `null` for `build`; for `run`
 it records `export` plus ordered arguments as `{ "type": "i32", "value": n }`. `results` is empty
 for build and records each run target and its typed `outcome` in target order. The manifest contains
 no absolute or temporary path, timestamp, process id, inherited environment value, credential, or
@@ -174,7 +244,13 @@ consumers must use its structured fields rather than parse text output.
 | `6` | cleanup could not be confirmed |
 
 Stable diagnostic codes are the precise failure identity. Clap parse errors retain status `2`.
-No failure status advertises a partial bundle.
+No failure status advertises a partial bundle. The command candidate commits a complete execution
+record for a declared WIT `err`, denied callback or trap when publication succeeds: these use
+status `5`, or `6` if teardown is unconfirmed. Its version-1 JSON response uses `execution`
+instead of the ordinary target `results` array, plus exact `profile` and `target` selectors.
+Command flags and invocation-mode validation use status `2`. Private grant-file capture,
+decoding and source/grant admission belong to source preparation and use status `3`, including
+an omitted lookup grant, a wrong environment key or a grant supplied to pure source.
 
 ## Runtime and process limits
 
@@ -211,6 +287,8 @@ From the workspace root, using an exact Node.js 22.22.1 executable:
 cargo run --locked -p zryna -- build examples/universal/add.zry --target javascript --name add-js --node /absolute/path/to/node
 cargo run --locked -p zryna -- build examples/universal/add.zry --target webassembly --name add-wasm --node /absolute/path/to/node
 cargo run --locked -p zryna -- build examples/universal/add.zry --target native --name add-native --node /absolute/path/to/node
+cargo run --locked -p zryna -- build examples/universal/add.zry --target component --name add-component --node /absolute/path/to/node
+cargo run --locked -p zryna -- build examples/universal/add.zry --profile browser-component-v1 --target component --name add-browser --node /absolute/path/to/node
 cargo run --locked -p zryna -- build examples/universal/add.zry --target all --name add-all --node /absolute/path/to/node
 
 cargo run --locked -p zryna -- run examples/universal/add.zry --target javascript --name add-js --export add --arg=i32:20 --arg=i32:22 --node /absolute/path/to/node
@@ -228,11 +306,35 @@ On Windows, pass the absolute direct executable path, for example
 
 The M1 `all` invocation reports three ordered `i32` observations with value `-2147483648`; the checked
 M1 differential suite requires those observations and the manifest to agree. Package resolution,
-non-relative/package imports, watch mode, incremental or remote builds, browser execution, WASI,
+non-relative/package imports, watch mode, incremental or remote builds, general browser APIs, WASI,
 Windows or macOS native execution, static native executables, overwrite behavior, and
 runtime-enforced comparison inside an ordinary end-user command remain outside the current slice.
+The separate bounded WASI command profile above has its own explicit selector and grants.
+Those scalar target contracts retain their exclusions.
 The repository-owned [M2 conformance gate](M2_CONFORMANCE.md) performs fixed-oracle three-target
 comparison. M2 closure evidence includes authenticated compiler documentation plus website and live
 provenance recorded by Issue #57; those publication checks do not change command semantics.
 M1 closure evidence includes website publication of versioned status and reference data from the
 authenticated compiler documentation bundle tracked in Issue #21.
+
+## Editor formatting
+
+Formatting is exposed through the separately built language server.
+See [the scalar formatter and editor installation contract](LANGUAGE_SERVER.md#scalar-format-v1)
+for exact source-build compatibility, supported syntax, range behavior and commands.
+
+## Static M4 support contract
+
+[The fixed M4 matrix](M4_SUPPORT.md) and `zryna support --json` project the same
+checked registry. This is a static contract with six modes and two bounded hosted contracts;
+it does not authenticate this checkout's execution, CI, installation, signing or publication.
+[The conformance record](M4_CONFORMANCE.md) defines the separate exact-revision evidence needed
+for closure. Existing M0–M3 profiles and their historical support contracts remain unchanged.
+Installed component/browser/server, existing immutable beta H1, other browsers, desktop Windows,
+general cloud hosting, signed public releases and production admission remain excluded.
+
+`support` accepts only `--json` and `--help`; top-level `zryna --version` is unchanged. It reads compiled contract
+bytes and accepts no source, root, runtime, grant or evidence selector. It succeeds outside a
+checkout without creating output or executing a profile. JSON carries no containing commit:
+the registry digest identifies contract bytes; authenticated evidence separately binds the
+actual candidate source commit/tree. This avoids a source/hash cycle and stale certification.

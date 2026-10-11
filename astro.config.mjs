@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
+import { plainM4Support } from './tools/docs/plain-m4-support.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
 	integrations: [
 		sitemap(),
 		starlight({
+			expressiveCode: { plugins: [plainM4Support()] },
 			title: 'Zryna',
 			description:
 				'A strict, JavaScript-friendly language designed for JavaScript, WebAssembly, and native targets.',
@@ -73,6 +75,10 @@ export default defineConfig({
 						{
 							label: 'Your first M3 programs',
 							slug: 'reference/compiler/next/reference/m3-getting-started',
+						},
+						{
+							label: 'M4 support and examples',
+							slug: 'reference/compiler/next/reference/m4-support',
 						},
 						{ label: 'Roadmap', slug: 'guides/roadmap' },
 					],

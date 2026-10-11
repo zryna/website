@@ -16,13 +16,17 @@ pnpm docs:check
 pnpm docs:export --channel next --source-commit <commit> --source-ref refs/heads/main --output .zryna/out/docs/next
 ```
 
-The compiler's successful `main` CI exports the exact commit-and-digest-bound `next` artifact
-only after the complete aggregate M3 gate (including M0–M2) passes. This site pins
-[run 34091122586](https://github.com/zryna/zryna/actions/runs/34091122586), compiler commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`, and manifest SHA-256
-`7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03`. Artifact `10007513825` contains 45 compiler-owned documents.
-Its downloaded archive SHA-256 is `79e48bd995bcb89482186a2062212d5c2de5314dbf45ea6b5cbde0efa3f18c7d`; this is distinct from the manifest digest.
-The archive metadata, exact inventory and source bytes were authenticated before updating the
-trust lock. Two clean merged-main exports match each other and every official artifact file byte-for-byte.
+The dedicated compiler documentation workflow exports the exact final-main bundle only after
+independently authenticating the complete foundation/M4 CI run and all six retained M4 evidence
+artifacts. This site pins [run 38156672531](https://github.com/zryna/zryna/actions/runs/38156672531)
+(attempt 1), compiler commit `418af134f16091affce76ca08fc49eb4b874072f`, compiler tree
+`e371a1107aa57b1b152021e98ce749925edbffea`, and manifest SHA-256 `c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac`.
+Artifact `11708548986` contains 57 compiler-owned documents.
+Its authenticated archive SHA-256 is `7acae747514906859b0d82ed8da13357fa2b5a2b3281dcd2887f2ae3de0386c5`, distinct from the manifest digest.
+The fixed registry SHA-256 is `e0eb908ce4b500ad558c25e351109cf5fea52c88bc07424810d1f42b4d9ec9ac`; the complete canonical support JSON
+SHA-256 is `d1e805ada07fd50917c7914db334eb3ae437c1a1e5e96e4c2b6031eb46d9da08`. The [M4 support matrix](/reference/compiler/next/reference/m4-support/)
+preserves every row, bound, grant and exclusion. The artifact assessment authenticates documentation
+only; hosted website checks, deployment/image identity and live observations remain separate gates.
 
 ## Bundle contract
 

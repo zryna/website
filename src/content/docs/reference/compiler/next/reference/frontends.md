@@ -1,9 +1,9 @@
 ---
 title: "Frontend providers"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/FRONTENDS.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/FRONTENDS.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/FRONTENDS.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/FRONTENDS.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Replaceable frontend providers
 
@@ -51,7 +51,7 @@ UTF-8 ranges before constructing `ProjectSyntaxSnapshot`. Provider transport byt
 before JSON decoding. Protocol v2 extends the original declaration boundary with executable
 syntax without changing the meaning of `start` and `end`. Its raw DTOs and verified types
 live in `zryna-syntax`, below all provider implementations. See
-[Syntax protocol v2](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/SYNTAX_PROTOCOL_V2.md).
+[Syntax protocol v2](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/SYNTAX_PROTOCOL_V2.md).
 
 ## Protocol migration state
 
@@ -122,6 +122,23 @@ transport. The driver selects it only for exact `--profile control-flow-v1`; omi
 protocol-v2 M1 compiler and CLI path.
 Because all later phases depend on ZRYNA-owned verified syntax and IR, replacing the bootstrap
 provider must not modify semantic behavior or any backend.
+
+The first native implementation checkpoint is `zryna_frontend::native_lexer`. It either consumes
+an existing authoritative `SourceMap`, or validates bounded raw bytes through `admit_and_lex` and
+returns the newly owned `SourceMap` with its bound lexical project. Raw admission checks canonical
+paths and byte limits before strict UTF-8 conversion. An invalid or truncated encoding receives an
+exact pre-authority `RawByteSpan`; it is not a forged source-map `Span`. Lexing retains source-ordered tokens and formatter-relevant trivia
+with opaque UTF-8 spans. It covers only the frozen protocol-v4 lexical spellings, deterministic
+malformed-input recovery, the frozen 8 MiB aggregate source ceiling, and fixed token, trivia,
+project, and diagnostic ceilings. It preserves every admitted UTF-8 byte exactly. The routed
+provider-v4 proof compares every native token kind and UTF-8 byte range directly with a live witness
+from the exact pinned TypeScript 6 scanner. Its negative case also proves the same offending lexical
+range while retaining the provider's `ZRYNA-F2002` and native lexer's `ZRYNA-F1501` ownership-specific
+diagnostic identities. This test-only comparison adds no TypeScript production dependency. The
+native lexer does not yet parse the
+conformance corpus, emit a raw snapshot, implement the provider handshake, or alter TypeScript 6 authority.
+The next native checkpoint is a bounded parser that consumes this stream and constructs candidate
+protocol-v4 DTOs for verification and conformance comparison.
 
 ## Protocol v3 and internal module discovery
 

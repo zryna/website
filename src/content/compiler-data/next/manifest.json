@@ -4,11 +4,32 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "4c9fbda9ca80decf755fb8313474217e051eb5c8",
+    "commit": "418af134f16091affce76ca08fc49eb4b874072f",
     "ref": "refs/heads/main",
-    "version": "0.1.0"
+    "version": "0.2.3"
   },
   "documents": [
+    {
+      "id": "examples/wasi-command",
+      "path": "documents/examples/wasi-command.md",
+      "title": "Bounded H1 command examples",
+      "bytes": 889,
+      "sha256": "fbf0aaddd33980d4ff98c419f3afbec24e83798b2bb3d524819e1b70c847c4e4"
+    },
+    {
+      "id": "examples/wasi-server-clock",
+      "path": "documents/examples/wasi-server-clock.md",
+      "title": "Denied and granted clock status example",
+      "bytes": 3031,
+      "sha256": "1e9c1a1608b73b454758d938e27a68b8b46e84827c89ecbabad500e60cff9883"
+    },
+    {
+      "id": "examples/wasi-server-status",
+      "path": "documents/examples/wasi-server-status.md",
+      "title": "Finite local status service",
+      "bytes": 2918,
+      "sha256": "591c32b30f2de29b3f564c425673c39b2e7b4d0e2a6a621457c48c36295a369c"
+    },
     {
       "id": "reference/aggregate-layout-v1",
       "path": "documents/reference/aggregate-layout-v1.md",
@@ -20,15 +41,22 @@
       "id": "reference/architecture",
       "path": "documents/reference/architecture.md",
       "title": "Compiler architecture",
-      "bytes": 48463,
-      "sha256": "fdedf226d013e28100f46e724472bd9d74d49e8a2680ed1218e6b3139edcfcf5"
+      "bytes": 57357,
+      "sha256": "81fab3f356bdf259a34943c6e862bdde94d6a9f4d7466c9b730f8debee54f9b8"
+    },
+    {
+      "id": "reference/browser-component-v1",
+      "path": "documents/reference/browser-component-v1.md",
+      "title": "Browser scalar component profile v1",
+      "bytes": 4389,
+      "sha256": "484df0a22e2495860c0f91aed0727c6b31f946aba821f12b2587f110744559c1"
     },
     {
       "id": "reference/cli",
       "path": "documents/reference/cli.md",
       "title": "CLI reference",
-      "bytes": 16019,
-      "sha256": "5435c86cfb17f67b8c4975f4094d7cd0ce89a55691be8fb49b1fdf8986a04a4e"
+      "bytes": 24442,
+      "sha256": "273aa10c53f267bdb3adbf2ac8ac41e6ade96fda1b365d2d03a38c6f0e5a8d6e"
     },
     {
       "id": "reference/control-flow-modules-v1",
@@ -41,36 +69,50 @@
       "id": "reference/data-ownership-v1",
       "path": "documents/reference/data-ownership-v1.md",
       "title": "Data and ownership v1",
-      "bytes": 25648,
-      "sha256": "45420c2faa58fff0e634aa1d69e9ec9a3ceea2257d91955e227e81a8e5333224"
+      "bytes": 25782,
+      "sha256": "ed75e0aafc28a2cece2bd4380885556b809ec6bc3bdc699623df5e64be5bff12"
+    },
+    {
+      "id": "reference/developer-preview",
+      "path": "documents/reference/developer-preview.md",
+      "title": "v0.1.0 Developer Preview policy",
+      "bytes": 10565,
+      "sha256": "25baa3c6e3fceecf5c82a9b66b65047cef48c6c6c4245e53c576fa284ad7428f"
     },
     {
       "id": "reference/documentation-bundles",
       "path": "documents/reference/documentation-bundles.md",
       "title": "Compiler documentation bundles",
-      "bytes": 2833,
-      "sha256": "69599778c50b457de9a6d7178b6b079f79eeee98496797e12bb1ac2e5a52a5d8"
+      "bytes": 3128,
+      "sha256": "4f15de7f1e37588ec09307e182e68316f7441f4339d7bc8fb195ba82a733dff3"
     },
     {
       "id": "reference/frontends",
       "path": "documents/reference/frontends.md",
       "title": "Frontend providers",
-      "bytes": 10266,
-      "sha256": "fa14c68978a23b5bd18720fc8ce51dd08d7bb296ba20ac89943c3d17d1abca64"
+      "bytes": 11787,
+      "sha256": "6e149b29b7396e70649c7f63b6da06baf026376047d55c08b1c4be55645b4c17"
     },
     {
       "id": "reference/getting-started",
       "path": "documents/reference/getting-started.md",
       "title": "Run your first Zryna programs",
-      "bytes": 9941,
-      "sha256": "9085f5473d4584795f7e3b68aab7f02b1f598bff096e3a7433f554ce05718b8a"
+      "bytes": 10630,
+      "sha256": "dc4ab64548dde1c5c93cf9fb6da73b7791248d0461735f167586d5f947d5c7ef"
     },
     {
       "id": "reference/language-overview",
       "path": "documents/reference/language-overview.md",
       "title": "Language overview",
-      "bytes": 2869,
-      "sha256": "5e7ef557e8d6511192262b637d70cb8019ff579e69d87467fb4419ab9101e715"
+      "bytes": 3966,
+      "sha256": "be7fd399fd7f7dc90fef86b0fe42640c016f3ef973dd039dd6c735ca069597e5"
+    },
+    {
+      "id": "reference/language-server",
+      "path": "documents/reference/language-server.md",
+      "title": "Language server protocol v1",
+      "bytes": 24828,
+      "sha256": "ef6eac5df17acbc4791a1d17c39b45c03c695a41f85b9712a97cbc13be233947"
     },
     {
       "id": "reference/m2-conformance",
@@ -104,8 +146,8 @@
       "id": "reference/m2-module-closure",
       "path": "documents/reference/m2-module-closure.md",
       "title": "M2 deterministic module closure",
-      "bytes": 8355,
-      "sha256": "a609be0aefc81a4153f14ce8dd3c36525d7d1cde04801018b449d3ec805de5f4"
+      "bytes": 9495,
+      "sha256": "3edd74174e7e9cf69df361931b8a032572003bb98585fee177b4a806e3879a1a"
     },
     {
       "id": "reference/m2-native-backend",
@@ -202,8 +244,8 @@
       "id": "reference/m3-getting-started",
       "path": "documents/reference/m3-getting-started.md",
       "title": "Your first M3 programs",
-      "bytes": 15033,
-      "sha256": "fba069deb1f2fa070044d2edc51a86a5b50282903f32108dd7d889e3a38b162f"
+      "bytes": 15368,
+      "sha256": "f5eb247ee0bc6425bd5851faa709a0104d0d8f004e33f1bd5577ec0244b72280"
     },
     {
       "id": "reference/m3-indexed-borrow-authority",
@@ -269,6 +311,20 @@
       "sha256": "6b8b71bab3e230b96457c8371dc036275fe2ae89a0c74147e6f073a34960d869"
     },
     {
+      "id": "reference/m4-conformance",
+      "path": "documents/reference/m4-conformance.md",
+      "title": "Public M4 conformance and publication",
+      "bytes": 6426,
+      "sha256": "2b340cb44652751201291390a49078b864459a24de22a4bb5e36325bd36388d0"
+    },
+    {
+      "id": "reference/m4-support",
+      "path": "documents/reference/m4-support.md",
+      "title": "Fixed public M4 support contract",
+      "bytes": 987996,
+      "sha256": "0e74388e7ba67f300441b5c77a9554bd91f609ca30684be76db328ef8abc0169"
+    },
+    {
       "id": "reference/memory-model",
       "path": "documents/reference/memory-model.md",
       "title": "Memory model direction",
@@ -297,11 +353,39 @@
       "sha256": "660aac6a0f738fa4e09693d118d9efcfc98b16a7d38afe70518b9e7bb530ffe9"
     },
     {
+      "id": "reference/wasi-command-getting-started",
+      "path": "documents/reference/wasi-command-getting-started.md",
+      "title": "Bounded WASI command walkthrough",
+      "bytes": 12798,
+      "sha256": "559da966d3b24b425a7fe85811f3ccb7fceebd22145578bf37a0f4acef6bfe2f"
+    },
+    {
+      "id": "reference/wasi-command-manifest-v1",
+      "path": "documents/reference/wasi-command-manifest-v1.md",
+      "title": "WASI command execution manifest v1",
+      "bytes": 6622,
+      "sha256": "2922bed214532fbabebf6b7fba5a47de9f53fda8f5a44164c5d45e9680bc3598"
+    },
+    {
+      "id": "reference/wasi-server-clock-status-v1",
+      "path": "documents/reference/wasi-server-clock-status-v1.md",
+      "title": "Bounded server clock and status profile",
+      "bytes": 4535,
+      "sha256": "c551f737130736fc3b8b237195058530dca752a1125529ff82dca3c18b20b4b3"
+    },
+    {
+      "id": "reference/wasi-server-status-v1",
+      "path": "documents/reference/wasi-server-status-v1.md",
+      "title": "Bounded source-checkout server status profile",
+      "bytes": 6171,
+      "sha256": "bc2aa22ecc5af0bdd11ff0c7adea2b1d0272a7353cce6012dcf57af156872160"
+    },
+    {
       "id": "status/current",
       "path": "documents/status/current.md",
       "title": "Compiler status",
-      "bytes": 28984,
-      "sha256": "14f76679e04b21c220bb2f30fcaf6f0884a761ec2eb6692cc39cf89ff31ef113"
+      "bytes": 34118,
+      "sha256": "811c0305121906b7303ffd16fd5b2ef50b75b8cec8933211db1ef0e73eb0a329"
     },
     {
       "id": "status/m0-conformance",
@@ -321,8 +405,8 @@
       "id": "status/roadmap",
       "path": "documents/status/roadmap.md",
       "title": "Roadmap",
-      "bytes": 36008,
-      "sha256": "5e15c8028bbfd5a38cd3323e9f32d66beffceba90166611b3344a120c4fb1464"
+      "bytes": 49575,
+      "sha256": "c52eb5c2d5a8ae33b91b6e6d6d927451745bb42487cd11f996f3bbb1745b6097"
     }
   ]
 }

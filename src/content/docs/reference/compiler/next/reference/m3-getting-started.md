@@ -1,15 +1,20 @@
 ---
 title: "Your first M3 programs"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/M3_GETTING_STARTED.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_GETTING_STARTED.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/M3_GETTING_STARTED.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_GETTING_STARTED.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Your first M3 programs
 
-Zryna is experimental. This guide uses exact public `--profile data-ownership-v1` and scalar
-observations. Owned values remain inside Zryna; a String example does not print a string.
-Run commands from the compiler repository root. See [public boundaries](/reference/compiler/next/reference/m3-public-profile/).
+Zryna v0.1.0 is an experimental, source-based Developer Preview. It is not
+production-ready. It provides the documented repository-local M1–M3 workflows; it does not
+include standalone binaries, package installation, or stable compatibility guarantees. The
+`v0.1.0` tag and pre-release are not yet published. This guide uses exact public
+`--profile data-ownership-v1` and scalar observations. Owned values remain inside Zryna; a String
+example does not print a string. Run commands from the compiler repository root. See
+[public boundaries](/reference/compiler/next/reference/m3-public-profile/) and the
+[preview policy](/reference/compiler/next/reference/developer-preview/).
 
 ## Setup
 

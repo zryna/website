@@ -4,14 +4,29 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03",
+  "manifestSha256": "c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "4c9fbda9ca80decf755fb8313474217e051eb5c8",
+    "commit": "418af134f16091affce76ca08fc49eb4b874072f",
     "ref": "refs/heads/main",
-    "version": "0.1.0"
+    "version": "0.2.3"
   },
   "documents": [
+    {
+      "id": "examples/wasi-command",
+      "sourcePath": "examples/wasi-command/README.md",
+      "route": "/reference/compiler/next/examples/wasi-command/"
+    },
+    {
+      "id": "examples/wasi-server-clock",
+      "sourcePath": "examples/wasi-server/CLOCK_EXAMPLE.md",
+      "route": "/reference/compiler/next/examples/wasi-server-clock/"
+    },
+    {
+      "id": "examples/wasi-server-status",
+      "sourcePath": "examples/wasi-server/README.md",
+      "route": "/reference/compiler/next/examples/wasi-server-status/"
+    },
     {
       "id": "reference/aggregate-layout-v1",
       "sourcePath": "spec/memory-model/AGGREGATE_LAYOUT_V1.md",
@@ -21,6 +36,11 @@
       "id": "reference/architecture",
       "sourcePath": "docs/ARCHITECTURE.md",
       "route": "/reference/compiler/next/reference/architecture/"
+    },
+    {
+      "id": "reference/browser-component-v1",
+      "sourcePath": "docs/BROWSER_COMPONENT_V1.md",
+      "route": "/reference/compiler/next/reference/browser-component-v1/"
     },
     {
       "id": "reference/cli",
@@ -36,6 +56,11 @@
       "id": "reference/data-ownership-v1",
       "sourcePath": "spec/language/DATA_OWNERSHIP_V1.md",
       "route": "/reference/compiler/next/reference/data-ownership-v1/"
+    },
+    {
+      "id": "reference/developer-preview",
+      "sourcePath": "docs/DEVELOPER_PREVIEW.md",
+      "route": "/reference/compiler/next/reference/developer-preview/"
     },
     {
       "id": "reference/documentation-bundles",
@@ -56,6 +81,11 @@
       "id": "reference/language-overview",
       "sourcePath": "spec/language/OVERVIEW.md",
       "route": "/reference/compiler/next/reference/language-overview/"
+    },
+    {
+      "id": "reference/language-server",
+      "sourcePath": "docs/LANGUAGE_SERVER.md",
+      "route": "/reference/compiler/next/reference/language-server/"
     },
     {
       "id": "reference/m2-conformance",
@@ -198,6 +228,16 @@
       "route": "/reference/compiler/next/reference/m3-shared-weak-evidence/"
     },
     {
+      "id": "reference/m4-conformance",
+      "sourcePath": "docs/M4_CONFORMANCE.md",
+      "route": "/reference/compiler/next/reference/m4-conformance/"
+    },
+    {
+      "id": "reference/m4-support",
+      "sourcePath": "docs/M4_SUPPORT.md",
+      "route": "/reference/compiler/next/reference/m4-support/"
+    },
+    {
       "id": "reference/memory-model",
       "sourcePath": "spec/memory-model/OVERVIEW.md",
       "route": "/reference/compiler/next/reference/memory-model/"
@@ -216,6 +256,26 @@
       "id": "reference/syntax-protocol-v4",
       "sourcePath": "docs/SYNTAX_PROTOCOL_V4.md",
       "route": "/reference/compiler/next/reference/syntax-protocol-v4/"
+    },
+    {
+      "id": "reference/wasi-command-getting-started",
+      "sourcePath": "docs/WASI_COMMAND_GETTING_STARTED.md",
+      "route": "/reference/compiler/next/reference/wasi-command-getting-started/"
+    },
+    {
+      "id": "reference/wasi-command-manifest-v1",
+      "sourcePath": "docs/WASI_COMMAND_MANIFEST_V1.md",
+      "route": "/reference/compiler/next/reference/wasi-command-manifest-v1/"
+    },
+    {
+      "id": "reference/wasi-server-clock-status-v1",
+      "sourcePath": "docs/WASI_SERVER_CLOCK_STATUS_V1.md",
+      "route": "/reference/compiler/next/reference/wasi-server-clock-status-v1/"
+    },
+    {
+      "id": "reference/wasi-server-status-v1",
+      "sourcePath": "docs/WASI_SERVER_STATUS_V1.md",
+      "route": "/reference/compiler/next/reference/wasi-server-status-v1/"
     },
     {
       "id": "status/current",

@@ -1,20 +1,22 @@
 ---
 title: "Data and ownership v1"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [spec/language/DATA_OWNERSHIP_V1.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/spec/language/DATA_OWNERSHIP_V1.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [spec/language/DATA_OWNERSHIP_V1.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/language/DATA_OWNERSHIP_V1.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Data and ownership v1
 
-Status: normative planning contract for M3. No compiler, frontend, backend, runtime, CLI, or host
-support is implemented by this document. An implementation may claim this profile only after the
-complete three-target conformance gate and authenticated publication gate pass.
+Status: normative M3 planning contract. This document froze requirements before implementation;
+it does not itself authorize compiler, frontend, backend, runtime, CLI, or host support. The
+complete three-target conformance and authenticated publication gates have since enabled the
+current public profile; see [the public profile](/reference/compiler/next/reference/m3-public-profile/) for supported
+behavior and exclusions.
 
 ## 1. Profile identity and compatibility
 
 The exact universal profile name is `DataOwnershipV1`; its CLI spelling is
-`data-ownership-v1`, its manifest profile is `zryna-data-ownership-v1`, and its future public
+`data-ownership-v1`, its manifest profile is `zryna-data-ownership-v1`, and its public
 bundle is `zryna-manifest-v3.json`. The profile requires a separately versioned provider-neutral
 syntax protocol and a separately verified Universal IR. Those versions are not selected or
 implemented by this specification issue.
@@ -386,11 +388,11 @@ Implementation proceeds only in the dependency order frozen by Issues #75 throug
 7. \#84, #85, and #86 add the complete JavaScript, direct core WebAssembly, and verified native MIR
    mappings only after the ownership chain they consume is complete;
 8. \#87 adds the native object, runtime, link, and execution boundary;
-9. \#88 integrates the three complete targets into a candidate driver route and manifest v3, but
-   keeps `--profile data-ownership-v1` unavailable in the public CLI;
+9. \#88 integrated the three complete targets into a candidate driver route and manifest v3; its
+   historical boundary kept `--profile data-ownership-v1` unavailable until activation;
 10. \#89 runs fixed-oracle conformance, with Pair as its first and smallest executable observation,
     plus the full negative, boundary, fault, determinism, and ownership corpus; and
-11. \#90 activates exact public selection only after #89 passes, then publishes authenticated
+11. \#90 activated exact public selection after #89 passed, then published authenticated
     compiler documentation, website deployment, and live provenance evidence.
 
 Pair is therefore a mandatory conformance seed, not an earlier public or independently executable

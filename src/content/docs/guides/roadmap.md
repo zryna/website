@@ -54,14 +54,37 @@ deployment, live provenance and independent review. Its final state is recorded 
 [Issue #90](https://github.com/zryna/zryna/issues/90). Public activation does not add tracing GC,
 WASI/Components, a public owned ABI, FFI, threads or broader native platforms.
 
-## 4. Tooling and packages
+## 4. Bounded M4 components and capabilities
+
+Read the [fixed M4 support matrix](/reference/compiler/next/reference/m4-support/) and
+[conformance boundary](/reference/compiler/next/reference/m4-conformance/) before selecting a mode.
+The static matrix defines twelve rows and records `not-evaluated`; it does not itself
+authenticate execution, installation, signed release, deployment or milestone closure.
+
+- [Browser scalar component](/reference/compiler/next/reference/browser-component-v1/): checkout build, pinned Chrome
+  fixture, no guest imports; synchronous deadlines are post-hoc.
+- [Command walkthrough](/reference/compiler/next/reference/wasi-command-getting-started/): checkout or a fresh
+  content-verified installation, pure/error results and one caller-private literal environment key.
+- [Finite status service](/reference/compiler/next/reference/wasi-server-status-v1/) and
+  [separately approved clock/status](/reference/compiler/next/reference/wasi-server-clock-status-v1/): checkout-only
+  loopback listeners; listener approval never grants guest clock permission.
+
+Use the [command sources](/reference/compiler/next/examples/wasi-command/),
+[status example](/reference/compiler/next/examples/wasi-server-status/) and
+[denied/granted clock example](/reference/compiler/next/examples/wasi-server-clock/).
+Installed components/browser/server, existing immutable beta H1, other browsers/platforms,
+general WASI authority, signed release authentication and production admission remain excluded.
+M0–M3 keep their existing profiles, bounds and manifests. The publication gate and milestone closure
+remain recorded in [Issue #402](https://github.com/zryna/zryna/issues/402).
+
+## 5. Tooling and packages
 
 - Stabilize the CLI, formatter, language server, editor extension, package manifest, and registry
   policy.
 - Publish signed compiler artifacts and versioned compiler-owned documentation bundles.
 - Add compatibility suites that run representative programs through every supported backend.
 
-## 5. Independent frontend
+## 6. Independent frontend
 
 - Replace the bootstrap TypeScript frontend provider with Zryna's owned parser and type system.
 - Preserve the provider contract long enough to compare old and new frontends over the same corpus.

@@ -1,9 +1,9 @@
 ---
 title: "Compiler status"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/STATUS.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/STATUS.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/STATUS.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/STATUS.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Compiler status
 
@@ -14,8 +14,12 @@ limit or independently expand the integrated public surface. M0–M2 remain unch
 
 Status channel: `next`
 
-Zryna is an experimental compiler project. It is not production-ready, and the current executable
-profile is intentionally narrow.
+Zryna v0.1.0 is an experimental, source-based Developer Preview. It is not
+production-ready. It provides the documented repository-local M1–M3 workflows; it does not
+include standalone binaries, package installation, or stable compatibility guarantees. The
+`v0.1.0` tag and pre-release are not yet published. The [preview policy](/reference/compiler/next/reference/developer-preview/)
+freezes the proposed support matrix without publishing a release; the current executable profiles
+remain intentionally narrow.
 
 ## Implemented M1 slice
 
@@ -26,6 +30,18 @@ profile is intentionally narrow.
 - `zryna build` emits direct ECMAScript modules, import-free core WebAssembly modules, and audited
   Linux x86-64 ELF objects through explicit `javascript`, `webassembly`, `native`, or `all` target
   selection.
+- Default-M1 `zryna build --target component` emits one deterministic audited Component Model
+  artifact from the same verified program and unchanged scalar core. It binds the exact empty
+  browser capability-world identity, rejects undeclared imports and malformed or excessive final
+  bytes before publication, and records manifest target `component` with artifact kind
+  `webassembly-component`. This default, unprofiled route is not part of `all`, cannot run, and
+  remains outside the advertised [v0.1.0 preview support matrix](/reference/compiler/next/reference/developer-preview/). The
+  separate browser scalar profile below is the only admitted explicit component selection.
+- Explicit repository-local `--profile browser-component-v1 --target component` builds the same
+  audited scalar component with deterministic browser ESM bindings, declarations and an exact
+  three-artifact manifest. The loader authenticates retained bytes and invokes only the sealed
+  import-free core scalar functions in a browser. See the [browser quickstart](/reference/compiler/next/reference/browser-component-v1/).
+  Installed package compatibility and guest host capabilities remain unavailable.
 - `zryna run` executes JavaScript, core WebAssembly, and Linux x86-64 native artifacts for one typed
   scalar invocation and commits one complete create-only bundle.
 - The M1 conformance suite observes `1 + 2`, `i32::MAX + 1`, and `i32::MIN - 1` through all three
@@ -317,7 +333,8 @@ and publishes one atomic manifest-v3 bundle. The completed bounded owned String/
 Issue #83 internal compile-time semantics are complete. Later issues add fixed-oracle conformance
 and authenticated public/website activation. Tracing GC,
 public aggregate ABI,
-raw pointers, unsafe, FFI, threads, WASI, Components, custom allocators, and freestanding targets
+raw pointers, unsafe, FFI, threads, WASI component hosts, component execution, custom allocators,
+and freestanding targets
 remain outside M3.
 
 ## Runtime and toolchain boundary
@@ -330,16 +347,37 @@ remain outside M3.
   bundles with a deterministic profile-specific manifest. Windows native and `all` run reject
   before publication with `ZRYNA-N4002`; there is no partial-target fallback.
 
+## Bounded WASI command support introduced by this change
+
+When integrated, this change activates the [command profile](/reference/compiler/next/reference/wasi-command-getting-started/)
+for one source file and sole `main(): bool`, empty grants or one owner-private literal-key
+environment request, and a distinct create-only execution record. It accepts the checkout
+route and a newly content-verified complete installation with fixed Node 22.22.1, Wasmtime
+48.0.1 and pinned WASI 0.2.12. The envelope remains 100,000 fuel, five seconds and one fixed
+16 MiB memory; the exhaustive grant table denies other host capabilities.
+
+Evidence covers supervised Linux x86-64 and hosted Ubuntu 24.04 x86-64 / Windows Server
+2022 x64. The [review record](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/WASI_COMMAND_H1_REVIEW.md) distinguishes the reviewed baseline
+from follow-up delta and final checks. Existing immutable beta archives remain without H1
+support. No signed release, production readiness, Windows desktop, general plain-cloud or
+performance qualification follows. Whole-M4 conformance and publication use the separate
+[M4 conformance record](/reference/compiler/next/reference/m4-conformance/) and #402 authority; this profile evidence does not
+establish them.
+
 ## Deliberately unsupported
 
-Public source-level Boolean execution requires explicit `control-flow-v1` or `data-ownership-v1`; it remains rejected by
-the default M1 path. The compiler-owned M2 gate checks three-target equivalence for one fixed
+Public Boolean execution in the scalar target profiles requires explicit `control-flow-v1`
+or `data-ownership-v1`; it remains rejected by the default M1 path. The bounded command
+profile instead maps its sole `main(): bool` to the pinned WIT command result. The compiler-owned M2 gate checks three-target equivalence for one fixed
 source control-flow and module oracle; it is not a claim of general language completeness. The
 M1/M2 scalar profiles do not claim heap values, an allocator or a tracing-GC profile. Their
 scalar-only surface is not a general zero-runtime or GC-free guarantee for data profiles.
 Explicit M3 uses bounded owned allocation and deterministic cleanup under its
-[public profile](/reference/compiler/next/reference/m3-public-profile/). No current profile claims tracing GC, browser execution,
-WASI/Components, Windows or macOS native execution, static native executables, package resolution,
+[public profile](/reference/compiler/next/reference/m3-public-profile/). The browser scalar profile above runs only its sealed,
+import-free core through the generated browser loader; it does not instantiate a Component Model
+artifact in a general component runtime. WASI command execution is confined to the explicit
+bounded profile above. No current profile claims tracing GC, general WASI/component host
+execution, Windows or macOS native execution, static native executables, package resolution,
 watch mode, incremental builds, or production readiness.
 
 ## Evidence and reference
@@ -364,3 +402,32 @@ watch mode, incremental builds, or production readiness.
 - [Syntax protocol v4](/reference/compiler/next/reference/syntax-protocol-v4/)
 - [Scalar ABI v1](/reference/compiler/next/reference/scalar-abi-v1/)
 - [Language overview](/reference/compiler/next/reference/language-overview/)
+
+## Bounded public source-checkout WASI server profiles
+
+This change introduces bounded public Linux x64/Windows x64 source-checkout server support when
+integrated after #400 and the required #401 combined-revision review and exact-revision gates.
+`server-status-v1` authenticates one no-argument i32 export, returns status 200–599 with an empty
+body and retains empty guest grants. The distinct
+[clock/status arrangement](/reference/compiler/next/reference/wasi-server-clock-status-v1/) performs one actual monotonic guest
+read per admitted request through the generated arrangement and separately approved private
+guest inputs; it discards the timestamp and adds no source-language clock intrinsic.
+
+Both profiles retain literal 127.0.0.1, finite budgets, separate configuration-bound listener
+approval and input identities through admission, response and create-only manifest v1/v2 commit.
+Records observe actual Store/resource/listener teardown; forced termination proves OS handle
+release only and emits no graceful certificate. The [status contract](/reference/compiler/next/reference/wasi-server-status-v1/)
+records exact limits. Installed server execution, immutable beta support, production deployment,
+signed release claims remain excluded. Whole-M4 conformance and publication use the separate
+[M4 conformance record](/reference/compiler/next/reference/m4-conformance/) and #402 authority; this profile evidence does not
+establish them. Historical candidate receipts do not qualify a revised integration.
+
+## Public M4 support contract
+
+[The fixed M4 matrix](/reference/compiler/next/reference/m4-support/) and `zryna support --json` project the same
+checked registry. This is a static contract with six modes and two bounded hosted contracts;
+it does not authenticate this checkout's execution, CI, installation, signing or publication.
+[The conformance record](/reference/compiler/next/reference/m4-conformance/) defines the separate exact-revision evidence needed
+for closure. Existing M0–M3 profiles and their historical support contracts remain unchanged.
+Installed component/browser/server, existing immutable beta H1, other browsers, desktop Windows,
+general cloud hosting, signed public releases and production admission remain excluded.
