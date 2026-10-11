@@ -4,10 +4,10 @@ description: The authenticated current compiler status imported from the compile
 ---
 
 The website pins and validates the compiler-owned `next` bundle from commit
-[`4c9fbda9ca80decf755fb8313474217e051eb5c8`](https://github.com/zryna/zryna/commit/4c9fbda9ca80decf755fb8313474217e051eb5c8).
+[`418af134f16091affce76ca08fc49eb4b874072f`](https://github.com/zryna/zryna/commit/418af134f16091affce76ca08fc49eb4b874072f).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
-`7e3b3e597546737a0ebc175e8889cbf80b28d8b727313bf379916a6489a65f03`.
+`c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac`.
 
 Exact public `--profile data-ownership-v1` selects the implemented M3 profile and manifest v3.
 Read the [public surface](/reference/compiler/next/reference/m3-public-profile/) and
@@ -27,7 +27,7 @@ M3 keeps owned values internal and public observations scalar. JavaScript and co
 are verified on Linux x86-64 and Windows x64; native execution requires Linux x86-64 and the
 specified GNU toolchain. Typed traps and deterministic cleanup use the compiler's fixed oracles.
 Existing output bundles are never overwritten. Windows native execution, public owned/aggregate
-ABI, escaping borrows, tracing GC, FFI, threads, WASI and Components remain unsupported.
+ABI, escaping borrows, tracing GC, FFI, threads, WASI and Components remain unsupported within the M3 profile.
 
 [Manifest v3](/reference/compiler/next/reference/m3-candidate-driver/) binds the source graph,
 layout/runtime identities, artifact hashes and typed results. Historical component checkpoints
@@ -52,3 +52,26 @@ They contain complete source, not standalone binaries or installers.
 
 Zryna remains experimental and not production-ready. Final milestone closure is recorded in
 [Issue #90](https://github.com/zryna/zryna/issues/90) after deployment and live provenance checks.
+
+## Bounded M4 components and capabilities
+
+Read the [fixed M4 support matrix](/reference/compiler/next/reference/m4-support/) and
+[conformance boundary](/reference/compiler/next/reference/m4-conformance/) before selecting a mode.
+The static matrix defines twelve rows and records `not-evaluated`; it does not itself
+authenticate execution, installation, signed release, deployment or milestone closure.
+
+- [Browser scalar component](/reference/compiler/next/reference/browser-component-v1/): checkout build, pinned Chrome
+  fixture, no guest imports; synchronous deadlines are post-hoc.
+- [Command walkthrough](/reference/compiler/next/reference/wasi-command-getting-started/): checkout or a fresh
+  content-verified installation, pure/error results and one caller-private literal environment key.
+- [Finite status service](/reference/compiler/next/reference/wasi-server-status-v1/) and
+  [separately approved clock/status](/reference/compiler/next/reference/wasi-server-clock-status-v1/): checkout-only
+  loopback listeners; listener approval never grants guest clock permission.
+
+Use the [command sources](/reference/compiler/next/examples/wasi-command/),
+[status example](/reference/compiler/next/examples/wasi-server-status/) and
+[denied/granted clock example](/reference/compiler/next/examples/wasi-server-clock/).
+Installed components/browser/server, existing immutable beta H1, other browsers/platforms,
+general WASI authority, signed release authentication and production admission remain excluded.
+M0–M3 keep their existing profiles, bounds and manifests. The publication gate and milestone closure
+remain recorded in [Issue #402](https://github.com/zryna/zryna/issues/402).

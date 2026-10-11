@@ -2,11 +2,27 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
 	CONTENT,
+	M4_CONTENT,
 	TUTORIAL_CONTENT,
 	verifyContent,
 	verifyHeaders,
 	verifyHttpsRedirect,
 } from '../../tools/docs/check-published-content.mjs';
+
+test('rendered M4 walkthroughs reject missing commands, results and capability boundaries', () => {
+	const commit = 'a'.repeat(40);
+	for (const [route, markers] of M4_CONTENT) {
+		const html = `<main>${commit} ${markers.join(' ')}</main>`;
+		verifyContent(route, html, commit, 'b'.repeat(64));
+		assert.throws(() =>
+			verifyContent(route, html.replace(commit, 'c'.repeat(40)), commit, 'b'.repeat(64)),
+		);
+		for (const marker of markers)
+			assert.throws(() =>
+				verifyContent(route, html.replaceAll(marker, ''), commit, 'b'.repeat(64)),
+			);
+	}
+});
 
 test('rendered public content rejects stale provenance and missing M3 claims', () => {
 	const commit = 'a'.repeat(40);

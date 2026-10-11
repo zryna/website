@@ -1,9 +1,9 @@
 ---
 title: "Compiler architecture"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/ARCHITECTURE.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/ARCHITECTURE.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # Compiler architecture
 
@@ -68,8 +68,13 @@ semantic lowering never depends on a replaceable provider.
    a validated capability for the workspace's declared `.zryna/out` directory.
 9. The WebAssembly backend maps exact Zryna operations directly to deterministic core
    WebAssembly, validates and profile-audits complete bytes, and exposes only a sealed artifact.
-   The driver publishes `.wasm` create-only. Browser bindings and WASI capabilities remain
-   explicit host profiles.
+   An explicit default-profile component build retains that exact core, canonically lifts the
+   verified scalar functions, binds the empty authenticated browser capability-world identity,
+   and independently audits the final component bytes. The driver publishes `.wasm` create-only.
+   The explicit repository-local browser component profile adds deterministic generated scalar
+   bindings and declarations from the sealed component interface. Its loader authenticates the
+   complete component before using the retained import-free core in the browser. WASI capabilities
+   remain a separate explicit host profile.
 10. Native lowering creates explicit typed native claims; the native MIR verifier retains the
     sealed scalar ABI module and is the only constructor of the codegen-accepted
     `VerifiedMirModule`.
@@ -82,6 +87,9 @@ semantic lowering never depends on a replaceable provider.
     discovers one authenticated module graph and lowers it once. Each path dispatches its same
     verified authority to an explicit target selection. The driver stages and commits one complete
     versioned build or run bundle; the CLI only parses and renders.
+    A standalone default-M1 request retains that same compiler-checkout gate separately from one
+    explicit project root, authenticates the project through the frozen package graph, and publishes
+    only below the project's reserved `.zryna` state directory.
 14. The repository-owned documentation producer exports an explicit whitelist of reviewed
     Markdown with exact compiler provenance. The website validates and presents that bundle but
     never becomes a language, ABI, diagnostic, or support-status authority.
@@ -121,9 +129,67 @@ scalar ABI ───────────────────────
 
 `zryna-driver` is the only library allowed to orchestrate all phases. The CLI calls the driver and architecture engine; individual backends do not call one another.
 
-The permanent direction is `frontend -> syntax -> semantics -> IR`. `zryna-semantics` is a compiler
+`zryna-windows-filesystem` is a leaf foundation beneath Windows transaction owners. It exposes only
+atomic child-directory creation, same-source-handle no-replace rename, and exact-handle empty
+deletion with retained-parent absence confirmation. The driver and applications retain
+orchestration, names, inventories, diagnostics, and rollback policy; the foundation accepts no
+ambient path or arbitrary source handle and grants no general filesystem authority. Its private
+syscall module is the workspace's sole approved unsafe-Rust exception. The repository structure
+gate enforces the exact exception manifest and module; all other components retain the workspace
+forbid.
+
+The permanent direction is `frontend -> syntax -> semantics -> IR`. The separately registered
+`zryna-native-c-ir` compiler component implements the native-requirement IR extension downstream
+of the actual source-bound semantic/private issuer. It depends on semantics and base IR; neither
+has a reverse edge. Its independent raw-to-verified boundary retains original bodies/materials,
+both layouts and the runtime declaration issuer, with complete source/value/call/storage/exit
+replay. This authority supplies no MIR, object, runtime, linker or public selector capability.
+See [its component contract](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/crates/zryna-native-c-ir/README.md).
+
+The independent `zryna-native-mir::native_c_v0` boundary consumes only the sealed native C IR
+and retains its actual source, material, layout and runtime issuers. The registered normal edge
+is native MIR -> native C IR; read-only IR contract records require no normal frontend dependency.
+Raw machine claims cannot reach a backend. Separate producer and verifier modules preserve exact
+SysV INTEGER placement, low-width Bool32 checks, caller output-slot initialization, private
+packing/copy faults and every conditional reserve/register/release/terminal cleanup action.
+Only total scalar exports have a public C signature. This MIR slice grants no native object,
+runtime execution, foreign ledger, link or public support capability.
+
+The separate native backend scalar-export boundary consumes that actual MIR seal, emits only
+total public scalar functions and independently audits the closed ELF inventory. Its artifact
+retains the complete program. The driver consumes only that artifact for typed bounded scalar
+invocation through the existing GNU link/audit/cleanup boundary. The backend's direct native C
+IR dependency remains dev-only for recapture tests. The driver now has a normal native C IR
+edge for its private authenticated source-to-object entry; the same declared dependency graph,
+lock and public selectors are retained. At
+[`09882e4`](https://github.com/zryna/zryna/commit/09882e42e36200d376e1f1d8f79ac8b87d59b349),
+[exact-revision CI](https://github.com/zryna/zryna/actions/runs/37267662189) proves single-selection
+rejection before the real emitter and native-only object emission; it does not prove the mandatory
+transitive mixed-selection vector or accept the provisional native appendix. A distinct backend
+handle artifact now emits exact selected private scalar/
+handle bodies, closed imported symbols and a shared 64-obligation private context, with nominal
+registration and checked reverse cleanup. Independent ELF mutation and driver C observation
+tests exercise that increment. The driver exposes only immutable exact linking requirements;
+reviewed fixture linkage is test-only. A separate private byte selection now executes sealed
+String/Vec preparation, borrowed bytes and distinct foreign-byte-to-Vec copying. Normal backend
+and driver edges to the ownership runtime ABI retain the actual runtime issuer and checked C
+source requirements; no frontend/layout dependency is added. A distinct channel magic preserves
+the handle-only ABI. Exact imported runtime operations, allocation trap identity, conditional
+malformed-byte cleanup and cleanup-before-result transfer remain audited and observed separately.
+No foreign library/recipe execution grant, OS proof, Windows C target or public activation follows
+from this stage.
+
+`zryna-semantics` is a compiler
 component and cannot depend on `zryna-frontend`; backends cannot depend on either provider layer.
 The architecture engine has a negative graph fixture for both forbidden edges.
+
+The distinct H1 command verifier additionally allows `zryna-ir -> zryna-syntax` solely to
+authenticate the distinct opaque command source requirement. This is a compiler-to-foundation
+edge; it introduces no frontend dependency or provider semantics. Syntax authenticates source
+occurrences, while the mandatory command IR verifier must independently prove the exact effect,
+owned layout and cleanup. Existing M3 IR acceptance remains unchanged; this dependency
+edge itself grants no runtime authority. The separate bounded command support and integration
+record are documented in [the review note](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/WASI_COMMAND_H1_REVIEW.md).
 
 ## Source and diagnostic authority
 
@@ -273,7 +339,9 @@ native output, FFI, and Boolean source/IR remain later gates.
 ## Public CLI orchestration and transaction
 
 `zryna build` and `zryna run` accept one validated workspace-relative `.zry` entrypoint and one
-explicit `javascript`, `webassembly`, `native`, or `all` target. Architecture validation is always
+explicit target. Both accept `javascript`, `webassembly`, `native`, or `all`; default-M1 `build`
+also accepts `component`, and exact `--profile browser-component-v1` admits only
+`build --target component`. Architecture validation is always
 first. Omitting `--profile` preserves the exact M1 protocol-v2/`I32V1` path. Exact
 `--profile control-flow-v1` selects protocol v3, driver-owned deterministic module discovery, and
 the separate M2 semantic/IR path. The driver constructs one verified authority per request and
@@ -287,10 +355,16 @@ to mode `0700`; Windows inherits ACLs from the validated compiler-owned output r
 requires that root to be private to the invoking principal. After containment is revalidated, one
 create-only same-filesystem directory rename commits either
 `.zryna/out/<stem>.build` or `.zryna/out/<stem>.run`. Only selected target subdirectories exist.
+The default, unprofiled component selection publishes only `component/<stem>.wasm` plus manifest
+v1. The separate `browser-component-v1` selection publishes the same audited component together
+with deterministic ESM bindings, declarations, and `zryna-browser-manifest-v1.json` in one
+create-only bundle. Neither component selection belongs to `all` or has a CLI run route. Both
+remain outside the advertised [v0.1.0 preview support matrix](/reference/compiler/next/reference/developer-preview/).
 Any preparation, execution, audit, publication, or cleanup failure before commit leaves no final
 bundle, and an existing bundle is never replaced.
 
-M1 writes only `zryna-manifest-v1.json`; M2 writes only `zryna-manifest-v2.json`. Build bundles
+Default M1 writes only `zryna-manifest-v1.json`; the browser scalar component profile writes only
+`zryna-browser-manifest-v1.json`; M2 writes only `zryna-manifest-v2.json`. Build bundles
 contain `.mjs`, `.wasm`, and/or the native `.o`. Run bundles contain `.mjs`, `.wasm`,
 and/or the invocation-specific native `.elf`, plus stable ordered typed observations in the
 manifest. Manifest v2 additionally authenticates the canonical entrypoint, path-ordered source
@@ -452,22 +526,22 @@ through legal Vec-indirection recursion to authenticated source, mandatory verif
 resource and replay evidence. This is compiler authority only; runtime execution, backends and
 public activation remain open.
 
-The checked [non-indexed owned borrowing matrix](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_NONINDEXED_OWNED_BORROWING_MATRIX.md)
+The checked [non-indexed owned borrowing matrix](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_NONINDEXED_OWNED_BORROWING_MATRIX.md)
 integrates #337 owned roots and static Struct/FixedArray projections, #338 refined active-enum
 payloads, #339 nested lexical and direct-call use, and #340 hostile/resource closure. Source
 lowering emits only the existing borrow, owned-clone and prepare-before-replace operations; the
 mandatory IR verifier independently seals exact place, mode, region, refinement, overlap, cleanup,
 nonescape and resource authority. This compiler-only #275 candidate adds no runtime alias checks,
 backend, driver, CLI, artifact, public ABI/profile, or target execution. The combined compiler
-authority is reconciled by the [#269 source-completion proof](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_SOURCE_COMPLETION.md).
+authority is reconciled by the [#269 source-completion proof](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_SOURCE_COMPLETION.md).
 
-The checked [internal owned-call closure matrix](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_OWNED_CALL_CLOSURE_MATRIX.md) integrates #329
+The checked [internal owned-call closure matrix](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_OWNED_CALL_CLOSURE_MATRIX.md) integrates #329
 imported signature and canonical identity resolution, #330 structured transfer and exact cleanup,
 and #331 independent hostile-IR and resource proofs. Internal same-module and named-import calls
 admit the sealed by-value ownership graph without adding nominal type-import syntax. Borrowed
 imports, indirect calls, recursion, runtime execution, backends and public activation remain open.
 
-The checked [complete enum matching closure matrix](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_COMPLETE_ENUM_MATCHING_MATRIX.md) integrates
+The checked [complete enum matching closure matrix](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_COMPLETE_ENUM_MATCHING_MATRIX.md) integrates
 \#333 authenticated exhaustive source lowering, #334 independently constructed refinement and
 payload ownership verification, and #335 exact resource/overflow evidence. It makes #273 a
 compiler-only closure candidate for sealed multi-variant and nested matches with exact active-
@@ -475,7 +549,7 @@ payload cleanup and Copy or owned result continuations. Terminating and wildcard
 payload access remain outside that matrix; #275 is completed separately at its compiler boundary.
 Runtime, backends and public activation remain open.
 
-The checked [structured owned control-flow matrix](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md)
+The checked [structured owned control-flow matrix](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md)
 integrates #325 source routing and lexical state, #326 independent hostile-IR authority, and #327
 payload/fault/resource evidence. It makes #271 a compiler-only closure candidate: nested and
 repeated Block/If/While/WeakUpgrade and admitted Match occupants lower to mandatory verified IR,
@@ -484,7 +558,7 @@ execute allocation, refcount, drop, calls, upgrades, or faults. #275 is complete
 compiler boundary and is included in the #269 source-completion proof. Break/continue, exceptions,
 driver integration, CLI and public activation remain open.
 
-The [internal M3 target backends](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M3_TARGET_BACKENDS.md) consume the resulting closed operand and
+The [internal M3 target backends](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_TARGET_BACKENDS.md) consume the resulting closed operand and
 terminator views. JavaScript emits bounded self-contained ESM, core WebAssembly emits validated
 import-free bytes with private bounded memory, and native lowering independently reseals Linux
 x86-64 layout-bound MIR. Object/link execution and public routing remain downstream boundaries.
@@ -650,8 +724,8 @@ runtime, and conformance work.
 Issues #75 through #80 add no executable capability. Later components must keep syntax providers
 free of semantics, make every backend consume these opaque verified views, depend on ABI
 declarations rather than runtime implementations, and never recompute host layouts. The driver
-alone may compose audited target runtimes and publish the future explicit `data-ownership-v1`
-manifest-v3 transaction after all target gates exist.
+alone composes audited target runtimes and publishes the explicit `data-ownership-v1`
+manifest-v3 transaction after all target gates pass.
 
 ## WebAssembly profiles
 
@@ -661,7 +735,39 @@ functions over `i32`, validates and profile-audits every complete binary, and ex
 fixtures in a pinned runtime. `bool` will be enabled only by a later universal profile implemented
 by every active backend.
 
-A later browser integration will add a generated JavaScript loader without giving the loader
-authority over language semantics. WASI and the Component Model are a later capability-bearing
-profile with separately pinned interface and ABI versions. Filesystem, network, clock, randomness,
-and environment access are unavailable unless a declared host profile imports them.
+The default-M1 `component` build wraps the unchanged audited core in a deterministic
+Component Model artifact with exact canonical scalar lifts and metadata binding the authenticated
+`zryna:capability-profiles/browser@0.1.0` WIT source closure. That capability world is empty; the
+application scalar exports come from verified IR. Component external labels use the total,
+reversible `zryna-export-<lowercase-hex-of-logical-name-bytes>` mapping because scalar ABI logical
+names admit case and underscores that Component Model kebab labels do not. This mapping cannot
+collide; the exact logical name and mapped label are both covered by the interface digest, while
+existing JavaScript, core WebAssembly, and native ABI names remain unchanged. The wrapper rejects imports, starts, nesting,
+wrong topology or identity, and resource excess before publication. It does not instantiate a
+component, generate bindings, or provide browser, DOM, WASI, filesystem, network, clock, random,
+or environment capabilities on the default, unprofiled route. The explicit
+`browser-component-v1` route instead generates a bounded browser loader and declarations from
+the sealed scalar interface. The loader authenticates the component bytes and instantiates only
+the retained, import-free core module; it does not instantiate a Component Model artifact or
+grant DOM, network, filesystem, clock, random, or environment access to guest code. General
+browser component hosting and WASI host execution remain later integration boundaries. Component
+artifact emission remains outside the advertised v0.1.0 preview support matrix.
+
+## Language-server transport
+
+The registered `zryna-language-server` application is a thin stdio transport over the driver's
+revision-bound diagnostic session and scalar definition authority. It owns framing, in-memory
+document lifecycle, URI/version correlation, negotiated coordinate conversion and cancellation;
+it depends only on the driver orchestrator and source foundation. Protocol input cannot select a
+frontend process or filesystem root, or gain build, runtime, network or mutation authority. The
+separately selected M3 profile reads saved imports only below a root captured at startup. The exact
+supported methods and omissions are documented in [Language server protocol v1](/reference/compiler/next/reference/language-server/).
+The initial scalar editor client in `editors/vscode-zryna` is registered by the pnpm workspace;
+it is not a Rust compiler component and adds no compiler dependency edge. It consumes diagnostics,
+definitions and presentation-only edits without defining compiler rules. The driver derives bounded
+formatting plans from verified, semantically accepted scalar, M2, and M3 snapshots. M3 tooling
+binds open-buffer overlays to a retained workspace source root for saved imports and revalidates
+the exact graph before edits. The client VSIX carries no compiler/runtime binary or download mechanism. A separate
+portable setup candidate binds the server, VSIX and unchanged signed compiler installation.
+Installed tooling authenticates fixed runtime/provider bytes through driver-owned capture and
+private staging, without a compiler checkout or additional application dependency edge.

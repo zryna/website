@@ -1,9 +1,9 @@
 ---
 title: "M2 Linux x86-64 native backend"
-description: "Compiler-owned next documentation imported from 4c9fbda9ca80."
+description: "Compiler-owned next documentation imported from 418af134f160."
 ---
 
-> Verified compiler source: [docs/M2_NATIVE_BACKEND.md](https://github.com/zryna/zryna/blob/4c9fbda9ca80decf755fb8313474217e051eb5c8/docs/M2_NATIVE_BACKEND.md) at commit `4c9fbda9ca80decf755fb8313474217e051eb5c8`.
+> Verified compiler source: [docs/M2_NATIVE_BACKEND.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M2_NATIVE_BACKEND.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
 
 # M2 Linux x86-64 native backend
 
