@@ -55,7 +55,7 @@ export const M4_CONTENT = new Map([
 	[M4_SUPPORT_ROUTE, ['static contract', 'not-evaluated', 'Runnable examples', 'M0–M3']],
 	[
 		M4_CONFORMANCE_ROUTE,
-		['twelve primary rows', 'exact-limit', 'live publication', 'not-evaluated'],
+		['twelve primary rows', 'Exact-limit', 'live publication', 'not-evaluated'],
 	],
 	[
 		`${PREFIX}browser-component-v1/`,
