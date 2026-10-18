@@ -1,18 +1,18 @@
 ---
 title: "WASI command execution manifest v1"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/WASI_COMMAND_MANIFEST_V1.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_MANIFEST_V1.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/WASI_COMMAND_MANIFEST_V1.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_MANIFEST_V1.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # Bounded command execution manifest v1
 
 This is the bounded command execution-record contract introduced when this change integrates.
-The [review record](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_H1_REVIEW.md) retains the accepted owner decisions, baseline
+The [review record](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_H1_REVIEW.md) retains the accepted owner decisions, baseline
 review and remaining final revision checks.
 This record belongs only to `command-h1-v1` / `wasi-command` and does not
 change scalar or browser manifest versions. The [walkthrough](/reference/compiler/next/reference/wasi-command-getting-started/)
-explains invocation and private inputs; the [H1 contract](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_H1_CONTRACT_DRAFT.md)
+explains invocation and private inputs; the [H1 contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_H1_CONTRACT_DRAFT.md)
 specifies the compiler, grant and conversion authorities.
 
 The create-only bundle `<name>.wasi-command-run` contains
@@ -45,7 +45,7 @@ grant/input/outcome combinations. It produces observations, never executable aut
 The world is exactly `zryna:capability-profiles/command@0.1.0`; its eight resolved packages,
 13 explicit and 16 resolved imports, and sole `wasi:cli/run@0.2.12` export come from the complete
 pinned WIT closure. `policyVersion` is the existing composition policy identity. The
-[binding byte encodings](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_H1_CONTRACT_DRAFT.md#manifest-and-one-run-authority)
+[binding byte encodings](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_H1_CONTRACT_DRAFT.md#manifest-and-one-run-authority)
 separately frame source, cores, layout witnesses, world and key; the complete WIT closure digest
 uses its established path/source framing. Digests do not replace retained issuing authorities.
 

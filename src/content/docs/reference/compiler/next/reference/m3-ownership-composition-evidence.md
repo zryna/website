@@ -1,9 +1,9 @@
 ---
 title: "M3 ownership composition evidence"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_OWNERSHIP_COMPOSITION_EVIDENCE.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # M3 ownership composition evidence
 
@@ -267,8 +267,8 @@ function operation contract rather than being silently repaired by an allocating
 
 These candidate additions are located evidence, not execution receipts or issue closure:
 
-The [indexed source matrix](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_INDEXED_SOURCE_OPERATIONS.md) and
-[transient access/lexical binding contract](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_TRANSIENT_INDEXED_ACCESS.md) distinguish
+The [indexed source matrix](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_INDEXED_SOURCE_OPERATIONS.md) and
+[transient access/lexical binding contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_TRANSIENT_INDEXED_ACCESS.md) distinguish
 ordinary observation, transient child transfer and persistent lexical authority.
 
 - Source `ordinary_array_source.rs` covers checked Copy reads, explicit owned clones,
@@ -348,7 +348,7 @@ Struct/Enum/FixedArray/Vec referents clone and replace through their exact issue
 checks static siblings, compatible root/element borrows and Vec growth after lexical restoration.
 `indexed_handle_resources.rs` separately injects private cleanup and transition counters to prove
 exact/first-extra, both cleanup-addition overflows, unchanged state and valid retry.
-The [indexed acceptance mapping](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256)
+The [indexed acceptance mapping](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256)
 locates the complete evidence families without treating raw opaque slots as source support. Complete gates and
 independent review remain required; verified cleanup descriptors are not runtime fault execution,
 backend completion or public activation. Located ignored tests must actually run before they

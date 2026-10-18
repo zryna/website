@@ -1,9 +1,9 @@
 ---
 title: "Language overview"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/language/OVERVIEW.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [spec/language/OVERVIEW.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/language/OVERVIEW.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # Zryna language profile v1
 
@@ -31,7 +31,7 @@ covered by the fixed-oracle three-target M2 gate. Omitting `--profile` continues
 
 ## Cross-target composition
 
-The specified-only [cross-target profile composition v1](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/language/CROSS_TARGET_PROFILES_V1.md) separates
+The specified-only [cross-target profile composition v1](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/language/CROSS_TARGET_PROFILES_V1.md) separates
 language admission, output target and deployment-host permissions. It defines transitive
 dependency requirements and explicit denial policies without adding a public selector or
 package/host implementation. Backend choice and native metadata do not grant host authority
@@ -47,12 +47,12 @@ and public `run` command use the standard browser-compatible WebAssembly API, bu
 and a generated loader remain untested future work, as does a general strict typed host wrapper.
 The CLI validates its `I32V1` invocation before making the raw host call.
 
-The specified-only M4 [WIT capability contract](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/wit/CAPABILITY_PROFILES_V1.md) pins separate
+The specified-only M4 [WIT capability contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/wit/CAPABILITY_PROFILES_V1.md) pins separate
 browser, command, and server world identities plus a WASI version and denied-by-default host
 policy. It does not activate WASI or Component Model support. WIT and Canonical ABI types describe
 component boundaries; they do not redefine Zryna's internal ownership or memory model.
 
-The specified-only [typed JS/WASM adapter design](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/interop/JS_WASM_ADAPTERS_V1.md) separately
+The specified-only [typed JS/WASM adapter design](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/interop/JS_WASM_ADAPTERS_V1.md) separately
 defines ESM carriers, component conversion and resource lifetime rules. Public String/list/resource
 bridges, library API alignment, generation, conformance and activation remain separately gated;
 internal M3 layouts and borrows are not a public interface. No browser, Node package or WASI

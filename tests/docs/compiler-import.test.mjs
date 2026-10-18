@@ -25,8 +25,8 @@ import {
 	validateImportIdentity,
 } from '../../tools/docs/compiler-imports.mjs';
 
-const COMMIT = '5d79dba18117a7ff41ff08d328aa94838c0fce9c';
-const MANIFEST_DIGEST = '11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d';
+const COMMIT = 'dcef77a79782e91016b9e3e8d528cf21850b9d41';
+const MANIFEST_DIGEST = '4b4399c0b3e41d55b11a35de4b0a1fe16060625334ce7604da7990b1e4798a1c';
 const RELEASE_COMMIT = 'f4d28002a014cd2e717eba4e59764bd925bef8c1';
 const RELEASE_MANIFEST_DIGEST = '838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
 const LOCK = {
@@ -229,12 +229,12 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	for (const marker of [
 		COMMIT,
 		MANIFEST_DIGEST,
-		'39111188705',
-		'39105995385',
-		'12130393234',
-		'12130880863',
-		'5fabfd435a2d94f58563639695d908adc6d54c53eec987bcc691df6c0ce5c4b2',
-		'a3fa2cb3f89903f3a29b3c3860208806e764488b0bf1cfbca7be391974db89c1',
+		'39132532586',
+		'39126780495',
+		'12139035186',
+		'12138373439',
+		'dbdaaee3f0f644b230da53af8a8ecf0dd05bc767f266ef98536fe9d3f0805830',
+		'b2d0b5b1576d8e7511239c36947b4be261f05a55e0f715ce292b92d81ea66684',
 		'38156672531',
 		'11708548986',
 		'7acae747514906859b0d82ed8da13357fa2b5a2b3281dcd2887f2ae3de0386c5',

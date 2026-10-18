@@ -1,9 +1,9 @@
 ---
 title: "v0.1.0 Developer Preview policy"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/DEVELOPER_PREVIEW.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/DEVELOPER_PREVIEW.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/DEVELOPER_PREVIEW.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/DEVELOPER_PREVIEW.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # v0.1.0 Developer Preview policy
 
