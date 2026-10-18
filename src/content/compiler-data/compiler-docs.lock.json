@@ -4,10 +4,10 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d",
+  "manifestSha256": "4b4399c0b3e41d55b11a35de4b0a1fe16060625334ce7604da7990b1e4798a1c",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "5d79dba18117a7ff41ff08d328aa94838c0fce9c",
+    "commit": "dcef77a79782e91016b9e3e8d528cf21850b9d41",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },

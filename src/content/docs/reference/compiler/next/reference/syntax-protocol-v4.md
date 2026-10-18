@@ -1,9 +1,9 @@
 ---
 title: "Syntax protocol v4"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/SYNTAX_PROTOCOL_V4.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/SYNTAX_PROTOCOL_V4.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/SYNTAX_PROTOCOL_V4.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/SYNTAX_PROTOCOL_V4.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # Syntax protocol v4
 

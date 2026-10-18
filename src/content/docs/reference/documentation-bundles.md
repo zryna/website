@@ -22,15 +22,15 @@ artifacts.
 
 ### Current M6 import
 
-The authenticated 60-document import selects compiler commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`,
-tree `78f42e37111204b1fb20a2363fc41fc23e62b8ef`, and manifest SHA-256
-`11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d`.
-[Documentation run 39111188705](https://github.com/zryna/zryna/actions/runs/39111188705)
-(attempt 1) authenticated the successful exact-main CI run `39105995385` (attempt 1), all 42
-jobs, and all six retained M4 lanes before export. Its gate artifact is `12130880863`, with
-archive SHA-256 `a3fa2cb3f89903f3a29b3c3860208806e764488b0bf1cfbca7be391974db89c1`.
-The documentation artifact is `12130393234`, with archive SHA-256
-`5fabfd435a2d94f58563639695d908adc6d54c53eec987bcc691df6c0ce5c4b2`.
+The authenticated 60-document import selects compiler commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`,
+tree `1fa77b9e77185f5fb9d401f1cfb70ee6cc76f963`, and manifest SHA-256
+`4b4399c0b3e41d55b11a35de4b0a1fe16060625334ce7604da7990b1e4798a1c`.
+[Documentation run 39132532586](https://github.com/zryna/zryna/actions/runs/39132532586)
+(attempt 1) authenticated the successful exact-main CI run `39126780495` (attempt 1), all 42
+jobs, and all six retained M4 lanes before export. Its gate artifact is `12138373439`, with
+archive SHA-256 `b2d0b5b1576d8e7511239c36947b4be261f05a55e0f715ce292b92d81ea66684`.
+The documentation artifact is `12139035186`, with archive SHA-256
+`dbdaaee3f0f644b230da53af8a8ecf0dd05bc767f266ef98536fe9d3f0805830`.
 Every vendored bundle file matches that independently authenticated archive.
 
 The import adds the [M6 support matrix](/reference/compiler/next/reference/m6-tooling/),
@@ -43,7 +43,7 @@ and canonical support JSON SHA-256
 
 Documentation authentication does not establish complete M6 runtime acceptance. Treat the
 integration as under verification until the published compiler and the matching immutable
-[exact-source M6 acceptance record](https://github.com/zryna/zryna/releases/download/m6-source-evidence-5d79dba18117a7ff41ff08d328aa94838c0fce9c-1/m6-source-evidence.json)
+[exact-source M6 acceptance record](https://github.com/zryna/zryna/releases/download/m6-source-evidence-dcef77a79782e91016b9e3e8d528cf21850b9d41-1/m6-source-evidence.json)
 are available and independently verified against their selected identities. The compiler-owned
 support matrix preserves the applicable profiles, limits, exclusions and separate approval gates.
 

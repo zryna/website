@@ -1,9 +1,9 @@
 ---
 title: "M3 bounded borrowing semantics"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/M3_BORROWING_SEMANTICS.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_BORROWING_SEMANTICS.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/M3_BORROWING_SEMANTICS.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_BORROWING_SEMANTICS.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # M3 bounded borrowing implementation contract
 
@@ -177,7 +177,7 @@ and complete-container conflict authority; #255 and #256 own dynamic fixed-array
 source producers. The current authenticated route covers Copy and owned shared observations and
 exclusive replacement, including direct Shared/Weak and nested handle-containing aggregates.
 Its named evidence and required final gates are mapped in the
-[indexed source contract](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256).
+[indexed source contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256).
 Exact referent, overlap, evaluation, bounds and cleanup rules remain prerequisites for complete
 target support and #89/#90 public activation. The historical bounded #82 checkpoint alone did not
 implement or waive that chain; current compiler evidence is not target execution.
@@ -591,7 +591,7 @@ or direct-call use. Shared access retains its source and creates distinct owned 
 exclusive replacement prepares the new owner before committing old-value cleanup. The verifier
 seals exact referent, mode, region, initialized masks, variant refinement, parent/subobject overlap,
 call nonescape and lexical restoration. The checked
-[`M3_NONINDEXED_OWNED_BORROWING_MATRIX.md`](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_NONINDEXED_OWNED_BORROWING_MATRIX.md) binds exact
+[`M3_NONINDEXED_OWNED_BORROWING_MATRIX.md`](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_NONINDEXED_OWNED_BORROWING_MATRIX.md) binds exact
 enabled source, hostile IR and resource evidence.
 
 Dynamic-index and Vec producers remain in #254–#256/#274. Stored, returned or captured borrows,

@@ -1,9 +1,9 @@
 ---
 title: "M2 direct core WebAssembly backend"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/M2_WEBASSEMBLY_BACKEND.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M2_WEBASSEMBLY_BACKEND.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/M2_WEBASSEMBLY_BACKEND.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M2_WEBASSEMBLY_BACKEND.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # M2 direct core WebAssembly backend
 

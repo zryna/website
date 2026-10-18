@@ -1,9 +1,9 @@
 ---
 title: "Compiler status"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/STATUS.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/STATUS.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/STATUS.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/STATUS.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # Compiler status
 
@@ -357,7 +357,7 @@ route and a newly content-verified complete installation with fixed Node 22.22.1
 16 MiB memory; the exhaustive grant table denies other host capabilities.
 
 Evidence covers supervised Linux x86-64 and hosted Ubuntu 24.04 x86-64 / Windows Server
-2022 x64. The [review record](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_H1_REVIEW.md) distinguishes the reviewed baseline
+2022 x64. The [review record](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_H1_REVIEW.md) distinguishes the reviewed baseline
 from follow-up delta and final checks. Existing immutable beta archives remain without H1
 support. No signed release, production readiness, Windows desktop, general plain-cloud or
 performance qualification follows. Whole-M4 conformance and publication use the separate
@@ -434,7 +434,7 @@ general cloud hosting, signed public releases and production admission remain ex
 
 ## Explicit native compile recipe library API
 
-The [bounded native recipe API](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/NATIVE_RECIPES_V0.md) separates authenticated source/ABI
+The [bounded native recipe API](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/NATIVE_RECIPES_V0.md) separates authenticated source/ABI
 planning, independent trusted-operator approval and a fixed Linux x86-64 Docker session.
 Pure-source and untrusted-playground modes deny recipes; trusted-native classification grants
 no execution by itself. The two-role session is compile-only and requires complete root/input/

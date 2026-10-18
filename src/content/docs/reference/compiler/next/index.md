@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`5d79dba18117a7ff41ff08d328aa94838c0fce9c`](https://github.com/zryna/zryna/commit/5d79dba18117a7ff41ff08d328aa94838c0fce9c).
+This reference was imported from compiler commit [`dcef77a79782e91016b9e3e8d528cf21850b9d41`](https://github.com/zryna/zryna/commit/dcef77a79782e91016b9e3e8d528cf21850b9d41).
 
 - [Bounded H1 command examples](/reference/compiler/next/examples/wasi-command/)
 - [Denied and granted clock status example](/reference/compiler/next/examples/wasi-server-clock/)

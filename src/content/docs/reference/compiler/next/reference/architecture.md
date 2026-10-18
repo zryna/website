@@ -1,9 +1,9 @@
 ---
 title: "Compiler architecture"
-description: "Compiler-owned next documentation imported from 5d79dba18117."
+description: "Compiler-owned next documentation imported from dcef77a79782."
 ---
 
-> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/ARCHITECTURE.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
+> Verified compiler source: [docs/ARCHITECTURE.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/ARCHITECTURE.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
 
 # Compiler architecture
 
@@ -151,7 +151,7 @@ of the actual source-bound semantic/private issuer. It depends on semantics and 
 has a reverse edge. Its independent raw-to-verified boundary retains original bodies/materials,
 both layouts and the runtime declaration issuer, with complete source/value/call/storage/exit
 replay. This authority supplies no MIR, object, runtime, linker or public selector capability.
-See [its component contract](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/crates/zryna-native-c-ir/README.md).
+See [its component contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/crates/zryna-native-c-ir/README.md).
 
 The independent `zryna-native-mir::native_c_v0` boundary consumes only the sealed native C IR
 and retains its actual source, material, layout and runtime issuers. The registered normal edge
@@ -196,7 +196,7 @@ edge; it introduces no frontend dependency or provider semantics. Syntax authent
 occurrences, while the mandatory command IR verifier must independently prove the exact effect,
 owned layout and cleanup. Existing M3 IR acceptance remains unchanged; this dependency
 edge itself grants no runtime authority. The separate bounded command support and integration
-record are documented in [the review note](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_H1_REVIEW.md).
+record are documented in [the review note](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_H1_REVIEW.md).
 
 ## Source and diagnostic authority
 
@@ -533,22 +533,22 @@ through legal Vec-indirection recursion to authenticated source, mandatory verif
 resource and replay evidence. This is compiler authority only; runtime execution, backends and
 public activation remain open.
 
-The checked [non-indexed owned borrowing matrix](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_NONINDEXED_OWNED_BORROWING_MATRIX.md)
+The checked [non-indexed owned borrowing matrix](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_NONINDEXED_OWNED_BORROWING_MATRIX.md)
 integrates #337 owned roots and static Struct/FixedArray projections, #338 refined active-enum
 payloads, #339 nested lexical and direct-call use, and #340 hostile/resource closure. Source
 lowering emits only the existing borrow, owned-clone and prepare-before-replace operations; the
 mandatory IR verifier independently seals exact place, mode, region, refinement, overlap, cleanup,
 nonescape and resource authority. This compiler-only #275 candidate adds no runtime alias checks,
 backend, driver, CLI, artifact, public ABI/profile, or target execution. The combined compiler
-authority is reconciled by the [#269 source-completion proof](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_SOURCE_COMPLETION.md).
+authority is reconciled by the [#269 source-completion proof](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_SOURCE_COMPLETION.md).
 
-The checked [internal owned-call closure matrix](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_OWNED_CALL_CLOSURE_MATRIX.md) integrates #329
+The checked [internal owned-call closure matrix](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_OWNED_CALL_CLOSURE_MATRIX.md) integrates #329
 imported signature and canonical identity resolution, #330 structured transfer and exact cleanup,
 and #331 independent hostile-IR and resource proofs. Internal same-module and named-import calls
 admit the sealed by-value ownership graph without adding nominal type-import syntax. Borrowed
 imports, indirect calls, recursion, runtime execution, backends and public activation remain open.
 
-The checked [complete enum matching closure matrix](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_COMPLETE_ENUM_MATCHING_MATRIX.md) integrates
+The checked [complete enum matching closure matrix](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_COMPLETE_ENUM_MATCHING_MATRIX.md) integrates
 \#333 authenticated exhaustive source lowering, #334 independently constructed refinement and
 payload ownership verification, and #335 exact resource/overflow evidence. It makes #273 a
 compiler-only closure candidate for sealed multi-variant and nested matches with exact active-
@@ -556,7 +556,7 @@ payload cleanup and Copy or owned result continuations. Terminating and wildcard
 payload access remain outside that matrix; #275 is completed separately at its compiler boundary.
 Runtime, backends and public activation remain open.
 
-The checked [structured owned control-flow matrix](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md)
+The checked [structured owned control-flow matrix](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md)
 integrates #325 source routing and lexical state, #326 independent hostile-IR authority, and #327
 payload/fault/resource evidence. It makes #271 a compiler-only closure candidate: nested and
 repeated Block/If/While/WeakUpgrade and admitted Match occupants lower to mandatory verified IR,
@@ -565,7 +565,7 @@ execute allocation, refcount, drop, calls, upgrades, or faults. #275 is complete
 compiler boundary and is included in the #269 source-completion proof. Break/continue, exceptions,
 driver integration, CLI and public activation remain open.
 
-The [internal M3 target backends](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_TARGET_BACKENDS.md) consume the resulting closed operand and
+The [internal M3 target backends](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_TARGET_BACKENDS.md) consume the resulting closed operand and
 terminator views. JavaScript emits bounded self-contained ESM, core WebAssembly emits validated
 import-free bytes with private bounded memory, and native lowering independently reseals Linux
 x86-64 layout-bound MIR. Object/link execution and public routing remain downstream boundaries.

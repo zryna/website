@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "5d79dba18117a7ff41ff08d328aa94838c0fce9c",
+    "commit": "dcef77a79782e91016b9e3e8d528cf21850b9d41",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },
