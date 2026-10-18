@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "418af134f16091affce76ca08fc49eb4b874072f",
+    "commit": "5d79dba18117a7ff41ff08d328aa94838c0fce9c",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },
@@ -41,8 +41,8 @@
       "id": "reference/architecture",
       "path": "documents/reference/architecture.md",
       "title": "Compiler architecture",
-      "bytes": 57357,
-      "sha256": "81fab3f356bdf259a34943c6e862bdde94d6a9f4d7466c9b730f8debee54f9b8"
+      "bytes": 58017,
+      "sha256": "d8002cf64fa7b6c1ee4d6e9f4ad45654f4a2d4cf680459f096c4686f67deb710"
     },
     {
       "id": "reference/browser-component-v1",
@@ -83,8 +83,8 @@
       "id": "reference/documentation-bundles",
       "path": "documents/reference/documentation-bundles.md",
       "title": "Compiler documentation bundles",
-      "bytes": 3128,
-      "sha256": "4f15de7f1e37588ec09307e182e68316f7441f4339d7bc8fb195ba82a733dff3"
+      "bytes": 5301,
+      "sha256": "8886b7b632642d6ea8c9f98fb059f9c0e579194354671ee297b435f2e5c8e8e8"
     },
     {
       "id": "reference/frontends",
@@ -321,8 +321,29 @@
       "id": "reference/m4-support",
       "path": "documents/reference/m4-support.md",
       "title": "Fixed public M4 support contract",
-      "bytes": 987996,
-      "sha256": "0e74388e7ba67f300441b5c77a9554bd91f609ca30684be76db328ef8abc0169"
+      "bytes": 988567,
+      "sha256": "74c2e005c21da33916fff17bdcf24ca1611d179254e08ab8ef87264f5a188285"
+    },
+    {
+      "id": "reference/m6-conformance",
+      "path": "documents/reference/m6-conformance.md",
+      "title": "M6 tooling conformance v1",
+      "bytes": 17378,
+      "sha256": "4d50b120df792ba22631cc6adfc61ccbcd78d2d5de6c55b3c11a9850dde59a34"
+    },
+    {
+      "id": "reference/m6-reviewed-source-v2",
+      "path": "documents/reference/m6-reviewed-source-v2.md",
+      "title": "M6 reviewed-source playground route v2",
+      "bytes": 26456,
+      "sha256": "c54852493a3a2475f362f49b094c2af9a793922fade567b5b4debe50782d7579"
+    },
+    {
+      "id": "reference/m6-tooling",
+      "path": "documents/reference/m6-tooling.md",
+      "title": "M6 tooling support and evidence",
+      "bytes": 14243,
+      "sha256": "301c9d5abac6da49b84d4298fc36217d52ef7106a0809165b37adbbe343f7f49"
     },
     {
       "id": "reference/memory-model",
@@ -384,8 +405,8 @@
       "id": "status/current",
       "path": "documents/status/current.md",
       "title": "Compiler status",
-      "bytes": 34118,
-      "sha256": "811c0305121906b7303ffd16fd5b2ef50b75b8cec8933211db1ef0e73eb0a329"
+      "bytes": 35036,
+      "sha256": "f80545afe625712445dca044662186e93d97b52497693aa17fe371f3f6767c1d"
     },
     {
       "id": "status/m0-conformance",
@@ -405,8 +426,8 @@
       "id": "status/roadmap",
       "path": "documents/status/roadmap.md",
       "title": "Roadmap",
-      "bytes": 49575,
-      "sha256": "c52eb5c2d5a8ae33b91b6e6d6d927451745bb42487cd11f996f3bbb1745b6097"
+      "bytes": 50314,
+      "sha256": "7b7738cfbf905c46c795666e06931a2872dd8e6b54193a6c98c56a75c2ac49bf"
     }
   ]
 }

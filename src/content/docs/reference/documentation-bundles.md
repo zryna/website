@@ -18,7 +18,27 @@ pnpm docs:export --channel next --source-commit <commit> --source-ref refs/heads
 
 The dedicated compiler documentation workflow exports the exact final-main bundle only after
 independently authenticating the complete foundation/M4 CI run and all six retained M4 evidence
-artifacts. This site pins [run 38156672531](https://github.com/zryna/zryna/actions/runs/38156672531)
+artifacts.
+
+### Draft M6 import
+
+The prepared 60-document import selects compiler commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`,
+tree `78f42e37111204b1fb20a2363fc41fc23e62b8ef`, and expected manifest SHA-256
+`11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d`.
+It adds the [M6 support matrix](/reference/compiler/next/reference/m6-tooling/),
+[conformance contract](/reference/compiler/next/reference/m6-conformance/), and
+[reviewed-source route](/reference/compiler/next/reference/m6-reviewed-source-v2/).
+The imported M4 matrix now pins registry SHA-256
+`2f2ed6bb851d1dc665db0abe98ca5dff912bf9b7b4b03b4f7d5b58044b762361`
+and canonical support JSON SHA-256
+`a78558f1489c62f2d4a96b2befa2e2689a1473d5460bd05a79aca361cddd6517`.
+This import remains a draft until its authenticated documentation workflow supplies the matching
+archive and completed CI receipts. Website publication and the compiler-owned final M6 acceptance
+record retain their separate verification gates.
+
+### Previous M4 publication
+
+The previous import was verified by [run 38156672531](https://github.com/zryna/zryna/actions/runs/38156672531)
 (attempt 1), compiler commit `418af134f16091affce76ca08fc49eb4b874072f`, compiler tree
 `e371a1107aa57b1b152021e98ce749925edbffea`, and manifest SHA-256 `c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac`.
 Artifact `11708548986` contains 57 compiler-owned documents.

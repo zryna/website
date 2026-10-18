@@ -1,9 +1,9 @@
 ---
 title: "Language server protocol v1"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [docs/LANGUAGE_SERVER.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/LANGUAGE_SERVER.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [docs/LANGUAGE_SERVER.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/LANGUAGE_SERVER.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Language server protocol v1
 
@@ -247,7 +247,7 @@ The extension list must include `zryna.zryna@0.5.0`. In an Open VSX-compatible c
 the [Zryna listing](https://open-vsx.org/extension/zryna/zryna), or obtain the exact 0.5.0 VSIX
 from that listing and use **Install from VSIX**. The extension contains no compiler or server.
 Configure the matching server and runtime using the user settings below, or use an independently
-verified [portable setup candidate](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/PORTABLE_SETUP.md). Registry installation alone does not
+verified [portable setup candidate](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/PORTABLE_SETUP.md). Registry installation alone does not
 establish a working compiler connection.
 
 For source development, use the matching reviewed checkout and pinned toolchains:
@@ -275,7 +275,7 @@ Packaging uses pinned @vscode/vsce 4.0.0 without dependencies or signing. Its op
 executable installer is explicitly disabled; the VSIX contains only its manifest, client/Run
 modules, lexical grammar, README, changelog and license. Publication requires reviewed exact-package provenance,
 a configured marketplace publisher/namespace and its credentials. None are provisioned or embedded
-by this package. See the [package changelog](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/editors/vscode-zryna/CHANGELOG.md) for release notes.
+by this package. See the [package changelog](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/editors/vscode-zryna/CHANGELOG.md) for release notes.
 
 ### Publication and installed-host evidence
 
@@ -314,7 +314,7 @@ guide and repository release notes supersede their publication-pending statement
 
 ## Explicit editor Run
 
-The [portable setup candidate](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/PORTABLE_SETUP.md) adds a standalone installation path without
+The [portable setup candidate](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/PORTABLE_SETUP.md) adds a standalone installation path without
 changing Run's source/target limits. User settings select an installation and independently
 supplied manifest digest; complete file verification precedes server startup. The server's exact
 source revision must match the manifest before the client transmits document contents. Installed

@@ -1,9 +1,9 @@
 ---
 title: "Ownership runtime ABI v1"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [spec/abi/OWNERSHIP_RUNTIME_V1.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/abi/OWNERSHIP_RUNTIME_V1.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [spec/abi/OWNERSHIP_RUNTIME_V1.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/abi/OWNERSHIP_RUNTIME_V1.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Ownership runtime ABI v1
 

@@ -1,9 +1,9 @@
 ---
 title: "Compiler documentation bundles"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/DOCUMENTATION_BUNDLES.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [docs/DOCUMENTATION_BUNDLES.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/DOCUMENTATION_BUNDLES.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Compiler documentation bundles
 
@@ -27,6 +27,32 @@ The command verifies that the commit, ref, clean tracked worktree, and GitHub wo
 agree. A semantic-version channel must equal the compiler package version and use the matching
 immutable `refs/tags/v<version>` ref.
 
+The separate restricted-toolkit channel is exactly `playground-0.1.0`, with
+`refs/tags/playground-v0.1.0`; its compiler package version remains `0.2.3`. Its dedicated internal
+producer requires a separately selected integration commit/tree and the exact protected annotated
+tag/workflow context validated by `captureProtectedSource`. It reads the package, registry, schema
+and every documentation input directly from ordinary nonexecutable Git blobs at that commit.
+A plain receipt or disabled Git verification cannot authorize this route.
+
+The protected workflow entry point uses separate absolute, previously absent output and evidence
+directories outside the clean source checkout:
+
+```text
+node scripts/docs/export-playground.mjs --source <absolute-source-checkout> --source-commit <selected-commit> --source-tree <selected-tree> --output <absolute-new-bundle> --evidence-output <absolute-new-evidence>
+```
+
+The two selected identities must come from independent protected admission/review, not from an
+adjacent candidate policy. This command is an internal producer contract; no actual protected-tag
+export or public toolkit publication is established here. Local Git fixtures simulate workflow
+context and do not prove GitHub protection or publication.
+
+This Linux-only output route retains no-follow source/output ancestors and created directory/file
+handles, writes create-only document leaves, verifies named identity and exact bytes after writes,
+then writes the manifest/checksum last. It preserves failed partials without rename, overwrite,
+recursive cleanup or a pathname fallback. The separate source receipt retains the selected tree,
+annotated tag object and exact workflow blob identity. Existing `next` and compiler-version output
+semantics remain unchanged.
+
 The official `next` artifact is published only by the dedicated manual documentation dispatch on
 exact current `main`. The job validates documentation, then authenticates a completed successful
 full CI run and all M4 evidence for the same immutable revision before exporting. The dispatch
@@ -43,7 +69,7 @@ child of `.zryna/out/docs`; an existing bundle is never replaced.
 ## Bundle format
 
 The `zryna.docs.bundle.v1` schema is
-[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/schemas/zryna-docs-bundle-v1.schema.json). Every
+[`schemas/zryna-docs-bundle-v1.schema.json`](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/schemas/zryna-docs-bundle-v1.schema.json). Every
 bundle contains:
 
 - canonical `manifest.json` with no generation timestamp;
@@ -53,6 +79,11 @@ bundle contains:
 The manifest binds the full compiler commit, full Git ref, package version, channel, stable document
 IDs and paths, byte lengths, and per-document SHA-256 digests. Identical source and provenance
 produce identical bytes.
+
+The new fixed toolkit channel retains the same manifest fields, document IDs, paths and navigation
+contract. Its dedicated channel/ref alternative is validated with compiler package version `0.2.3`.
+The external website importer/schema and independent lock must explicitly accept this channel
+before importing it; that integration remains pending and is not inferred from local consumer tests.
 
 The bundled checksum detects corruption but is not its own trust root. Consumers must obtain the
 expected manifest digest, channel, compiler commit, and ref from a reviewed workflow artifact,

@@ -25,8 +25,8 @@ import {
 	validateImportIdentity,
 } from '../../tools/docs/compiler-imports.mjs';
 
-const COMMIT = '418af134f16091affce76ca08fc49eb4b874072f';
-const MANIFEST_DIGEST = 'c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac';
+const COMMIT = '5d79dba18117a7ff41ff08d328aa94838c0fce9c';
+const MANIFEST_DIGEST = '11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d';
 const RELEASE_COMMIT = 'f4d28002a014cd2e717eba4e59764bd925bef8c1';
 const RELEASE_MANIFEST_DIGEST = '838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
 const LOCK = {
@@ -37,7 +37,7 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 58);
+	assert.equal(files.size, 61);
 	assert.deepEqual(
 		[...files.keys()],
 		[
@@ -86,6 +86,9 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m3-shared-weak-evidence.md',
 			'reference/m4-conformance.md',
 			'reference/m4-support.md',
+			'reference/m6-conformance.md',
+			'reference/m6-reviewed-source-v2.md',
+			'reference/m6-tooling.md',
 			'reference/memory-model.md',
 			'reference/ownership-runtime-v1.md',
 			'reference/scalar-abi-v1.md',
@@ -219,7 +222,7 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	);
 	assert.equal(lock.source.commit, COMMIT);
 	assert.equal(lock.manifestSha256, MANIFEST_DIGEST);
-	assert.equal(lock.documents.length, 57);
+	assert.equal(lock.documents.length, 60);
 	assert(config.includes("slug: 'reference/compiler/next/reference/getting-started'"));
 	assert(config.includes("slug: 'reference/compiler/next/reference/m3-getting-started'"));
 	assert(guide.includes('/reference/compiler/next/reference/getting-started/'));

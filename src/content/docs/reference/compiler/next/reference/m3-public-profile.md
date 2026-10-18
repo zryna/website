@@ -1,9 +1,9 @@
 ---
 title: "Public DataOwnershipV1 profile"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [docs/M3_PUBLIC_PROFILE.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_PUBLIC_PROFILE.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [docs/M3_PUBLIC_PROFILE.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_PUBLIC_PROFILE.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Public DataOwnershipV1 profile
 
@@ -33,7 +33,7 @@ and live verification. Neither this page nor a local test pass certifies product
 
 The [beginner guide](/reference/compiler/next/reference/m3-getting-started/) contains complete sources tied to the fixed executable
 corpus. The detailed [language contract](/reference/compiler/next/reference/data-ownership-v1/),
-[source-completion evidence](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/M3_SOURCE_COMPLETION.md), and
+[source-completion evidence](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/M3_SOURCE_COMPLETION.md), and
 [conformance contract](/reference/compiler/next/reference/m3-conformance/) distinguish source/IR proofs from executed target cases.
 Historical component checkpoint pages describe their original bounded implementations; use this
 integrated profile and the current sealed verifier for public selection.

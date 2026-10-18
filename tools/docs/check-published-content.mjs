@@ -49,6 +49,36 @@ export const CONTENT = new Map([
 		],
 	],
 	[`${PREFIX}m3-conformance/`, ['15 scalar cases', '26 injected fault cases', 'M0-M2', 'manifest']],
+	[
+		`${PREFIX}m6-tooling/`,
+		[
+			'zryna.m6-source-evidence.v2',
+			'reviewed-source-v1',
+			'4096 UTF-8 source bytes',
+			'512 MiB',
+			'1 GiB',
+			'Unknown cleanup',
+		],
+	],
+	[
+		`${PREFIX}m6-reviewed-source-v2/`,
+		[
+			'v0.1.0-playground-compiler.1',
+			'qualification candidate',
+			'10-second whole operation',
+			'5-second whole operation',
+			'2-second deadline',
+		],
+	],
+	[
+		`${PREFIX}m6-conformance/`,
+		[
+			'server/VSIX 0.5.0',
+			'0.1.0-candidate.3',
+			'one operation/no queue',
+			'independent signature/provenance verification',
+		],
+	],
 ]);
 
 export const M4_CONTENT = new Map([

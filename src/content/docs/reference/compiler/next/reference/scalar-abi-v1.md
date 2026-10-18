@@ -1,9 +1,9 @@
 ---
 title: "Scalar ABI v1"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [spec/abi/SCALAR_V1.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/abi/SCALAR_V1.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [spec/abi/SCALAR_V1.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/abi/SCALAR_V1.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Scalar ABI v1
 
@@ -92,7 +92,7 @@ return the full typed value through a structured channel.
 
 ## Shared fixtures
 
-[`scalar-v1-fixtures.json`](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/abi/scalar-v1-fixtures.json) is the byte-shared mapping and observation
+[`scalar-v1-fixtures.json`](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/abi/scalar-v1-fixtures.json) is the byte-shared mapping and observation
 fixture. `zryna-abi` validates it. The executable JavaScript integration consumes the same file for
 both `i32` and Boolean carrier validation; the current `i32` source execution matrix also checks
 its public wrapper directly. The WebAssembly conformance integration consumes all current

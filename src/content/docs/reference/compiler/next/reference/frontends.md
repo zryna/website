@@ -1,9 +1,9 @@
 ---
 title: "Frontend providers"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [docs/FRONTENDS.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/FRONTENDS.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [docs/FRONTENDS.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/FRONTENDS.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Replaceable frontend providers
 
@@ -51,7 +51,7 @@ UTF-8 ranges before constructing `ProjectSyntaxSnapshot`. Provider transport byt
 before JSON decoding. Protocol v2 extends the original declaration boundary with executable
 syntax without changing the meaning of `start` and `end`. Its raw DTOs and verified types
 live in `zryna-syntax`, below all provider implementations. See
-[Syntax protocol v2](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/SYNTAX_PROTOCOL_V2.md).
+[Syntax protocol v2](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/SYNTAX_PROTOCOL_V2.md).
 
 ## Protocol migration state
 
