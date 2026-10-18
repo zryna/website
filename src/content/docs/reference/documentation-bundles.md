@@ -20,21 +20,32 @@ The dedicated compiler documentation workflow exports the exact final-main bundl
 independently authenticating the complete foundation/M4 CI run and all six retained M4 evidence
 artifacts.
 
-### Draft M6 import
+### Current M6 import
 
-The prepared 60-document import selects compiler commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`,
-tree `78f42e37111204b1fb20a2363fc41fc23e62b8ef`, and expected manifest SHA-256
+The authenticated 60-document import selects compiler commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`,
+tree `78f42e37111204b1fb20a2363fc41fc23e62b8ef`, and manifest SHA-256
 `11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d`.
-It adds the [M6 support matrix](/reference/compiler/next/reference/m6-tooling/),
+[Documentation run 39111188705](https://github.com/zryna/zryna/actions/runs/39111188705)
+(attempt 1) authenticated the successful exact-main CI run `39105995385` (attempt 1), all 42
+jobs, and all six retained M4 lanes before export. Its gate artifact is `12130880863`, with
+archive SHA-256 `a3fa2cb3f89903f3a29b3c3860208806e764488b0bf1cfbca7be391974db89c1`.
+The documentation artifact is `12130393234`, with archive SHA-256
+`5fabfd435a2d94f58563639695d908adc6d54c53eec987bcc691df6c0ce5c4b2`.
+Every vendored bundle file matches that independently authenticated archive.
+
+The import adds the [M6 support matrix](/reference/compiler/next/reference/m6-tooling/),
 [conformance contract](/reference/compiler/next/reference/m6-conformance/), and
 [reviewed-source route](/reference/compiler/next/reference/m6-reviewed-source-v2/).
-The imported M4 matrix now pins registry SHA-256
+The imported M4 matrix pins registry SHA-256
 `2f2ed6bb851d1dc665db0abe98ca5dff912bf9b7b4b03b4f7d5b58044b762361`
 and canonical support JSON SHA-256
 `a78558f1489c62f2d4a96b2befa2e2689a1473d5460bd05a79aca361cddd6517`.
-This import remains a draft until its authenticated documentation workflow supplies the matching
-archive and completed CI receipts. Website publication and the compiler-owned final M6 acceptance
-record retain their separate verification gates.
+
+Documentation authentication does not establish complete M6 runtime acceptance. Treat the
+integration as under verification until the published compiler and the matching immutable
+[exact-source M6 acceptance record](https://github.com/zryna/zryna/releases/download/m6-source-evidence-5d79dba18117a7ff41ff08d328aa94838c0fce9c-1/m6-source-evidence.json)
+are available and independently verified against their selected identities. The compiler-owned
+support matrix preserves the applicable profiles, limits, exclusions and separate approval gates.
 
 ### Previous M4 publication
 

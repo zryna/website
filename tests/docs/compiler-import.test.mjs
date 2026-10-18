@@ -229,6 +229,12 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	for (const marker of [
 		COMMIT,
 		MANIFEST_DIGEST,
+		'39111188705',
+		'39105995385',
+		'12130393234',
+		'12130880863',
+		'5fabfd435a2d94f58563639695d908adc6d54c53eec987bcc691df6c0ce5c4b2',
+		'a3fa2cb3f89903f3a29b3c3860208806e764488b0bf1cfbca7be391974db89c1',
 		'38156672531',
 		'11708548986',
 		'7acae747514906859b0d82ed8da13357fa2b5a2b3281dcd2887f2ae3de0386c5',

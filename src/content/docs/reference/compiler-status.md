@@ -3,14 +3,15 @@ title: Compiler status
 description: The authenticated current compiler status imported from the compiler repository.
 ---
 
-This draft pins and validates the compiler-owned `next` bundle from commit
+The website pins and validates the compiler-owned `next` bundle from commit
 [`5d79dba18117a7ff41ff08d328aa94838c0fce9c`](https://github.com/zryna/zryna/commit/5d79dba18117a7ff41ff08d328aa94838c0fce9c).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
 `11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d`.
 
-Publication awaits the authenticated workflow receipts described in
-[Documentation bundles](/reference/documentation-bundles/).
+The official [documentation publication receipts](/reference/documentation-bundles/) authenticate
+this import. Full M6 runtime acceptance retains its separate published-compiler and exact-source
+evidence gates.
 
 Exact public `--profile data-ownership-v1` selects the implemented M3 profile and manifest v3.
 Read the [public surface](/reference/compiler/next/reference/m3-public-profile/) and
