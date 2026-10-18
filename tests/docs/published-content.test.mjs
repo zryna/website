@@ -24,7 +24,7 @@ test('rendered M4 walkthroughs reject missing commands, results and capability b
 	}
 });
 
-test('rendered public content rejects stale provenance and missing M3 claims', () => {
+test('rendered public content rejects stale provenance and missing M3 or M6 contracts', () => {
 	const commit = 'a'.repeat(40);
 	const digest = 'b'.repeat(64);
 	for (const [route, markers] of CONTENT) {

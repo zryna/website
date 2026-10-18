@@ -4,10 +4,10 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "c163aae1b53fb6fb23a3001711a4cf88ab00087f1a61ff3004b0d6e5661e98ac",
+  "manifestSha256": "11a0ac0cab099c414df91eeb5d7950bca7a0f61aa6da855b4c54d7322062371d",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "418af134f16091affce76ca08fc49eb4b874072f",
+    "commit": "5d79dba18117a7ff41ff08d328aa94838c0fce9c",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },
@@ -236,6 +236,21 @@
       "id": "reference/m4-support",
       "sourcePath": "docs/M4_SUPPORT.md",
       "route": "/reference/compiler/next/reference/m4-support/"
+    },
+    {
+      "id": "reference/m6-conformance",
+      "sourcePath": "spec/tooling/M6_CONFORMANCE_V1.md",
+      "route": "/reference/compiler/next/reference/m6-conformance/"
+    },
+    {
+      "id": "reference/m6-reviewed-source-v2",
+      "sourcePath": "spec/tooling/M6_REVIEWED_SOURCE_V2.md",
+      "route": "/reference/compiler/next/reference/m6-reviewed-source-v2/"
+    },
+    {
+      "id": "reference/m6-tooling",
+      "sourcePath": "docs/M6_TOOLING.md",
+      "route": "/reference/compiler/next/reference/m6-tooling/"
     },
     {
       "id": "reference/memory-model",

@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`418af134f16091affce76ca08fc49eb4b874072f`](https://github.com/zryna/zryna/commit/418af134f16091affce76ca08fc49eb4b874072f).
+This reference was imported from compiler commit [`5d79dba18117a7ff41ff08d328aa94838c0fce9c`](https://github.com/zryna/zryna/commit/5d79dba18117a7ff41ff08d328aa94838c0fce9c).
 
 - [Bounded H1 command examples](/reference/compiler/next/examples/wasi-command/)
 - [Denied and granted clock status example](/reference/compiler/next/examples/wasi-server-clock/)
@@ -50,6 +50,9 @@ This reference was imported from compiler commit [`418af134f16091affce76ca08fc49
 - [M3 Shared and Weak evidence matrix](/reference/compiler/next/reference/m3-shared-weak-evidence/)
 - [Public M4 conformance and publication](/reference/compiler/next/reference/m4-conformance/)
 - [Fixed public M4 support contract](/reference/compiler/next/reference/m4-support/)
+- [M6 tooling conformance v1](/reference/compiler/next/reference/m6-conformance/)
+- [M6 reviewed-source playground route v2](/reference/compiler/next/reference/m6-reviewed-source-v2/)
+- [M6 tooling support and evidence](/reference/compiler/next/reference/m6-tooling/)
 - [Memory model direction](/reference/compiler/next/reference/memory-model/)
 - [Ownership runtime ABI v1](/reference/compiler/next/reference/ownership-runtime-v1/)
 - [Scalar ABI v1](/reference/compiler/next/reference/scalar-abi-v1/)

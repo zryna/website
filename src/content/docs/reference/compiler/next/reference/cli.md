@@ -1,9 +1,9 @@
 ---
 title: "CLI reference"
-description: "Compiler-owned next documentation imported from 418af134f160."
+description: "Compiler-owned next documentation imported from 5d79dba18117."
 ---
 
-> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/CLI.md) at commit `418af134f16091affce76ca08fc49eb4b874072f`.
+> Verified compiler source: [docs/CLI.md](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/CLI.md) at commit `5d79dba18117a7ff41ff08d328aa94838c0fce9c`.
 
 # Zryna CLI reference
 
@@ -32,7 +32,7 @@ Both routes accept no scalar arguments or build-only selection. The [command wal
 input creation, the initial grant table, typed WIT results, limits and create-only bundles;
 the [manifest reference](/reference/compiler/next/reference/wasi-command-manifest-v1/) specifies its distinct execution record.
 This change introduces this bounded route when integrated; the
-[review record](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/WASI_COMMAND_H1_REVIEW.md) tracks final revision checks and acceptance.
+[review record](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/WASI_COMMAND_H1_REVIEW.md) tracks final revision checks and acceptance.
 Supported evidence covers supervised Linux x86-64, hosted Ubuntu 24.04 x86-64 and hosted
 Windows Server 2022 x64. Existing immutable beta archives do not support this route.
 Existing M1–M3 profiles retain their contracts below.
@@ -79,7 +79,7 @@ Architecture and doctor `--json` output retains the existing deterministic `Vali
 shape containing its `diagnostics` array.
 
 `package resolve` is the source-only package command documented in
-[Package resolution](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/docs/PACKAGE_RESOLUTION.md). It does not compile source or select a backend.
+[Package resolution](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/docs/PACKAGE_RESOLUTION.md). It does not compile source or select a backend.
 
 `ENTRYPOINT` is exactly one workspace-relative `.zry` path. Absolute paths, traversal,
 normalized-away components, backslashes, links or Windows reparse points, and paths outside
@@ -274,7 +274,7 @@ overflow, abnormal exit, or malformed result framing fails without a bundle; ina
 the documented cleanup steps uses exit status `6`.
 
 Native discovery, linking, and execution use the separate hard caps and controlled environment in
-the [native executable contract](https://github.com/zryna/zryna/blob/418af134f16091affce76ca08fc49eb4b874072f/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
+the [native executable contract](https://github.com/zryna/zryna/blob/5d79dba18117a7ff41ff08d328aa94838c0fce9c/spec/native-semantics/EXECUTABLE.md). Generated artifacts are
 not a security sandbox, and the dynamically linked native executable requires the validated host's
 CRT, libc, and loader.
 
