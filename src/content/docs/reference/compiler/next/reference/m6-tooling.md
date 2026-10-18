@@ -1,9 +1,9 @@
 ---
 title: "M6 tooling support and evidence"
-description: "Compiler-owned next documentation imported from b3be654c452e."
+description: "Compiler-owned next documentation imported from 71fd69d99a39."
 ---
 
-> Verified compiler source: [docs/M6_TOOLING.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M6_TOOLING.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
+> Verified compiler source: [docs/M6_TOOLING.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/M6_TOOLING.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
 
 # M6 tooling support and evidence
 
@@ -21,8 +21,8 @@ standalone toolkit v1 retains its own publication and acceptance requirements.
 The [M6 conformance contract v1](/reference/compiler/next/reference/m6-conformance/) defines the common evidence
 identity and complete acceptance matrix. The separate [reviewed-source route v2](/reference/compiler/next/reference/m6-reviewed-source-v2/)
 preserves those obligations while specifying its own source, publication and daemon authority. Existing [architecture](/reference/compiler/next/reference/architecture/),
-[standalone projects](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/STANDALONE_PROJECTS.md), [language-server and editor contracts](/reference/compiler/next/reference/language-server/),
-and [portable setup](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/PORTABLE_SETUP.md) retain their own compatibility and release status.
+[standalone projects](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STANDALONE_PROJECTS.md), [language-server and editor contracts](/reference/compiler/next/reference/language-server/),
+and [portable setup](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/PORTABLE_SETUP.md) retain their own compatibility and release status.
 
 ## Version and support matrix
 
@@ -35,7 +35,7 @@ Component versions identify different products; they are not interchangeable rel
 | Formatter                     | `scalar-format-v1`, `control-flow-format-v1`, `data-ownership-format-v1`                                                      | Compiler-admitted document/range edits, token/comment preservation, idempotence and revision checks                    | Delivered through the matching LSP/editor. There is no `zryna fmt` CLI command. Final support requires matching formatter gates in the selected integration record.                                                          |
 | Editor extension              | VSIX 0.5.0; VS Code-compatible API >=1.82.0                                                                                   | Diagnostics, scalar definition, M1–M3 formatting; explicit saved-file Run for scalar/M2 JavaScript or core WebAssembly | Separately published extension with historical installed-host evidence. Publication does not authenticate an outer setup or close the new integration.                                                                       |
 | Portable setup                | 0.1.0-candidate.3; compiler 0.2.3, server/VSIX 0.5.0                                                                          | Reviewed complete installation, isolated editor profile, explicit compiler/editor exercises and relocation             | Internal review/user-acceptance candidate. No public outer publisher signature; production admission remains forbidden.                                                                                                      |
-| Fixed-component example       | Existing `browser-component-v1` bundle                                                                                        | Local execution of fixed `examples/universal/add.zry` with editable scalar inputs                                      | Independently documented [example](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/examples/playground/README.md). It does not compile edited source or establish source-playground acceptance. |
+| Fixed-component example       | Existing `browser-component-v1` bundle                                                                                        | Local execution of fixed `examples/universal/add.zry` with editable scalar inputs                                      | Independently documented [example](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/examples/playground/README.md). It does not compile edited source or establish source-playground acceptance. |
 | Reviewed-source playground v2 | `reviewed-source-v1` composition; playground compiler 0.1.0; `restricted-browser-v1` transport; `browser-component-v1` output | Operator-reviewed source launcher API, dedicated Docker compiler/browser, one-file compilation and scalar evaluation   | Public support requires the authenticated published compiler, independently approved matching composition and complete final integration evidence. A source-only qualification does not establish public admission.          |
 | Standalone toolkit v1         | Proposed 0.1.0, proposed `playground-v0.1.0` immutable prerelease                                                             | Separate authenticated compiler/material/binding/WIT/browser/policy composition                                        | Not published. Outer publisher authentication, durable artifacts and final integration receipts are pending.                                                                                                                 |
 
@@ -68,7 +68,7 @@ The same record identifies 33 historical hosted checks at
 Linux/Windows reproduction and portable acceptance. They do not establish Linux graphical
 extension-host acceptance, current playground isolation or a pass at the final M6 integration.
 
-The [portable candidate verification rules](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/PORTABLE_SETUP.md#verify-before-running-anything)
+The [portable candidate verification rules](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/PORTABLE_SETUP.md#verify-before-running-anything)
 remain in force. Authentication of its nested compiler does not authenticate the new outer
 setup, server or VSIX. Preserve original artifact versions, source revisions, hashes and status.
 If the final integration intentionally reuses an immutable artifact, identify those exact bytes
@@ -77,7 +77,7 @@ and rerun the applicable integration exercise; never replace a published version
 ## Existing runnable project/editor workflow
 
 For a reviewer-verified portable candidate, select the absolute installed compiler executable
-as described in [portable setup](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/PORTABLE_SETUP.md). From a separate writable practice directory:
+as described in [portable setup](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/PORTABLE_SETUP.md). From a separate writable practice directory:
 
 ```text
 <compiler> --version
@@ -90,13 +90,13 @@ as described in [portable setup](https://github.com/zryna/zryna/blob/b3be654c452
 documented generated source returns 42; this is the expected observation, not a new test result.
 Choose fresh output names when repeating commands because publication is create-only.
 Source-checkout users use the explicit compiler/project roots and pinned Node path in
-[standalone projects](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/STANDALONE_PROJECTS.md#build-and-run-from-a-source-checkout).
+[standalone projects](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STANDALONE_PROJECTS.md#build-and-run-from-a-source-checkout).
 
 For an editor exercise, install the exact published 0.5.0 package or the reviewed VSIX, configure
 the matching server/installation in user settings, and open a trusted local practice folder.
 Select the explicit profile, request Format Document twice, and exercise the documented scalar/M2
 Run pickers after saving. Invalid source must yield actual compiler diagnostics and no formatting
-edits. Follow [portable setup's editor exercise](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/PORTABLE_SETUP.md#editor-exercise) for concrete
+edits. Follow [portable setup's editor exercise](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/PORTABLE_SETUP.md#editor-exercise) for concrete
 sources, exports and expected values. Opening, editing, formatting and saving never execute code.
 
 ## Reviewed-source playground v2 workflow and limits

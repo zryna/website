@@ -1,9 +1,9 @@
 ---
 title: "M3 private generic function operations"
-description: "Compiler-owned next documentation imported from b3be654c452e."
+description: "Compiler-owned next documentation imported from 71fd69d99a39."
 ---
 
-> Verified compiler source: [docs/M3_GENERIC_FUNCTION_OPERATIONS.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_GENERIC_FUNCTION_OPERATIONS.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
+> Verified compiler source: [docs/M3_GENERIC_FUNCTION_OPERATIONS.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/M3_GENERIC_FUNCTION_OPERATIONS.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
 
 # Private generic function operations
 
@@ -52,7 +52,7 @@ multi-hop import, exact import/call-cycle diagnostics, and genuine cross-module 
 Imported owned-call preparation reuses the same exact/first-extra value and cleanup reservations;
 hostile IR mutations independently cover signature, result, ownership, cleanup, static-depth and
 deterministic-recovery boundaries rather than trusting the source resolver alone.
-The checked [owned-call closure matrix](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_OWNED_CALL_CLOSURE_MATRIX.md) binds these source claims
+The checked [owned-call closure matrix](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/M3_OWNED_CALL_CLOSURE_MATRIX.md) binds these source claims
 to independently constructed cross-module IR, hostile mutations and exact resource evidence.
 Borrow arguments require
 matching live aliases with exact referent/access and cannot escape the call; unsupported graph
@@ -128,7 +128,7 @@ the same checked transient begin/end and final owner drop. Checked descendants c
 FixedArray and Vec referents, using sealed fixed lengths or the selected Vec's runtime length
 without creating independent element owners or allocating intermediate clones.
 
-The [indexed-source adapter](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_INDEXED_SOURCE_OPERATIONS.md) also admits lexical nested
+The [indexed-source adapter](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/M3_INDEXED_SOURCE_OPERATIONS.md) also admits lexical nested
 borrowing from named complete containers. It builds a checked transient chain, then
 `BindIndexedBorrow` transfers the exact referent/access/region into a fresh persistent alias
 while clearing transient projectability. This infallible transfer has no owner, cleanup plan
