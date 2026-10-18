@@ -1,9 +1,9 @@
 ---
 title: "Data and ownership v1"
-description: "Compiler-owned next documentation imported from dcef77a79782."
+description: "Compiler-owned next documentation imported from b3be654c452e."
 ---
 
-> Verified compiler source: [spec/language/DATA_OWNERSHIP_V1.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/language/DATA_OWNERSHIP_V1.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
+> Verified compiler source: [spec/language/DATA_OWNERSHIP_V1.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/language/DATA_OWNERSHIP_V1.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
 
 # Data and ownership v1
 

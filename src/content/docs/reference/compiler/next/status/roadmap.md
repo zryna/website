@@ -1,9 +1,9 @@
 ---
 title: "Roadmap"
-description: "Compiler-owned next documentation imported from dcef77a79782."
+description: "Compiler-owned next documentation imported from b3be654c452e."
 ---
 
-> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/ROADMAP.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
+> Verified compiler source: [docs/ROADMAP.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/ROADMAP.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
 
 # Delivery roadmap
 
@@ -345,7 +345,7 @@ The current authenticated #255/#256 producer now uses #254 exact referent and co
 complete-container authority for shared reads and exclusive replacement, including Copy,
 String, aggregates, Shared/Weak and nested handle-containing elements. Named source, hostile-IR,
 cleanup and resource evidence is mapped in the
-[indexed source contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256).
+[indexed source contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_INDEXED_SOURCE_OPERATIONS.md#indexed-borrowing-acceptance-reconciliation-255256).
 The owning issues and required integration gates remain tracked independently of target support
 and public activation:
 
@@ -460,7 +460,7 @@ An optional tracing-GC profile requires a separate language and ABI proposal. It
 - publish browser, command, and server examples.
 
 Issue #167 specifies the contract-only foundation in
-[`spec/wit/CAPABILITY_PROFILES_V1.md`](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/wit/CAPABILITY_PROFILES_V1.md): exact
+[`spec/wit/CAPABILITY_PROFILES_V1.md`](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/wit/CAPABILITY_PROFILES_V1.md): exact
 `zryna:capability-profiles@0.1.0` browser, command, and server world identities; WASI `0.2.12`;
 an exhaustive denied-by-default capability registry; and bounded deterministic validation
 fixtures. Its `specified-only` state adds no component emission, bindings, runtime or CLI
@@ -476,7 +476,7 @@ accepted worlds—including the empty
 browser world—and still adds no component emission, instantiation, bindings, selector, public
 activation, or host grant.
 
-The M4 [cross-target composition decision](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/language/CROSS_TARGET_PROFILES_V1.md),
+The M4 [cross-target composition decision](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/language/CROSS_TARGET_PROFILES_V1.md),
 tracked by [#357](https://github.com/zryna/zryna/issues/357), specifies separate language,
 target and host-permission axes, transitive requirements, native isolation limits and later
 conformance gates. Its WIT mapping depends on [#167](https://github.com/zryna/zryna/issues/167),
@@ -486,7 +486,7 @@ which retains pinned-world and WASI fixture authority. The decision feeds
 selector, public support, M3 acceptance item, or change to existing completion gates.
 
 Proposed bounded M4 scope extension, [#358](https://github.com/zryna/zryna/issues/358):
-the [minimal core and host library decision](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/libraries/MINIMAL_CORE_HOST_V0.md)
+the [minimal core and host library decision](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/libraries/MINIMAL_CORE_HOST_V0.md)
 separates concrete pure scalar operations, allocation-backed String/Vec operations and explicitly
 gated host candidates. It specifies prerequisites, ownership/errors and fixed positive/negative
 oracles without implementing or activating a library. Profile mapping follows accepted #357;
@@ -496,9 +496,9 @@ JSON and async/task work retain explicit future prerequisites. This proposal cha
 or historical inventory and does not require all M7 work before a limited core library.
 
 Issue #359 specifies a bounded M4 typed-JS scope extension in the
-[JS/WASM adapter contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/interop/JS_WASM_ADAPTERS_V1.md): separate browser/Node ESM
+[JS/WASM adapter contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/interop/JS_WASM_ADAPTERS_V1.md): separate browser/Node ESM
 and WIT/Component conversions, resource lifetimes, failure cleanup and interface versioning.
-Its [consumer proof plan](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/interop/JS_WASM_ADAPTER_CONFORMANCE_V1.md) separates later
+Its [consumer proof plan](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/interop/JS_WASM_ADAPTER_CONFORMANCE_V1.md) separates later
 implementation, conformance and activation. This is `specified-only`; #167 and the accepted
 \#357 composition contract supply its interface authority; its per-API alignment with merged #358
 preserves explicit host-outcome, u64 and async implementation gates. No runtime, generator, selector, publication or M3
@@ -507,7 +507,7 @@ gate change is included, and existing pinned WIT worlds remain unchanged.
 Issue #400's [bounded WASI command change](/reference/compiler/next/reference/wasi-command-getting-started/) introduces public
 activation when integrated: one file and `main(): bool`, empty grants or one explicitly
 private literal-key environment value, fixed limits and checkout/new complete-installation
-execution. [Independent review and final revision evidence](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/WASI_COMMAND_H1_REVIEW.md) are
+execution. [Independent review and final revision evidence](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/WASI_COMMAND_H1_REVIEW.md) are
 recorded separately. Existing immutable beta archives remain excluded. This command-profile
 evidence does not establish whole-M4 conformance/publication;
 [the M4 conformance record](/reference/compiler/next/reference/m4-conformance/) and #402 define that separate authority.
@@ -528,7 +528,7 @@ Completion gate: components expose self-described interfaces and receive no file
 
 ## M5 — Packages and Reproducible Releases
 
-Issue #168 specifies the repository-only [package and release contract v1](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/package/PACKAGE_RELEASE_V1.md):
+Issue #168 specifies the repository-only [package and release contract v1](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/package/PACKAGE_RELEASE_V1.md):
 closed bounded manifest/lock, deterministic exact resolution, integrity/SBOM/provenance,
 signed-note and rollback declarations, and clean-environment fixture evidence. This is a
 contract-only foundation; package runtime, signing, publication and release activation remain
@@ -536,7 +536,7 @@ unimplemented. Supplemental #360, #361 and #362 retain package/type identity, re
 and source/build trust policy respectively; their full implementations do not block #168.
 Existing releases, public support and M0–M3 remain unchanged.
 
-Issue #360 specifies the draft [package-instance identity contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/package/PACKAGE_INSTANCE_IDENTITY_V1.md):
+Issue #360 specifies the draft [package-instance identity contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/package/PACKAGE_INSTANCE_IDENTITY_V1.md):
 exact `(id, sourceSha256)` instances derived from #168, nominal type compatibility, fail-closed
 module visibility, duplicate version/source behavior, role-separated host and target graphs, and a
 bounded source-only resolver outline. Its profile acceptance follows the merged specified-only #357
@@ -549,7 +549,7 @@ composition contract. It adds no resolver, import syntax, or runtime support.
 - signed release notes and rollback procedure.
 
 Issue #361 has a source-only contract candidate in
-[`spec/package/RESOLVED_BUILD_PLAN_V0.md`](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/package/RESOLVED_BUILD_PLAN_V0.md). It specifies
+[`spec/package/RESOLVED_BUILD_PLAN_V0.md`](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/package/RESOLVED_BUILD_PLAN_V0.md). It specifies
 canonical resolved inputs and cache invalidation while reusing #168 package/release digests and
 \#357 profile composition, and preserving #360 package-instance identity, #362 execution policy,
 and driver-owned compilation, linking and
@@ -558,14 +558,14 @@ relevant accepted #364 ABI decisions. The checked fixtures implement no resolver
 registry, native tool invocation, cache store, selector, or public support.
 
 Issue #362 proposes [package source trust and build execution policy
-v0](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/package/SOURCE_TRUST_V0.md): explicit source/namespace and cache integrity,
+v0](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/package/SOURCE_TRUST_V0.md): explicit source/namespace and cache integrity,
 offline/frozen rejection, pure-source/trusted-native/untrusted-playground operation tables,
 isolation ownership and later adversarial gates. Acceptance retains #168/#360 source authority
 and #361's validated target/runtime-only source-plan boundary; native recipes additionally need its optional appendix
 and relevant #364 ABI decisions. Registry hosting and M6 playground implementation stay deferred.
 This policy draft creates no resolver, sandbox, execution mode or public support.
 
-The explicit [native compile recipe library API](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/NATIVE_RECIPES_V0.md) now separates
+The explicit [native compile recipe library API](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/NATIVE_RECIPES_V0.md) now separates
 source/ABI-bound planning, caller-selected trust modes, independent operator approval and a
 fixed Linux x86-64 two-role Docker session. Its compile-only result requires audited output
 and confirmed cleanup. Local Linux production-API qualification passed two fresh successful
@@ -579,7 +579,7 @@ Completion gate: a clean environment reproduces and verifies every published art
 
 ## M6 — Developer Tooling
 
-The proposed [semantic query and snapshot contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/tooling/SEMANTIC_QUERIES_V1.md)
+The proposed [semantic query and snapshot contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/tooling/SEMANTIC_QUERIES_V1.md)
 tracks [#363](https://github.com/zryna/zryna/issues/363) in
 [M6](https://github.com/zryna/zryna/milestone/7), reuses merged
 [#169](https://github.com/zryna/zryna/issues/169), and coordinates provider observations with
@@ -600,16 +600,16 @@ Completion gate: editor and playground behavior is driven by compiler contracts 
 - native Zryna lexer, parser, resolver, and snapshot provider;
 - provider conformance against the bootstrap TypeScript adapter;
 - bounded generics and monomorphization, `Option`, and `Result` after the
-  [#415 specified-only contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/language/BOUNDED_GENERICS_OPTION_RESULT_V1.md)
+  [#415 specified-only contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/language/BOUNDED_GENERICS_OPTION_RESULT_V1.md)
   is normally integrated: freeze provider syntax and fixtures, then closed-type semantics and
   instance budgets, versioned layout/IR/ABI authorities, owned match/cleanup,
   three-target conformance, and finally a separate public activation gate.
   [#416](https://github.com/zryna/zryna/issues/416) follows the
-  [dependency-ready slice table](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/language/BOUNDED_GENERICS_DECISIONS_V1.md#compatibility-dependencies-and-delivery)
+  [dependency-ready slice table](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/language/BOUNDED_GENERICS_DECISIONS_V1.md#compatibility-dependencies-and-delivery)
   only after normal integration of the whole reviewed #415 packet; its schema/fixture
   checks establish specification evidence, not implementation or public support;
-- native-only FFI under the [#364 ABI contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/abi/NATIVE_C_INTEROP_V0.md)
-  and [complete declaration contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/abi/NATIVE_C_INTEROP_V0_REVIEW.md):
+- native-only FFI under the [#364 ABI contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/abi/NATIVE_C_INTEROP_V0.md)
+  and [complete declaration contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/abi/NATIVE_C_INTEROP_V0_REVIEW.md):
   specified-only syntax, exact identities, owner/failure policy and limits;
   then separate tiny prototype, independent IR/MIR verification, import/export
   and driver linking, checked wrappers, per-platform conformance and public
@@ -653,7 +653,7 @@ the preview into a stable compatibility promise or qualify a later candidate.
    exact source, candidate and release evidence, including four public v0.2.3 upgrade paths.
 3. [#424](https://github.com/zryna/zryna/issues/424) still requires external participant workflows,
    reproducible blocker triage and the exact final beta publication record. The
-   [pilot kit](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/BETA_PILOT_KIT.md) prepares this work; its checkout M2/M3 comparison lane is not
+   [pilot kit](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/BETA_PILOT_KIT.md) prepares this work; its checkout M2/M3 comparison lane is not
    installed-distribution evidence, and the outer portable setup remains a review candidate.
 
 Completion gate: every distributed binary is bound to its source, checksums, provenance, SBOM,

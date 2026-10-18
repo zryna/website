@@ -4,10 +4,10 @@ description: The authenticated current compiler status imported from the compile
 ---
 
 The website pins and validates the compiler-owned `next` bundle from commit
-[`dcef77a79782e91016b9e3e8d528cf21850b9d41`](https://github.com/zryna/zryna/commit/dcef77a79782e91016b9e3e8d528cf21850b9d41).
+[`b3be654c452ea51f2c136a75d2eb89995eb4bd66`](https://github.com/zryna/zryna/commit/b3be654c452ea51f2c136a75d2eb89995eb4bd66).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
-`4b4399c0b3e41d55b11a35de4b0a1fe16060625334ce7604da7990b1e4798a1c`.
+`fb9ec210b5b65469c2b807293465c59313eeca7a6ef8d6b1ac19041446c541be`.
 
 The official [documentation publication receipts](/reference/documentation-bundles/) authenticate
 this import. Full M6 runtime acceptance retains its separate published-compiler and exact-source

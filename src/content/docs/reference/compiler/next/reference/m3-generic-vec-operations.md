@@ -1,9 +1,9 @@
 ---
 title: "M3 ordinary generic Vec operations"
-description: "Compiler-owned next documentation imported from dcef77a79782."
+description: "Compiler-owned next documentation imported from b3be654c452e."
 ---
 
-> Verified compiler source: [docs/M3_GENERIC_VEC_OPERATIONS.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_GENERIC_VEC_OPERATIONS.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
+> Verified compiler source: [docs/M3_GENERIC_VEC_OPERATIONS.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_GENERIC_VEC_OPERATIONS.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
 
 # Ordinary generic Vec operation authority
 
@@ -12,7 +12,7 @@ Issue #278 composes ordinary non-handle Vec observations and replacement from th
 [canonical structural clone core](/reference/compiler/next/reference/m3-generic-clone-core/). This adds no element move-out,
 container hole, independent dynamic `PlaceId`, runtime execution or public profile. Explicit
 source `Borrow`/`BorrowMut` Vec elements are implemented by the shared #255/#256 lexical producer,
-documented in the [indexed source contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_INDEXED_SOURCE_OPERATIONS.md). Its authenticated
+documented in the [indexed source contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_INDEXED_SOURCE_OPERATIONS.md). Its authenticated
 evidence is separate from the ordinary transient operation tests described here; neither enables
 target execution or public activation.
 
