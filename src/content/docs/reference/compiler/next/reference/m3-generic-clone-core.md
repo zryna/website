@@ -1,9 +1,9 @@
 ---
 title: "M3 canonical structural clone"
-description: "Compiler-owned next documentation imported from dcef77a79782."
+description: "Compiler-owned next documentation imported from b3be654c452e."
 ---
 
-> Verified compiler source: [docs/M3_GENERIC_CLONE_CORE.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_GENERIC_CLONE_CORE.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
+> Verified compiler source: [docs/M3_GENERIC_CLONE_CORE.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_GENERIC_CLONE_CORE.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
 
 # Generic non-handle structural clone core
 

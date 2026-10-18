@@ -1,9 +1,9 @@
 ---
 title: "M6 tooling conformance v1"
-description: "Compiler-owned next documentation imported from dcef77a79782."
+description: "Compiler-owned next documentation imported from b3be654c452e."
 ---
 
-> Verified compiler source: [spec/tooling/M6_CONFORMANCE_V1.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/tooling/M6_CONFORMANCE_V1.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
+> Verified compiler source: [spec/tooling/M6_CONFORMANCE_V1.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/tooling/M6_CONFORMANCE_V1.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
 
 # M6 tooling conformance v1
 
@@ -12,11 +12,11 @@ This contract defines the evidence required for the bounded tooling implementati
 record a completed gate, grant an executable capability, publish a toolkit or activate debugging.
 The single user-facing support matrix is [M6 tooling support and evidence](/reference/compiler/next/reference/m6-tooling/).
 
-The existing [project contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/STANDALONE_PROJECTS.md),
+The existing [project contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/STANDALONE_PROJECTS.md),
 [LSP/formatter/editor contract](/reference/compiler/next/reference/language-server/),
-[portable setup status](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/PORTABLE_SETUP.md),
-[semantic query/snapshot contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/tooling/SEMANTIC_QUERIES_V1.md),
-[package source-trust contract](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/spec/package/SOURCE_TRUST_V0.md) and
+[portable setup status](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/PORTABLE_SETUP.md),
+[semantic query/snapshot contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/tooling/SEMANTIC_QUERIES_V1.md),
+[package source-trust contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/package/SOURCE_TRUST_V0.md) and
 [compiler architecture](/reference/compiler/next/reference/architecture/) retain their respective acceptance states.
 Source, syntax, semantics, IR, ABI, diagnostics and execution authority remain with their existing
 owners. Tooling consumers may convert coordinates and render results; they may not duplicate semantics.
@@ -58,12 +58,12 @@ The final record MUST identify these fields without replacing missing values wit
 | Retention       | Immutable artifact/document/log/receipt locations and their hashes, hosted run/job identities and final status                                                                                              |
 | Acceptance      | Per-row passed/failed/not-run/unsupported state, outstanding prerequisites and explicit support/publication status                                                                                          |
 
-The versioned [machine registry](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/scripts/m6/registry.mjs) owns complete gate/platform/case
-identities. The [closed evidence validator](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/scripts/m6/evidence.mjs) binds its digest and
+The versioned [machine registry](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/scripts/m6/registry.mjs) owns complete gate/platform/case
+identities. The [closed evidence validator](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/scripts/m6/evidence.mjs) binds its digest and
 requires each gate's relevant platform-specific artifact roles. The
-[detached receipt validator](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/scripts/m6/receipts.mjs) binds exact observations, material
+[detached receipt validator](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/scripts/m6/receipts.mjs) binds exact observations, material
 identities, working directory, profile, corpus and retained input/stdout/stderr bytes. The
-[closure consumer](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/scripts/m6/closure.mjs) checks that complete inventory and the independently
+[closure consumer](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/scripts/m6/closure.mjs) checks that complete inventory and the independently
 selected source certificate claims through the pinned static verifier. Final publication receipts
 remain outside the toolkit archive; the publication descriptor equals its complete gate receipt.
 These source implementations and synthetic tests do not establish actual signature, download,

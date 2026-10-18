@@ -1,9 +1,9 @@
 ---
 title: "M3 ownership composition interfaces"
-description: "Compiler-owned next documentation imported from dcef77a79782."
+description: "Compiler-owned next documentation imported from b3be654c452e."
 ---
 
-> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `dcef77a79782e91016b9e3e8d528cf21850b9d41`.
+> Verified compiler source: [docs/M3_OWNERSHIP_COMPOSITION.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_OWNERSHIP_COMPOSITION.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
 
 # M3 ownership composition interfaces
 
@@ -187,7 +187,7 @@ owned arguments before the call cleanup. Nested FixedArray and two-function call
 the checked-resource/recovery matrix. Vec growth failure retains every completed child in reverse
 completion order; its result is not yet pending. At that stage #279 still required the indexed
 composition boundaries described below. The later checked
-[#271 closure matrix](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md) now binds the complete C7 source
+[#271 closure matrix](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_STRUCTURED_OWNED_CONTROL_FLOW_MATRIX.md) now binds the complete C7 source
 interaction, independent hostile IR, payload/fault cleanup and graph-resource evidence. That
 remains compiler authority only; no runtime execution is claimed.
 
@@ -216,7 +216,7 @@ indexed preparation plan. Bounds and transient authority begin only after the jo
 `structured_indexed_` tests pin Array/Vec Copy/owned paths, unchanged SSA index identity, one bounds
 site, hostile handoff rejection and pristine recovery; the resource matrix includes indexed clone.
 Later-index and post-bounds RHS Match now use the separately verified internal transient
-continuation contract in [M3\_TRANSIENT\_INDEXED\_ACCESS.md](https://github.com/zryna/zryna/blob/dcef77a79782e91016b9e3e8d528cf21850b9d41/docs/M3_TRANSIENT_INDEXED_ACCESS.md).
+continuation contract in [M3\_TRANSIENT\_INDEXED\_ACCESS.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/M3_TRANSIENT_INDEXED_ACCESS.md).
 Staged preparation preserves each completed bounds check, the exact live authority and original
 container while Match arms run; the final typed SSA handoff performs one read, clone or replacement
 and one end. Owned RHS ownership remains pending until replacement. Lexical authority still obeys
