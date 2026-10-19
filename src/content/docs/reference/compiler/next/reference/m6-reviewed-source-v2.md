@@ -1,9 +1,9 @@
 ---
 title: "M6 reviewed-source playground route v2"
-description: "Compiler-owned next documentation imported from b3be654c452e."
+description: "Compiler-owned next documentation imported from 71fd69d99a39."
 ---
 
-> Verified compiler source: [spec/tooling/M6_REVIEWED_SOURCE_V2.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/tooling/M6_REVIEWED_SOURCE_V2.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
+> Verified compiler source: [spec/tooling/M6_REVIEWED_SOURCE_V2.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/spec/tooling/M6_REVIEWED_SOURCE_V2.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
 
 # M6 reviewed-source playground route v2
 
@@ -17,7 +17,7 @@ The original issue requires published compiler artifacts, actual restricted brow
 one exact tooling support matrix, runnable exported documentation and complete required gates.
 The proposed [standalone toolkit v1](/reference/compiler/next/reference/m6-conformance/) remains a separate distribution
 route. A v2 source composition cannot create or replace its signed archive capability.
-The merged [source trust policy](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/spec/package/SOURCE_TRUST_V0.md), public browser profile,
+The merged [source trust policy](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/spec/package/SOURCE_TRUST_V0.md), public browser profile,
 compiler semantics, diagnostics, ABI and component verification retain their existing owners.
 
 ## Published compiler and source identity
@@ -25,7 +25,7 @@ compiler semantics, diagnostics, ABI and component verification retain their exi
 The new product is `zryna-playground-compiler` version `0.1.0`, targeting
 `x86_64-unknown-linux-gnu`. Its executable must be built from the recorded clean integration
 commit/tree, actually published and independently authenticated before public admission.
-Protected publication uses an annotated `v0.1.0-playground-compiler.2` tag and
+Protected publication uses an annotated `v0.1.0-playground-compiler.3` tag and
 `.github/workflows/playground-compiler-release.yml`. Verification requires the exact workflow,
 repository, tag, source commit and push trigger under the GitHub Actions OIDC issuer,
 complete finite archive inventory, binary identity and independent verifier/trusted-root pins.
@@ -145,7 +145,7 @@ stop and wait; the complete stdout/stderr inventory and all owned cleanup checks
 
 ## Explicit successor mapping
 
-The [v2 registry](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/scripts/m6/source-registry.mjs) preserves all 23 v1 gate/platform
+The [v2 registry](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/scripts/m6/source-registry.mjs) preserves all 23 v1 gate/platform
 rows. All original project, LSP, formatter, installed editor, setup, playground, transport,
 containment, browser, accessibility, documentation, canonical and hosted case obligations remain.
 Linux and Windows tooling/hosted claims each need actual exact-source receipts. Unsupported
@@ -174,7 +174,7 @@ Before starting, the operator independently authenticates the bootstrap source (
 publication verifier and its transitive imports), this session script, Node 22.22.1 and the
 selected Git commit/tree. Use a private nonroot Linux amd64 host with the reviewed local Engine
 and kernel capabilities. Prepare and review the exact compiler/evaluator images and sealed
-material volumes with the [private preparation helpers](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/examples/playground/restricted/daemon/preparation/README.md).
+material volumes with the [private preparation helpers](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/examples/playground/restricted/daemon/preparation/README.md).
 Their returned records are unapproved observations. Approval follows full inventory review,
 provisioning-writer removal and writable-alias exclusion; generating a plan or importing an
 image does not approve it. There is no automatic generic Docker installation command.
@@ -183,7 +183,7 @@ For public admission the independently reviewed input set contains:
 
 | Input                   | Required identity and authority                                                                                                                                                                                                |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Compiler publication    | Actual immutable `v0.1.0-playground-compiler.2` assets, exact repository/workflow/push identity and independently selected integration commit/tree                                                                             |
+| Compiler publication    | Actual immutable `v0.1.0-playground-compiler.3` assets, exact repository/workflow/push identity and independently selected integration commit/tree                                                                             |
 | Publication policy      | Closed version-1 policy binding source/tag object, envelope, archive, binary and provenance digests; the released `candidate-policy.json` is review input, not approval                                                        |
 | Verifier and trust root | Independently pinned offline verifier executable, owner, size/hash and trusted-root bytes/hash; authentication does not disable transparency-log or certificate checks                                                         |
 | Launcher descriptor     | Closed `zryna.playground-source-launcher.v2` record with `compositionKind: reviewed-source-v1`, `source.kind: git-revision`, exact source inventory, Node/compiler/template/WIT and authenticated publication-receipt identity |

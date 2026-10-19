@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "b3be654c452ea51f2c136a75d2eb89995eb4bd66",
+    "commit": "71fd69d99a39c22bdf262d1655a032aa76221f3e",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },
@@ -336,7 +336,7 @@
       "path": "documents/reference/m6-reviewed-source-v2.md",
       "title": "M6 reviewed-source playground route v2",
       "bytes": 26456,
-      "sha256": "570e235cc78c38218b63da140b678ae6ff31d02600f552f706054696c0419b5a"
+      "sha256": "445f3532a8451f3b3d5b20d41ac523ca082dd06890451978fd10704c782b7a0d"
     },
     {
       "id": "reference/m6-tooling",

@@ -1,9 +1,9 @@
 ---
 title: "Denied and granted clock status example"
-description: "Compiler-owned next documentation imported from b3be654c452e."
+description: "Compiler-owned next documentation imported from 71fd69d99a39."
 ---
 
-> Verified compiler source: [examples/wasi-server/CLOCK_EXAMPLE.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/examples/wasi-server/CLOCK_EXAMPLE.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
+> Verified compiler source: [examples/wasi-server/CLOCK_EXAMPLE.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/examples/wasi-server/CLOCK_EXAMPLE.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
 
 # Denied and granted local clock/status example
 

@@ -63,7 +63,7 @@ export const CONTENT = new Map([
 	[
 		`${PREFIX}m6-reviewed-source-v2/`,
 		[
-			'v0.1.0-playground-compiler.2',
+			'v0.1.0-playground-compiler.3',
 			'qualification candidate',
 			'10-second whole operation',
 			'5-second whole operation',

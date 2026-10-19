@@ -1,9 +1,9 @@
 ---
 title: "Run your first Zryna programs"
-description: "Compiler-owned next documentation imported from b3be654c452e."
+description: "Compiler-owned next documentation imported from 71fd69d99a39."
 ---
 
-> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/GETTING_STARTED.md) at commit `b3be654c452ea51f2c136a75d2eb89995eb4bd66`.
+> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/GETTING_STARTED.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
 
 # Run your first Zryna programs
 
@@ -16,7 +16,7 @@ documented below, outside that v0.1.0 preview policy. The
 scalar and M2 control-flow profiles. For the separately
 selected public M3 ownership profile, continue with
 [Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/). This walkthrough runs commands from the compiler
-repository root; use [Standalone source projects](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/STANDALONE_PROJECTS.md) to keep source and output
+repository root; use [Standalone source projects](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STANDALONE_PROJECTS.md) to keep source and output
 in a separate project tree.
 You do not need to run the contributor regression suite after every program edit.
 
@@ -172,9 +172,9 @@ source file beneath the existing `examples` directory. For the M2 example, keep 
 This is editing guidance, not an additional executed example.
 
 Do not put personal source in `.zryna/out`, add a new top-level project directory, or create
-symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/STRICT_WORKSPACE.md)
+symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STRICT_WORKSPACE.md)
 still checks file names, UTF-8 contents, layout and budgets. This repository-local walkthrough does
-not use `zryna new`; the [standalone guide](https://github.com/zryna/zryna/blob/b3be654c452ea51f2c136a75d2eb89995eb4bd66/docs/STANDALONE_PROJECTS.md) documents that separate
+not use `zryna new`; the [standalone guide](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STANDALONE_PROJECTS.md) documents that separate
 package-authenticated path. Both paths retain validation; there is no architecture bypass.
 
 ## Targets and limits
