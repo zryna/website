@@ -3,7 +3,7 @@ title: Compiler reference (next)
 description: Authenticated compiler documentation imported from the next channel.
 ---
 
-This reference was imported from compiler commit [`71fd69d99a39c22bdf262d1655a032aa76221f3e`](https://github.com/zryna/zryna/commit/71fd69d99a39c22bdf262d1655a032aa76221f3e).
+This reference was imported from compiler commit [`01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`](https://github.com/zryna/zryna/commit/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28).
 
 - [Bounded H1 command examples](/reference/compiler/next/examples/wasi-command/)
 - [Denied and granted clock status example](/reference/compiler/next/examples/wasi-server-clock/)
@@ -54,6 +54,7 @@ This reference was imported from compiler commit [`71fd69d99a39c22bdf262d1655a03
 - [M6 reviewed-source playground route v2](/reference/compiler/next/reference/m6-reviewed-source-v2/)
 - [M6 tooling support and evidence](/reference/compiler/next/reference/m6-tooling/)
 - [Memory model direction](/reference/compiler/next/reference/memory-model/)
+- [Native provider migration and installation](/reference/compiler/next/reference/native-provider-migration/)
 - [Ownership runtime ABI v1](/reference/compiler/next/reference/ownership-runtime-v1/)
 - [Scalar ABI v1](/reference/compiler/next/reference/scalar-abi-v1/)
 - [Syntax protocol v4](/reference/compiler/next/reference/syntax-protocol-v4/)

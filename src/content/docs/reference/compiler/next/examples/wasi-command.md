@@ -1,9 +1,9 @@
 ---
 title: "Bounded H1 command examples"
-description: "Compiler-owned next documentation imported from 71fd69d99a39."
+description: "Compiler-owned next documentation imported from 01c81f408798."
 ---
 
-> Verified compiler source: [examples/wasi-command/README.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/examples/wasi-command/README.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
+> Verified compiler source: [examples/wasi-command/README.md](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/examples/wasi-command/README.md) at commit `01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`.
 
 # Bounded H1 command examples
 

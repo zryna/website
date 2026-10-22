@@ -1,9 +1,9 @@
 ---
 title: "Run your first Zryna programs"
-description: "Compiler-owned next documentation imported from 71fd69d99a39."
+description: "Compiler-owned next documentation imported from 01c81f408798."
 ---
 
-> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/GETTING_STARTED.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
+> Verified compiler source: [docs/GETTING_STARTED.md](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/GETTING_STARTED.md) at commit `01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`.
 
 # Run your first Zryna programs
 
@@ -11,12 +11,13 @@ Zryna v0.1.0 is an experimental, source-based Developer Preview. It is not
 production-ready. It provides the documented repository-local M1–M3 workflows; it does not
 include standalone binaries, package installation, or stable compatibility guarantees.
 Current `main` separately implements the source-checkout standalone default-M1 project path
-documented below, outside that v0.1.0 preview policy. The
+documented below, outside that v0.1.0 preview policy. Current source-checkout compilation also
+selects the native frontend by default, without Node.js or pnpm. The
 `v0.1.0` tag and pre-release are not yet published. This walkthrough uses the existing public M1
 scalar and M2 control-flow profiles. For the separately
 selected public M3 ownership profile, continue with
 [Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/). This walkthrough runs commands from the compiler
-repository root; use [Standalone source projects](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STANDALONE_PROJECTS.md) to keep source and output
+repository root; use [Standalone source projects](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/STANDALONE_PROJECTS.md) to keep source and output
 in a separate project tree.
 You do not need to run the contributor regression suite after every program edit.
 
@@ -30,25 +31,22 @@ git clone https://github.com/zryna/zryna.git
 cd zryna
 ```
 
-Install Rust **1.97.1** (the repository pins it), pnpm **11.18.0**, and Node.js **22.22.1**.
-Use the official [Rust/rustup installation guide](https://rust-lang.org/tools/install/),
-[Node.js 22.22.1 downloads](https://nodejs.org/en/download/archive/v22.22.1), and
-[pnpm installation guide](https://pnpm.io/installation#installing-a-specific-version).
-Choose these exact versions, not a site's current default or `latest`. Rust's Windows instructions
-also explain the required C++ build tools. Keep downloaded installers and extracted toolchains
-outside this compiler checkout; arbitrary new root files/directories fail its strict workspace check.
+Install Rust **1.97.1**, which the repository pins. Use the official
+[Rust/rustup installation guide](https://rust-lang.org/tools/install/); its Windows instructions
+also explain the required C++ build tools. Check `rustc --version` before continuing. Keep
+installers and extracted toolchains outside this checkout; arbitrary new root files/directories
+fail its strict workspace check.
 
-From the checkout, check `rustc --version`, `pnpm --version`, and `node --version` before continuing.
-They must report Rust 1.97.1, pnpm 11.18.0, and Node v22.22.1. Install the locked frontend dependencies:
+Native frontend compilation needs neither Node.js nor pnpm. The first `build` example below
+therefore works without frontend package installation. JavaScript and core WebAssembly `run`
+commands need Node.js **22.22.1** as their target execution host. Install that exact version from
+[Node.js 22.22.1 downloads](https://nodejs.org/en/download/archive/v22.22.1) to run those examples;
+`node --version` must report `v22.22.1`.
 
-```bash
-pnpm install --frozen-lockfile
-```
-
-In every command below, replace `/absolute/path/to/node` with your real Node executable.
-It must be an absolute path to a regular executable, not a PATH shim, symbolic link or Windows
-reparse point. Even native compilation needs Node for the frontend. Quote paths containing spaces.
-Source paths, unlike the Node path, must be workspace-relative and use `/` separators.
+In commands that execute JavaScript or WebAssembly, replace `/absolute/path/to/node` with your
+real Node executable. It must be an absolute path to a regular executable, not a PATH shim,
+symbolic link or Windows reparse point. Quote paths containing spaces. Source paths, unlike the
+Node path, must be workspace-relative and use `/` separators.
 
 To locate the executable behind your trusted Node installation, run this in Bash or PowerShell:
 
@@ -84,10 +82,12 @@ The function takes two explicitly typed signed 32-bit integers and returns their
 makes it callable through the CLI. First **build** a JavaScript module without invoking it:
 
 ```bash
-cargo run --locked -p zryna -- build examples/universal/add.zry --target javascript --name hello-add --node /absolute/path/to/node
+cargo run --locked -p zryna -- build examples/universal/add.zry --target javascript --name hello-add
 ```
 
-Then **run** the export with typed arguments:
+This uses the default native frontend and publishes the module without executing it. No Node
+selection or pnpm install is needed for this step. Then **run** the export with typed arguments
+and an explicit Node target host:
 
 ```bash
 cargo run --locked -p zryna -- run examples/universal/add.zry --target javascript --name hello-add --export add --arg=i32:20 --arg=i32:22 --node /absolute/path/to/node
@@ -106,6 +106,25 @@ Inspect the generated module and manifest:
 The manifest records the source hash, selected artifacts and, for run, typed invocation/results.
 Build and run bundles may share a name because their directories differ. These are compiler
 results, not a general-purpose console I/O facility.
+
+## Select bootstrap compatibility when needed
+
+The default native frontend supports the same versioned source profiles. To compare it with the
+pinned TypeScript 6 bootstrap, install pnpm **11.18.0** using the
+[pnpm installation guide](https://pnpm.io/installation#installing-a-specific-version), check
+`pnpm --version`, and install the locked adapter dependencies:
+
+```bash
+pnpm install --frozen-lockfile
+cargo run --locked -p zryna -- build examples/universal/add.zry --target javascript --name hello-bootstrap --provider bootstrap --node /absolute/path/to/node
+cargo run --locked -p zryna -- build examples/universal/add.zry --target javascript --name hello-compare --provider compare --node /absolute/path/to/node
+```
+
+Bootstrap mode requires the pinned Node executable and adapter dependencies even for `build`.
+Compare mode runs both providers and stops on disagreement; it does not fall back to either one.
+`--provider native` selects the default explicitly. Native-only candidate installations reject
+bootstrap/compare because they contain neither payload. Historical v1 installations retain their
+original bundled provider/runtime rules. See [native provider migration](/reference/compiler/next/reference/native-provider-migration/).
 
 ## Choose a branch and call another module
 
@@ -172,15 +191,17 @@ source file beneath the existing `examples` directory. For the M2 example, keep 
 This is editing guidance, not an additional executed example.
 
 Do not put personal source in `.zryna/out`, add a new top-level project directory, or create
-symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STRICT_WORKSPACE.md)
+symlinks/reparse points in the checkout. The [strict workspace contract](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/STRICT_WORKSPACE.md)
 still checks file names, UTF-8 contents, layout and budgets. This repository-local walkthrough does
-not use `zryna new`; the [standalone guide](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/STANDALONE_PROJECTS.md) documents that separate
+not use `zryna new`; the [standalone guide](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/STANDALONE_PROJECTS.md) documents that separate
 package-authenticated path. Both paths retain validation; there is no architecture bypass.
 
 ## Targets and limits
 
-This walkthrough's invocations were checked on Linux x86-64 with Node.js 22.22.1. Values above are
-observed typed results, not copied terminal transcripts. No Windows execution is claimed here.
+The original JavaScript run examples were checked on Linux x86-64 with Node.js 22.22.1. Their
+values above are observed typed results, not copied terminal transcripts. Current native/provider
+qualification is reported separately in [migration and evidence](/reference/compiler/next/reference/native-provider-migration/);
+this walkthrough does not claim a passing current qualification run or Windows execution.
 The authoritative [target/platform table](/reference/compiler/next/reference/cli/#targets) documents JavaScript and core WebAssembly
 on Linux/Windows. `webassembly` selects a `.wasm` module executed through Node, not a browser app.
 Native object output targets Linux x86-64; native run (and therefore `all` run) requires Linux

@@ -4,14 +4,19 @@ description: The authenticated current compiler status imported from the compile
 ---
 
 The website pins and validates the compiler-owned `next` bundle from commit
-[`71fd69d99a39c22bdf262d1655a032aa76221f3e`](https://github.com/zryna/zryna/commit/71fd69d99a39c22bdf262d1655a032aa76221f3e).
+[`01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`](https://github.com/zryna/zryna/commit/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28).
 Its manifest, source commit/ref, document inventory, sizes, and hashes are checked before the site
 builds. The reviewed manifest SHA-256 is
-`697b7a79e08aa16542e95ca6902c8efa1a030a29ba0730a85795886e44a2e66b`.
+`f1c4e2a1baaef84ecfe472a7d9b830ad49d5b1eb535e99fca6143a0e636abf30`.
 
 The official [documentation publication receipts](/reference/documentation-bundles/) authenticate
 this import. Full M6 runtime acceptance retains its separate published-compiler and exact-source
 evidence gates.
+
+Current source checkouts use the embedded native frontend by default for M1–M3 compilation.
+Ordinary compilation requires no Node.js or pnpm; JavaScript/WebAssembly execution still needs
+its separately selected runtime. Read the [provider migration guide](/reference/compiler/next/reference/native-provider-migration/)
+for explicit bootstrap/compare modes, source-candidate installation and troubleshooting.
 
 Exact public `--profile data-ownership-v1` selects the implemented M3 profile and manifest v3.
 Read the [public surface](/reference/compiler/next/reference/m3-public-profile/) and

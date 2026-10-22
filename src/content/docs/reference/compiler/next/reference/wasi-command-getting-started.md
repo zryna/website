@@ -1,19 +1,19 @@
 ---
 title: "Bounded WASI command walkthrough"
-description: "Compiler-owned next documentation imported from 71fd69d99a39."
+description: "Compiler-owned next documentation imported from 01c81f408798."
 ---
 
-> Verified compiler source: [docs/WASI_COMMAND_GETTING_STARTED.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/WASI_COMMAND_GETTING_STARTED.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
+> Verified compiler source: [docs/WASI_COMMAND_GETTING_STARTED.md](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/WASI_COMMAND_GETTING_STARTED.md) at commit `01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`.
 
 # Bounded WASI command walkthrough
 
 This change introduces the bounded `command-h1-v1` profile when integrated. The
-[review record](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/WASI_COMMAND_H1_REVIEW.md) tracks its reviewed baseline, follow-up changes and
+[review record](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/WASI_COMMAND_H1_REVIEW.md) tracks its reviewed baseline, follow-up changes and
 remaining final checks. Support covers supervised Linux x86-64 and the qualified hosted
 Ubuntu 24.04 x86-64 / Windows Server 2022 x64 environments. Other hosts and performance
 guarantees are not part of this boundary.
-The [H1 contract](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/WASI_COMMAND_H1_CONTRACT_DRAFT.md) specifies its source, grant, conversion,
-denial and execution-record boundaries. The [activation proposal](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/docs/WASI_COMMAND_ACTIVATION_PROPOSAL.md)
+The [H1 contract](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/WASI_COMMAND_H1_CONTRACT_DRAFT.md) specifies its source, grant, conversion,
+denial and execution-record boundaries. The [activation proposal](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/docs/WASI_COMMAND_ACTIVATION_PROPOSAL.md)
 records the prerequisite decisions.
 
 This route runs one source file, either from a compiler checkout or an independently verified
@@ -73,7 +73,7 @@ package release or production admission.
 
 ## One explicit environment value
 
-[The lookup example](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/examples/wasi-command/lookup.zry) calls `environmentLookup("MODE")`
+[The lookup example](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/examples/wasi-command/lookup.zry) calls `environmentLookup("MODE")`
 once, matches the closed `EnvLookupV1.Found` / `EnvLookupV1.Missing` result, and passes the found
 owned String into a private helper that clones, concatenates and drops it. The key is a literal,
 not an imported function or a value computed at runtime. The example returns true for Found
