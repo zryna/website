@@ -11,6 +11,11 @@ For installation, runnable examples, expected results, and common errors, follow
 That compiler-owned walkthrough explains the exact toolchain, M1/M2 profile selection,
 fresh output names, and supported target/platform combinations.
 
+Current source checkouts use the embedded native frontend by default for M1–M3 compilation.
+Ordinary compilation requires no Node.js or pnpm; JavaScript/WebAssembly execution still needs
+its separately selected runtime. Read the [provider migration guide](/reference/compiler/next/reference/native-provider-migration/)
+for explicit bootstrap/compare modes, source-candidate installation and troubleshooting.
+
 ## Learn M3
 
 [Your first M3 programs](/reference/compiler/next/reference/m3-getting-started/) is the

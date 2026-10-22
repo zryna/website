@@ -4,7 +4,7 @@
   "channel": "next",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "71fd69d99a39c22bdf262d1655a032aa76221f3e",
+    "commit": "01c81f4087982b2f1c99c85f9a7c0360dbeb0e28",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },
@@ -55,8 +55,8 @@
       "id": "reference/cli",
       "path": "documents/reference/cli.md",
       "title": "CLI reference",
-      "bytes": 24442,
-      "sha256": "273aa10c53f267bdb3adbf2ac8ac41e6ade96fda1b365d2d03a38c6f0e5a8d6e"
+      "bytes": 25842,
+      "sha256": "317565fed2ab5afc5e04414a812527015c944e2227da5cb8006f9b4f53aebfd3"
     },
     {
       "id": "reference/control-flow-modules-v1",
@@ -90,15 +90,15 @@
       "id": "reference/frontends",
       "path": "documents/reference/frontends.md",
       "title": "Frontend providers",
-      "bytes": 11787,
-      "sha256": "6e149b29b7396e70649c7f63b6da06baf026376047d55c08b1c4be55645b4c17"
+      "bytes": 14167,
+      "sha256": "e5ca6ce233aa38c9a9d66ee27b1f80283a7ac38a5d8a4b8f53e0857ddfb39c0e"
     },
     {
       "id": "reference/getting-started",
       "path": "documents/reference/getting-started.md",
       "title": "Run your first Zryna programs",
-      "bytes": 10630,
-      "sha256": "dc4ab64548dde1c5c93cf9fb6da73b7791248d0461735f167586d5f947d5c7ef"
+      "bytes": 12164,
+      "sha256": "a7b4d419a0d0334dadd4a9b4a6832f3259fb3d968050c38583adaee5da70413c"
     },
     {
       "id": "reference/language-overview",
@@ -321,8 +321,8 @@
       "id": "reference/m4-support",
       "path": "documents/reference/m4-support.md",
       "title": "Fixed public M4 support contract",
-      "bytes": 988567,
-      "sha256": "74c2e005c21da33916fff17bdcf24ca1611d179254e08ab8ef87264f5a188285"
+      "bytes": 988566,
+      "sha256": "48168db8af722732778d0383a82f5eb3486d44e84810941668a7f97d744232e0"
     },
     {
       "id": "reference/m6-conformance",
@@ -351,6 +351,13 @@
       "title": "Memory model direction",
       "bytes": 1369,
       "sha256": "a511d751927a43d55414c9d023446d5879123f55323d5efcbfca6a761dd72e6e"
+    },
+    {
+      "id": "reference/native-provider-migration",
+      "path": "documents/reference/native-provider-migration.md",
+      "title": "Native provider migration and installation",
+      "bytes": 5342,
+      "sha256": "3c64002aa8b871502f2643cede56315e5f96d88249b08bc49c8f32a2e31860a6"
     },
     {
       "id": "reference/ownership-runtime-v1",

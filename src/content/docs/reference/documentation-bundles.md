@@ -20,7 +20,58 @@ The dedicated compiler documentation workflow exports the exact final-main bundl
 independently authenticating the complete foundation/M4 CI run and all six retained M4 evidence
 artifacts.
 
-### Current M6 import
+### Current native frontend import
+
+The authenticated 61-document import selects compiler commit `01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`,
+tree `d5544b2df1fd19fd23bb65887a5f3cbec1b033d7`, and manifest SHA-256
+`f1c4e2a1baaef84ecfe472a7d9b830ad49d5b1eb535e99fca6143a0e636abf30`.
+[Documentation run 39851700097](https://github.com/zryna/zryna/actions/runs/39851700097)
+(attempt 1) authenticated exact-main CI run
+[39737726701](https://github.com/zryna/zryna/actions/runs/39737726701) (attempt 1),
+all 42 jobs, and all six retained M4 lanes before export.
+The gate artifact is `12456919210`, with whole archive SHA-256
+`45aa06812dc012d6929cb1c822e3fdbce5e1a4751c7dc93b606047c5007bb2f7`.
+The documentation artifact is `12456649918`, with whole archive SHA-256
+`f790b4a9ae1598ba57f28f34017bf038790dc7e092f8206266c1209e2aa86338`.
+All 63 raw bundle files match an independent export from the same clean source revision.
+The imported M4 matrix pins registry SHA-256
+`3074da92e0ff93ee67343184cfb1b8d79c1ad33e1ec31bc2d5efbd6661e05843` and canonical support JSON SHA-256
+`0190d822870d0965dd68417da51c777efb29fee66f30eb0b94d0c2c0cf092942`.
+
+The [native provider migration guide](/reference/compiler/next/reference/native-provider-migration/)
+documents default native compilation, explicit bootstrap and comparison selectors, source-candidate
+installation, and troubleshooting. Ordinary native-provider compilation requires no Node.js or
+pnpm; JavaScript/WebAssembly execution and explicit compatibility selectors retain their documented
+runtime requirements.
+
+[Native parity run 39737694061](https://github.com/zryna/zryna/actions/runs/39737694061)
+(attempt 1) passed on Linux and Windows. Each host executed 114 frozen worker cases,
+88 ordinary CLI build roots and four verified-IR tests. Exact provider comparison, diagnostic/span
+checks, hostile candidate controls and the retained Rust tests passed with zero unexpected failures.
+The complete retained public-parity archives are:
+
+- Linux artifact `12408911131`, SHA-256
+  `c1178b2c57836af0e88fbe56f95cff84824979b1ba59003a7bdab78c04a98fc6`.
+- Windows artifact `12408684433`, SHA-256
+  `f5bbf86c45c83def429782a9886be1317bdf72c6d0786c64441388b273565796`.
+
+[Native installation run 39737694307](https://github.com/zryna/zryna/actions/runs/39737694307)
+(attempt 1) built each host's compiler twice with independent dependency
+graphs and required identical compiler and package bytes. Each relocated installation passed the
+ordinary CLI smoke with an empty PATH and cleared environment. The native package archive digests are:
+
+- Linux `zryna-native-0.2.3-x86_64-unknown-linux-gnu.tar.gz`: `49e41e25dd91d7b9e37c30cafb1726559bf2cfbf547ae9324f39d6b33a44f77e`.
+- Windows `zryna-native-0.2.3-x86_64-pc-windows-msvc.zip`: `403506b3550b7d8acf4bf8451f662016c28bea86c649b3ce60b371f389cfb331`.
+
+[Fresh hosted consumer run 39739551458](https://github.com/zryna/zryna/actions/runs/39739551458)
+(attempt 1) verified those exact packages on separate Linux and Windows
+runners, removed the compiler checkout before invocation, and passed 30
+Linux and 32 Windows commands with zero unexpected failures.
+The installed payload contains no Node executable or TypeScript bootstrap. These records cover the
+unsigned native source candidate; immutable release artifacts retain their separately documented
+identities and production admission requirements.
+
+### Historical M6 import
 
 The authenticated 60-document import selects compiler commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`,
 tree `351da60bd4037e0f96c286045c8943f41fa99b03`, and manifest SHA-256

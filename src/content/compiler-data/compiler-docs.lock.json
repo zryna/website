@@ -4,10 +4,10 @@
   "version": 1,
   "channel": "next",
   "bundlePath": "src/content/compiler-data/next",
-  "manifestSha256": "697b7a79e08aa16542e95ca6902c8efa1a030a29ba0730a85795886e44a2e66b",
+  "manifestSha256": "f1c4e2a1baaef84ecfe472a7d9b830ad49d5b1eb535e99fca6143a0e636abf30",
   "source": {
     "repository": "https://github.com/zryna/zryna",
-    "commit": "71fd69d99a39c22bdf262d1655a032aa76221f3e",
+    "commit": "01c81f4087982b2f1c99c85f9a7c0360dbeb0e28",
     "ref": "refs/heads/main",
     "version": "0.2.3"
   },
@@ -256,6 +256,11 @@
       "id": "reference/memory-model",
       "sourcePath": "spec/memory-model/OVERVIEW.md",
       "route": "/reference/compiler/next/reference/memory-model/"
+    },
+    {
+      "id": "reference/native-provider-migration",
+      "sourcePath": "docs/NATIVE_PROVIDER_MIGRATION.md",
+      "route": "/reference/compiler/next/reference/native-provider-migration/"
     },
     {
       "id": "reference/ownership-runtime-v1",

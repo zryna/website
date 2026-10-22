@@ -1,9 +1,9 @@
 ---
 title: "Scalar control flow and modules v1"
-description: "Compiler-owned next documentation imported from 71fd69d99a39."
+description: "Compiler-owned next documentation imported from 01c81f408798."
 ---
 
-> Verified compiler source: [spec/language/CONTROL_FLOW_MODULES_V1.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/spec/language/CONTROL_FLOW_MODULES_V1.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
+> Verified compiler source: [spec/language/CONTROL_FLOW_MODULES_V1.md](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/spec/language/CONTROL_FLOW_MODULES_V1.md) at commit `01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`.
 
 # Scalar control flow and modules v1
 

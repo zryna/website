@@ -1,9 +1,9 @@
 ---
 title: "M6 reviewed-source playground route v2"
-description: "Compiler-owned next documentation imported from 71fd69d99a39."
+description: "Compiler-owned next documentation imported from 01c81f408798."
 ---
 
-> Verified compiler source: [spec/tooling/M6_REVIEWED_SOURCE_V2.md](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/spec/tooling/M6_REVIEWED_SOURCE_V2.md) at commit `71fd69d99a39c22bdf262d1655a032aa76221f3e`.
+> Verified compiler source: [spec/tooling/M6_REVIEWED_SOURCE_V2.md](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/spec/tooling/M6_REVIEWED_SOURCE_V2.md) at commit `01c81f4087982b2f1c99c85f9a7c0360dbeb0e28`.
 
 # M6 reviewed-source playground route v2
 
@@ -17,7 +17,7 @@ The original issue requires published compiler artifacts, actual restricted brow
 one exact tooling support matrix, runnable exported documentation and complete required gates.
 The proposed [standalone toolkit v1](/reference/compiler/next/reference/m6-conformance/) remains a separate distribution
 route. A v2 source composition cannot create or replace its signed archive capability.
-The merged [source trust policy](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/spec/package/SOURCE_TRUST_V0.md), public browser profile,
+The merged [source trust policy](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/spec/package/SOURCE_TRUST_V0.md), public browser profile,
 compiler semantics, diagnostics, ABI and component verification retain their existing owners.
 
 ## Published compiler and source identity
@@ -145,7 +145,7 @@ stop and wait; the complete stdout/stderr inventory and all owned cleanup checks
 
 ## Explicit successor mapping
 
-The [v2 registry](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/scripts/m6/source-registry.mjs) preserves all 23 v1 gate/platform
+The [v2 registry](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/scripts/m6/source-registry.mjs) preserves all 23 v1 gate/platform
 rows. All original project, LSP, formatter, installed editor, setup, playground, transport,
 containment, browser, accessibility, documentation, canonical and hosted case obligations remain.
 Linux and Windows tooling/hosted claims each need actual exact-source receipts. Unsupported
@@ -174,7 +174,7 @@ Before starting, the operator independently authenticates the bootstrap source (
 publication verifier and its transitive imports), this session script, Node 22.22.1 and the
 selected Git commit/tree. Use a private nonroot Linux amd64 host with the reviewed local Engine
 and kernel capabilities. Prepare and review the exact compiler/evaluator images and sealed
-material volumes with the [private preparation helpers](https://github.com/zryna/zryna/blob/71fd69d99a39c22bdf262d1655a032aa76221f3e/examples/playground/restricted/daemon/preparation/README.md).
+material volumes with the [private preparation helpers](https://github.com/zryna/zryna/blob/01c81f4087982b2f1c99c85f9a7c0360dbeb0e28/examples/playground/restricted/daemon/preparation/README.md).
 Their returned records are unapproved observations. Approval follows full inventory review,
 provisioning-writer removal and writable-alias exclusion; generating a plan or importing an
 image does not approve it. There is no automatic generic Docker installation command.

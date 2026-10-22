@@ -20,6 +20,17 @@ const PREFIX = '/reference/compiler/next/reference/';
 const TUTORIAL_SOURCE_COMMIT = '841c8aee901782c9f7bf442bfe8eb2fe6b7f6446';
 export const CONTENT = new Map([
 	[
+		`${PREFIX}native-provider-migration/`,
+		[
+			'--provider native',
+			'--provider bootstrap',
+			'--provider compare',
+			'Compilation requires no Node.js or pnpm',
+			'separately selected Node',
+			'not an authenticated outer production',
+		],
+	],
+	[
 		'/reference/compiler-status/',
 		['data-ownership-v1', 'manifest v3', 'not production-ready', 'Windows native execution'],
 	],

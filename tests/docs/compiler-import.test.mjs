@@ -25,8 +25,8 @@ import {
 	validateImportIdentity,
 } from '../../tools/docs/compiler-imports.mjs';
 
-const COMMIT = '71fd69d99a39c22bdf262d1655a032aa76221f3e';
-const MANIFEST_DIGEST = '697b7a79e08aa16542e95ca6902c8efa1a030a29ba0730a85795886e44a2e66b';
+const COMMIT = '01c81f4087982b2f1c99c85f9a7c0360dbeb0e28';
+const MANIFEST_DIGEST = 'f1c4e2a1baaef84ecfe472a7d9b830ad49d5b1eb535e99fca6143a0e636abf30';
 const RELEASE_COMMIT = 'f4d28002a014cd2e717eba4e59764bd925bef8c1';
 const RELEASE_MANIFEST_DIGEST = '838a30b84c68989775ee82bd9d36dcbd53838f29745527efefaac29d3f4d6daa';
 const LOCK = {
@@ -37,7 +37,7 @@ const DOCUMENT = { title: 'Example' };
 
 test('builds the exact reviewed compiler import with immutable rewritten links', async () => {
 	const files = await buildExpectedCompilerDocs();
-	assert.equal(files.size, 61);
+	assert.equal(files.size, 62);
 	assert.deepEqual(
 		[...files.keys()],
 		[
@@ -90,6 +90,7 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 			'reference/m6-reviewed-source-v2.md',
 			'reference/m6-tooling.md',
 			'reference/memory-model.md',
+			'reference/native-provider-migration.md',
 			'reference/ownership-runtime-v1.md',
 			'reference/scalar-abi-v1.md',
 			'reference/syntax-protocol-v4.md',
@@ -137,6 +138,21 @@ test('builds the exact reviewed compiler import with immutable rewritten links',
 	for (const id of ['m3-ownership-composition', 'm3-ownership-composition-evidence']) {
 		assert(index.includes(`/reference/compiler/next/reference/${id}/`));
 	}
+	const migration = files.get('reference/native-provider-migration.md').toString('utf8');
+	assert(migration.includes(`blob/${COMMIT}/docs/NATIVE_PROVIDER_MIGRATION.md`));
+	for (const marker of [
+		'--provider native',
+		'--provider bootstrap',
+		'--provider compare',
+		'Compilation requires no Node.js or pnpm',
+		'execution',
+		'source candidate',
+		'not an authenticated outer production',
+		'does not publish or replace any release/tag',
+	]) {
+		assert(migration.includes(marker), marker);
+	}
+	assert(index.includes('/reference/compiler/next/reference/native-provider-migration/'));
 	const composition = files.get('reference/m3-ownership-composition.md').toString('utf8');
 	const evidence = files.get('reference/m3-ownership-composition-evidence.md').toString('utf8');
 	assert(composition.includes(`blob/${COMMIT}/docs/M3_OWNERSHIP_COMPOSITION.md`));
@@ -222,7 +238,7 @@ test('walkthrough navigation and authored provenance agree with the reviewed imp
 	);
 	assert.equal(lock.source.commit, COMMIT);
 	assert.equal(lock.manifestSha256, MANIFEST_DIGEST);
-	assert.equal(lock.documents.length, 60);
+	assert.equal(lock.documents.length, 61);
 	assert(config.includes("slug: 'reference/compiler/next/reference/getting-started'"));
 	assert(config.includes("slug: 'reference/compiler/next/reference/m3-getting-started'"));
 	assert(guide.includes('/reference/compiler/next/reference/getting-started/'));
